@@ -1,7 +1,8 @@
 import { AnimatePresence, m, useReducedMotion, type Variants } from "motion/react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CATEGORY_LABEL, projects, type Category, type Project } from "../content";
-import { useSite } from "../state";
+import { openCaseStudy, useSite } from "../state";
+import { FlowViz } from "./FlowViz";
 import { Icon } from "./Icon";
 import { OrTodo, Todo } from "./Todo";
 
@@ -48,7 +49,7 @@ function StackList({ stack }: { stack: string[] }) {
 
 function ProjectLink({ project }: { project: Project }) {
   if (project.link === undefined) return null;
-  if (project.link === null) return <Todo>project link</Todo>;
+  if (project.link === null) return import.meta.env.DEV ? <Todo>project link</Todo> : null;
   return (
     <a
       href={project.link}
@@ -137,45 +138,46 @@ function Details({ project, children }: { project: Project; children?: ReactNode
   );
 }
 
-function WorkCard({ project }: { project: Project }) {
+function FeatureRow({ project, index }: { project: Project; index: number }) {
   const item = useItemVariants();
+  const flip = index % 2 === 1;
   return (
-    <m.li
-      id={`project-${project.id}`}
-      variants={item}
-      className="flex scroll-mt-24 flex-col rounded-[var(--radius)] border border-line bg-surface p-5 sm:p-6"
-    >
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <p className="font-mono text-xs text-muted">{project.context}</p>
-        <CategoryChips categories={project.categories} />
-      </div>
-      <h3 className="mt-2 font-display text-xl font-semibold text-fg sm:text-2xl">{project.name}</h3>
-      {project.problem && (
-        <p className="mt-3 text-fg">
-          <span className="font-mono text-xs uppercase tracking-wider text-accent">Problem · </span>
-          {project.problem}
-        </p>
-      )}
-      <p className="mt-2 text-muted">
-        <OrTodo value={project.summary} label="summary" />
-      </p>
-      {project.impact?.length ? (
-        <ul className="mt-4 grid gap-2 sm:grid-cols-3" aria-label="Impact">
-          {project.impact.map((i) => (
-            <li key={i} className="rounded-lg border border-accent/40 bg-bg/40 px-3 py-2 text-sm font-medium leading-snug text-fg">
-              {i}
-            </li>
-          ))}
-        </ul>
-      ) : null}
-      <div className="mt-4">
-        <StackList stack={project.stack} />
-      </div>
-      <div className="mt-auto">
-        <Details project={project}>
-          <span className="font-mono text-xs text-muted">Internal system · no public code</span>
-        </Details>
-      </div>
+    <m.li id={`project-${project.id}`} variants={item} className="scroll-mt-24">
+      <article className="group grid items-center gap-6 lg:grid-cols-2 lg:gap-12">
+        {/* Visual hook: the system's architecture, animated. */}
+        <div
+          className={`relative min-w-0 overflow-hidden rounded-[var(--radius)] border border-line bg-surface transition-colors duration-300 group-hover:border-accent/60 ${
+            flip ? "lg:order-2" : ""
+          }`}
+        >
+          <div className="flex items-baseline justify-between gap-4 border-b border-line px-5 py-4">
+            <p className="font-display text-5xl leading-none text-accent sm:text-6xl">{project.metric?.value}</p>
+            <p className="max-w-[14rem] text-right text-sm leading-snug text-muted">{project.metric?.label}</p>
+          </div>
+          {project.flow && <FlowViz steps={project.flow} />}
+        </div>
+
+        <div className={`min-w-0 ${flip ? "lg:order-1" : ""}`}>
+          <p className="font-mono text-xs uppercase tracking-[0.16em] text-muted">
+            <span className="text-accent">{String(index + 1).padStart(2, "0")}</span> · {project.context}
+          </p>
+          <h3 className="mt-3 font-display text-3xl leading-tight text-fg sm:text-4xl">{project.name}</h3>
+          <p className="mt-3 text-lg text-fg">{project.oneLiner}</p>
+          <p className="mt-2 text-muted">{project.role}</p>
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <CategoryChips categories={project.categories} />
+          </div>
+          <button
+            type="button"
+            data-project-toggle
+            onClick={() => openCaseStudy(project.id)}
+            className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full border border-fg/30 px-5 font-medium text-fg transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-on-accent"
+          >
+            Read the case study <span aria-hidden="true">→</span>
+            <span className="sr-only">: {project.name}</span>
+          </button>
+        </div>
+      </article>
     </m.li>
   );
 }
@@ -189,7 +191,7 @@ function SideCard({ project }: { project: Project }) {
       className="flex scroll-mt-24 flex-col rounded-[var(--radius)] border border-line bg-surface p-5"
     >
       <div className="flex flex-wrap items-start justify-between gap-2">
-        <h4 className="font-display text-lg font-semibold text-fg">{project.name}</h4>
+        <h4 className="font-display text-2xl text-fg">{project.name}</h4>
         <CategoryChips categories={project.categories} />
       </div>
       <p className="mt-2 text-sm text-muted">
@@ -260,7 +262,8 @@ export function Projects() {
 
   const matches = (p: Project) => filter === "all" || p.categories.includes(filter);
   const work = projects.filter((p) => p.kind === "work" && matches(p));
-  const side = projects.filter((p) => p.kind === "side" && matches(p));
+  // Unwritten side projects show as TODOs in dev only; the live site never says "coming soon".
+  const side = projects.filter((p) => p.kind === "side" && matches(p) && (import.meta.env.DEV || p.summary));
   const earlier = projects.filter((p) => p.kind === "earlier" && matches(p));
   const total = work.length + side.length + earlier.length;
 
@@ -268,13 +271,12 @@ export function Projects() {
     <section id="work" aria-labelledby="work-title" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <h2 id="work-title" className="font-display text-3xl font-bold text-fg sm:text-4xl">
-            Selected work
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">Selected work</p>
+          <h2 id="work-title" className="mt-3 font-display text-4xl leading-tight text-fg sm:text-6xl">
+            Systems in production,
+            <br />
+            <em className="text-muted">not slides.</em>
           </h2>
-          <p className="mt-2 max-w-2xl text-muted">
-            Production systems I built at Amazon, plus side projects. Each card covers the problem, how it works and what
-            changed.
-          </p>
         </div>
         <div role="group" aria-label="Filter projects by category" className="flex flex-wrap gap-2">
           {FILTERS.map((f) => {
@@ -307,17 +309,17 @@ export function Projects() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.05 }}
-          className="mt-8 grid items-start gap-5 lg:grid-cols-2"
+          className="mt-12 space-y-20 sm:space-y-28"
         >
           {work.map((p) => (
-            <WorkCard key={p.id} project={p} />
+            <FeatureRow key={p.id} project={p} index={projects.filter((x) => x.kind === "work").indexOf(p)} />
           ))}
         </m.ul>
       )}
 
       {side.length > 0 && (
         <>
-          <h3 className="mt-16 font-display text-2xl font-bold text-fg">Side projects</h3>
+          <h3 className="mt-28 font-display text-3xl text-fg sm:text-4xl">Side projects</h3>
           <m.ul
             key={`side-${filter}`}
             variants={list}
@@ -335,7 +337,7 @@ export function Projects() {
 
       {earlier.length > 0 && (
         <>
-          <h3 className="mt-16 font-display text-xl font-bold text-fg">Earlier data projects</h3>
+          <h3 className="mt-20 font-display text-2xl text-fg sm:text-3xl">Earlier data projects</h3>
           <m.ul
             key={`earlier-${filter}`}
             variants={list}

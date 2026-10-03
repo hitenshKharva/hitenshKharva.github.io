@@ -2,7 +2,6 @@ import { m, useReducedMotion, type Variants } from "motion/react";
 import type { ReactNode } from "react";
 import { profile } from "../content";
 import { Icon } from "../components/Icon";
-import { CopyEmail } from "../components/Sections";
 import { OrTodo } from "../components/Todo";
 
 /** Parent/child variants for hero intro sequences. */
@@ -41,22 +40,29 @@ export function Eyebrow({ className = "" }: { className?: string }) {
 
 export function HeroActions({ item }: { item: Variants }) {
   return (
-    <m.div variants={item} className="mt-8 flex flex-wrap gap-3">
+    <m.div variants={item} className="mt-9 flex flex-wrap gap-3">
       <a
         href="#work"
-        className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-accent px-5 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90"
+        className="inline-flex min-h-12 items-center gap-2 rounded-full bg-accent px-6 font-semibold text-on-accent transition-transform duration-200 hover:-translate-y-0.5"
       >
-        See my work <Icon name="arrowDown" size={16} />
+        See the work <Icon name="arrowDown" size={16} />
       </a>
       <a
-        href={profile.resume}
-        target="_blank"
-        rel="noopener"
-        className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-line px-4 font-medium text-fg transition-colors duration-200 hover:border-accent hover:text-accent"
+        href={`mailto:${profile.email}`}
+        className="inline-flex min-h-12 items-center gap-2 rounded-full border border-line px-5 font-medium text-fg transition-colors duration-200 hover:border-accent hover:text-accent"
       >
-        <Icon name="file" /> Résumé<span className="sr-only"> (PDF, opens in a new tab)</span>
+        <Icon name="mail" /> Email me
       </a>
-      <CopyEmail />
+      {__HAS_RESUME__ && (
+        <a
+          href={profile.resume}
+          target="_blank"
+          rel="noopener"
+          className="inline-flex min-h-12 items-center gap-2 rounded-full px-3 font-medium text-muted underline-offset-4 transition-colors duration-200 hover:text-fg hover:underline"
+        >
+          <Icon name="file" /> Résumé<span className="sr-only"> (PDF, opens in a new tab)</span>
+        </a>
+      )}
     </m.div>
   );
 }

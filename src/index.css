@@ -2,27 +2,30 @@
 @source "../src";
 @source "../index.html";
 
-/* Design tokens (UI UX Pro Max "Portfolio" system, design-system/portfolio/MASTER.md).
-   Pipeline is the generated palette; the other looks are variants that keep its
-   4.5:1 text contrast (checked for fg, muted, accent and todo on bg and surface). */
+/* Design tokens. The default look evolves the UI UX Pro Max "Portfolio" system
+   (design-system/portfolio/MASTER.md): still dark, still a "run green" accent, but
+   pushed to an editorial direction (serif display, acid-lime accent) so it doesn't
+   read as a template. Every look keeps 4.5:1 text contrast on bg and surface. */
 :root,
-[data-look="pipeline"] {
-  --bg: #0f172a;
-  --surface: #1b2336;
-  --surface-2: #272f42;
-  --fg: #f8fafc;
-  --muted: #a3b1c6;
-  --line: #475569;
-  --accent: #22c55e;
-  --on-accent: #0f172a;
+[data-look="default"] {
+  --bg: #0a0a0b;
+  --surface: #141416;
+  --surface-2: #1e1e21;
+  --fg: #f2f0ea;
+  --muted: #a3a3ab;
+  --line: #2e2e33;
+  --accent: #d4ff3a;
+  --on-accent: #0a0a0b;
   --todo: #fbbf24;
-  --ring: #ffffff;
-  --font-display: "JetBrains Mono", ui-monospace, monospace;
-  --radius: 12px;
+  --ring: #d4ff3a;
+  --font-display: "Instrument Serif", Georgia, serif;
+  --display-weight: 400;
+  --radius: 14px;
   color-scheme: dark;
 }
 
 [data-look="terminal"] {
+  --display-weight: 700;
   --bg: #050805;
   --surface: #0c140d;
   --surface-2: #142016;
@@ -39,6 +42,7 @@
 }
 
 [data-look="bold"] {
+  --display-weight: 700;
   --bg: #f6f4ee;
   --surface: #ffffff;
   --surface-2: #ebe8df;
@@ -55,6 +59,7 @@
 }
 
 [data-look="horizon"] {
+  --display-weight: 700;
   --bg: #06060a;
   --surface: #111018;
   --surface-2: #1b1924;
@@ -101,6 +106,14 @@ body {
   transition: background-color 250ms ease, color 250ms ease;
 }
 
+/* Serif display has one weight; the other looks use bold sans/mono. */
+.font-display {
+  font-weight: var(--display-weight);
+}
+[data-look="default"] .font-display {
+  letter-spacing: -0.015em;
+}
+
 /* Visible focus everywhere (keyboard only). */
 :focus-visible {
   outline: 2px solid var(--ring);
@@ -135,15 +148,9 @@ summary,
   top: 1rem;
 }
 
-/* Pipeline diagram: dashes travelling along the edges. */
-@keyframes flow {
-  to {
-    stroke-dashoffset: -24;
-  }
-}
-.flow-dash {
-  stroke-dasharray: 4 8;
-  animation: flow 1.2s linear infinite;
+dialog.case-study::backdrop {
+  background: rgb(0 0 0 / 0.7);
+  backdrop-filter: blur(6px);
 }
 
 @media (prefers-reduced-motion: reduce) {
