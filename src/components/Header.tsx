@@ -2,6 +2,7 @@ import { m, useReducedMotion, useScroll, useSpring } from "motion/react";
 import type { KeyboardEvent } from "react";
 import { LOOKS, LOOK_LABEL, useSite } from "../state";
 import { profile } from "../content";
+import { Icon } from "./Icon";
 
 function ScrollProgress() {
   const reduce = useReducedMotion();
@@ -16,7 +17,7 @@ function ScrollProgress() {
   );
 }
 
-function LookSwitcher() {
+export function LookSwitcher() {
   const { look, setLook } = useSite();
   const reduce = useReducedMotion();
 
@@ -33,7 +34,7 @@ function LookSwitcher() {
   return (
     <div
       role="radiogroup"
-      aria-label="Site look"
+      aria-labelledby="look-label"
       onKeyDown={onKeyDown}
       className="flex rounded-full border border-line bg-surface p-1"
     >
@@ -69,9 +70,8 @@ function LookSwitcher() {
 
 const NAV = [
   { href: "#work", label: "Work" },
-  { href: "#experience", label: "Experience" },
-  { href: "#skills", label: "Skills" },
-  { href: "#contact", label: "Contact" },
+  { href: "#story", label: "Story" },
+  { href: "#skills", label: "Toolbox" },
 ];
 
 export function Header() {
@@ -97,7 +97,12 @@ export function Header() {
               ))}
             </ul>
           </nav>
-          <LookSwitcher />
+          <a
+            href={`mailto:${profile.email}`}
+            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-4 text-sm font-semibold text-on-accent transition-transform duration-200 hover:-translate-y-0.5"
+          >
+            <Icon name="mail" size={16} /> Email me
+          </a>
         </div>
       </header>
     </>

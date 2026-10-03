@@ -26,6 +26,14 @@ export interface Project {
   /** e.g. "Amazon · 2025–present". */
   context: string;
   categories: Category[];
+  /** What I did, in one line (work projects). */
+  oneLiner?: string;
+  /** My specific contribution. */
+  role?: string;
+  /** The single number that leads the case study. */
+  metric?: { value: string; label: string };
+  /** Architecture, left to right, for the animated flow visual. */
+  flow?: string[];
   problem?: string | null;
   summary: string | null;
   /** Headline outcomes, shown as chips. */
@@ -61,6 +69,9 @@ export const profile = {
   company: "Amazon",
   /** Draft positioning line written from the résumé doc. Edit freely. */
   headline: "I build data platforms, and the AI tools that run on them." as string | null,
+  /** Hero differentiator: the one line that makes this person memorable. */
+  differentiator:
+    "I built my team's first AI operations tool. It cut ticket triage from 15 minutes to 3, and it's now part of how the team works.",
   subhead:
     "Data Engineer II at Amazon Global Logistics, working across data engineering, LLM tooling and the software around them.",
   email: "hkharva3283@gmail.com",
@@ -72,50 +83,70 @@ export const profile = {
   resume: "/resume.pdf",
 };
 
-/** Hero proof strip. Every number is from the résumé doc. */
-export const proof = [
-  { value: "80%", label: "less ticket-analysis time with a RAG tool I built (15 → 3 min)" },
-  { value: "13+", label: "teams onboarded self-service to the ingestion platform I own" },
-  { value: "5,000+", label: "data-access requests automated in a 500+ table migration" },
-  { value: "5–10 min", label: "weekly business review prep, down from 2–4 hours" },
-];
-
 /** Bold hero: "I build ..." rotation. */
 export const buildPhrases = ["data platforms", "RAG-powered tools", "ETL pipelines", "AI agents for ops"];
 
-/** The three stages: data → AI → engineering. */
-export const pillars: { category: Category; title: string; line: string; evidence: string[] }[] = [
+/** Hero console: each tab is a query whose rows prove a claim. Rows with `open` link to a case study. */
+export const consoleQueries: {
+  file: string;
+  sql: string;
+  columns: [string, string];
+  rows: { cells: [string, string]; open?: string }[];
+}[] = [
   {
-    category: "data",
-    title: "Data engineering",
-    line: "Platforms, models and pipelines that teams trust.",
-    evidence: [
-      "Own a self-service ingestion platform used by 13+ teams",
-      "Sole owner of a 189-column cross-regional inventory model",
-      "Migrated 500+ tables with 5,000+ automated access requests",
+    file: "impact.sql",
+    sql: "SELECT outcome, delta FROM hitensh.impact;",
+    columns: ["outcome", "delta"],
+    rows: [
+      { cells: ["Ticket triage time", "15 → 3 min"], open: "ticket-analyzer" },
+      { cells: ["Teams self-onboarded", "13+"], open: "ingestion-platform" },
+      { cells: ["Access requests automated", "5,000+"] },
+      { cells: ["Weekly review prep", "2–4 h → 5–10 min"] },
     ],
   },
   {
-    category: "ai",
-    title: "AI & agents",
-    line: "LLM tools that do real operational work.",
-    evidence: [
-      "Built the team's first AI operational tool: RAG ticket triage, 80% faster",
-      "LLM scraping agents that replaced manual carrier data collection",
-      'Internal talk: "Building AI Agents for ETL Automation" (2026)',
+    file: "ai.sql",
+    sql: "SELECT system, result FROM work WHERE stage = 'ai';",
+    columns: ["system", "result"],
+    rows: [
+      { cells: ["RAG Ticket Analyzer", "80% faster triage"], open: "ticket-analyzer" },
+      { cells: ["Carrier Schedule Agents", "Manual work replaced"], open: "carrier-agents" },
+      { cells: ["AI Planning Platform", "20/25 datasets live"], open: "planning-platform" },
     ],
   },
   {
-    category: "backend",
-    title: "Software engineering",
-    line: "Services, automation and the infrastructure under them.",
-    evidence: [
-      "SDE at AWS: package-manager protocol client and adapter service in Java",
-      "Infrastructure as code, serverless and event-driven orchestration",
-      "Banking web and mobile products shipped across 9 countries",
+    file: "data.sql",
+    sql: "SELECT system, scale FROM work WHERE stage = 'data';",
+    columns: ["system", "scale"],
+    rows: [
+      { cells: ["Inventory Visibility", "189 cols · 8+ systems"], open: "inventory-model" },
+      { cells: ["Self-Service Ingestion", "13+ teams"], open: "ingestion-platform" },
+      { cells: ["Warehouse Monitoring", "98/100 attributed"], open: "warehouse-monitoring" },
+      { cells: ["Access migration", "500+ tables"] },
+    ],
+  },
+  {
+    file: "career.sql",
+    sql: "SELECT since, role FROM career ORDER BY since DESC;",
+    columns: ["since", "role"],
+    rows: [
+      { cells: ["2024", "Data Engineer → II · Amazon"] },
+      { cells: ["2023", "SDE · AWS"] },
+      { cells: ["2022", "Data Developer · Wind River"] },
+      { cells: ["2018", "Backend & software engineering"] },
     ],
   },
 ];
+
+/** About: the story, in Hitensh's voice. Draft, edit freely. */
+export const story = {
+  title: "From banking apps to AI in production",
+  paragraphs: [
+    "I started out shipping banking software across 9 countries, moved into backend Python, then into data at Wind River, and spent time as an SDE at AWS before landing on the data team at Amazon Global Logistics.",
+    "Each move pulled me closer to the data. Now I own the platforms it flows through, and build the AI tools that put it to work. My old portfolio tagline still holds: feed me data.",
+  ],
+  extras: ['Internal talk: "Building AI Agents for ETL Automation" (2026)', "Mentor to 3 engineers"],
+};
 
 export const projects: Project[] = [
   // ---- Selected work (Amazon) ----
@@ -127,6 +158,10 @@ export const projects: Project[] = [
     kind: "work",
     context: "Amazon · 2025–present",
     categories: ["ai", "backend"],
+    oneLiner: "An LLM + RAG tool that reads every ticket, finds the right runbook and routes it.",
+    role: "Sole builder. I spotted the problem and built the whole tool without being asked.",
+    metric: { value: "80%", label: "less time per ticket (15 → 3 min)" },
+    flow: ["Ticket", "Orchestrator", "Vector KB", "LLM", "Route + comment"],
     problem: "Engineers spent about 15 minutes per ticket searching runbooks before they could start on a fix.",
     summary:
       "I spotted the problem and built the whole tool without being asked. It was the team's first AI-powered operational tool and is now part of its triage SOP.",
@@ -147,6 +182,10 @@ export const projects: Project[] = [
     kind: "work",
     context: "Amazon · 2026, ongoing",
     categories: ["data", "ai"],
+    oneLiner: "The data layer that lets AI generate capacity-planning scenarios.",
+    role: "Designed and built the platform layer, working with applied science, product and partner engineering.",
+    metric: { value: "20/25", label: "curated datasets in production" },
+    flow: ["IaC", "Accounts + network", "ETL", "Data catalog", "AI scenarios"],
     problem:
       "AI-generated capacity-planning scenarios needed curated, permissioned data across supply-chain domains, and none of it existed in one place.",
     summary:
@@ -172,6 +211,10 @@ export const projects: Project[] = [
     kind: "work",
     context: "Amazon · Nov 2024–present",
     categories: ["data"],
+    oneLiner: "The single source of truth for inventory moving between North America and Europe.",
+    role: "Sole data engineer and owner, from requirements to ongoing data quality.",
+    metric: { value: "189", label: "columns from 8+ systems, trusted by 4 orgs" },
+    flow: ["8+ sources", "Mapping", "SQL transform", "Data model", "Weekly reviews"],
     problem:
       "There was no trusted single view of inventory moving between North America and Europe, so weekly business reviews were assembled by hand.",
     summary:
@@ -198,6 +241,10 @@ export const projects: Project[] = [
     kind: "work",
     context: "Amazon · 2024–present · platform owner",
     categories: ["data", "backend"],
+    oneLiner: "A platform any team can use to bring its own data in, no data engineer needed.",
+    role: "Platform owner: designed, built and operate it end to end.",
+    metric: { value: "13+", label: "teams onboarded self-service" },
+    flow: ["Team data", "Ingestion paths", "IaC platform", "Catalog", "Consumers"],
     problem: "Teams needed a self-service way to bring their data onto the platform.",
     summary: "I designed, built and operate it end to end in infrastructure as code, with multiple ingestion paths.",
     impact: ["13+ teams onboarded self-service", "Documented 9-step SOP", "Same-day feature turnaround"],
@@ -216,6 +263,10 @@ export const projects: Project[] = [
     kind: "work",
     context: "Amazon · 2026–present",
     categories: ["ai", "data"],
+    oneLiner: "LLM agents that collect carrier schedules people used to gather by hand.",
+    role: "Built the end-to-end pipeline and demoed it live to senior leadership.",
+    metric: { value: "API", label: "pilot with an external partner, opened by the demo" },
+    flow: ["LLM agents", "Object storage", "Ingestion", "Data catalog"],
     problem: "Carrier schedule data was collected entirely by hand.",
     summary:
       "I built an end-to-end pipeline that replaced the manual process. After a live demo to senior leadership, it led to a direct-API integration pilot with an external partner.",
@@ -237,6 +288,10 @@ export const projects: Project[] = [
     kind: "work",
     context: "Amazon · 2025–2026",
     categories: ["data", "backend"],
+    oneLiner: "Turned a production warehouse crisis into continuous, automated visibility.",
+    role: "Root-caused the incident, then built the monitoring and the ownership audit.",
+    metric: { value: "98/100", label: "offenders attributed correctly, up from ~14%" },
+    flow: ["Query logs", "Hourly job", "Ownership resolver", "Alarms"],
     problem:
       "Recurring disk and CPU spikes degraded a critical production warehouse, and the team couldn't reliably tell who owned the offending queries.",
     summary:

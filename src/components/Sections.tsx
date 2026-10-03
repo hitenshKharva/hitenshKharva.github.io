@@ -1,7 +1,8 @@
 import { m, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { certifications, education, experience, profile, skills } from "../content";
+import { certifications, education, experience, profile, skills, story } from "../content";
 import { Icon } from "./Icon";
+import { LookSwitcher } from "./Header";
 
 export function Reveal({ children, className }: { children: ReactNode; className?: string }) {
   const reduce = useReducedMotion();
@@ -18,22 +19,46 @@ export function Reveal({ children, className }: { children: ReactNode; className
   );
 }
 
-export function Experience() {
+export function Story() {
   return (
-    <section id="experience" aria-labelledby="experience-title" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6">
-      <h2 id="experience-title" className="font-display text-3xl font-bold text-fg sm:text-4xl">
-        Experience
-      </h2>
-      <Reveal>
-        <ol className="mt-8 divide-y divide-line border-y border-line">
-          {experience.map((r) => (
-            <li key={`${r.company}-${r.dates}`} className="grid gap-1 py-6 md:grid-cols-[12rem_1fr] md:gap-6">
-              <p className="font-mono text-sm text-muted">{r.dates}</p>
-              <div>
-                <h3 className="font-semibold text-fg">
-                  {r.role} <span className="text-muted">·</span> <span className="text-accent">{r.company}</span>
-                </h3>
-                <p className="mt-1 text-muted">{r.impact}</p>
+    <section id="story" aria-labelledby="story-title" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-24 sm:px-6">
+      <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+        <div className="lg:sticky lg:top-28 lg:self-start">
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">The story</p>
+          <h2 id="story-title" className="mt-3 font-display text-4xl leading-tight text-fg sm:text-5xl">
+            {story.title}
+          </h2>
+          <Reveal>
+            {story.paragraphs.map((para, i) => (
+              <p key={i} className={i === 0 ? "mt-6 text-lg text-fg" : "mt-4 text-muted"}>
+                {para}
+              </p>
+            ))}
+            <ul className="mt-6 space-y-2 text-sm text-muted">
+              {story.extras.map((x) => (
+                <li key={x} className="flex gap-2">
+                  <span aria-hidden="true" className="text-accent">
+                    ›
+                  </span>
+                  {x}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+
+        <ol aria-label="Career timeline" className="relative border-l border-line">
+          {experience.map((r, i) => (
+            <li key={`${r.company}-${r.dates}`} className="relative pb-10 pl-8 last:pb-0">
+              <span
+                aria-hidden="true"
+                className={`absolute -left-[5px] top-2 size-[9px] rounded-full ${i === 0 ? "bg-accent shadow-[0_0_12px_var(--accent)]" : "bg-line"}`}
+              />
+              <Reveal>
+                <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted">{r.dates}</p>
+                <h3 className="mt-1 font-display text-2xl leading-snug text-fg">{r.role}</h3>
+                <p className="text-accent">{r.company}</p>
+                <p className="mt-2 text-muted">{r.impact}</p>
                 {r.highlights?.length ? (
                   <ul className="mt-3 space-y-1.5 text-sm text-muted">
                     {r.highlights.map((h) => (
@@ -46,11 +71,11 @@ export function Experience() {
                     ))}
                   </ul>
                 ) : null}
-              </div>
+              </Reveal>
             </li>
           ))}
         </ol>
-      </Reveal>
+      </div>
     </section>
   );
 }
@@ -60,7 +85,7 @@ export function Skills() {
     <section id="skills" aria-labelledby="skills-title" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6">
       <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
         <div>
-          <h2 id="skills-title" className="font-display text-3xl font-bold text-fg sm:text-4xl">
+          <h2 id="skills-title" className="font-display text-4xl text-fg sm:text-5xl">
             Toolbox
           </h2>
           <Reveal>
@@ -83,7 +108,7 @@ export function Skills() {
           </Reveal>
         </div>
         <div>
-          <h2 id="education-title" className="font-display text-3xl font-bold text-fg sm:text-4xl">
+          <h2 id="education-title" className="font-display text-4xl text-fg sm:text-5xl">
             Education
           </h2>
           <Reveal>
@@ -158,8 +183,8 @@ export function CopyEmail({ compact = false }: { compact?: boolean }) {
       <button
         type="button"
         onClick={onCopy}
-        className={`inline-flex min-h-11 items-center gap-2 rounded-lg border border-line font-medium text-fg transition-colors duration-200 hover:border-accent hover:text-accent ${
-          compact ? "px-3 text-sm" : "px-4"
+        className={`inline-flex min-h-12 items-center gap-2 rounded-full border border-line font-medium text-fg transition-colors duration-200 hover:border-accent hover:text-accent ${
+          compact ? "px-3 text-sm" : "px-5"
         }`}
       >
         <Icon name={state === "copied" ? "check" : "copy"} />
@@ -173,37 +198,39 @@ export function CopyEmail({ compact = false }: { compact?: boolean }) {
 }
 
 const linkCls =
-  "inline-flex min-h-11 items-center gap-2 rounded-lg border border-line px-4 font-medium text-fg transition-colors duration-200 hover:border-accent hover:text-accent";
+  "inline-flex min-h-12 items-center gap-2 rounded-full border border-line px-5 font-medium text-fg transition-colors duration-200 hover:border-accent hover:text-accent";
 
 export function Contact() {
   return (
-    <section id="contact" aria-labelledby="contact-title" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6">
-      <Reveal className="rounded-[var(--radius)] border border-line bg-surface p-6 sm:p-10">
-        <h2 id="contact-title" className="font-display text-3xl font-bold text-fg sm:text-4xl">
-          Contact
-        </h2>
-        <p className="mt-3 text-muted">
-          Email{" "}
-          <a href={`mailto:${profile.email}`} className="break-all font-mono text-accent underline-offset-4 hover:underline">
+    <section id="contact" aria-labelledby="contact-title" className="relative overflow-hidden border-t border-line">
+      <div className="mx-auto max-w-6xl px-4 py-28 sm:px-6">
+        <Reveal>
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">Contact</p>
+          <h2 id="contact-title" className="mt-4 max-w-4xl font-display text-5xl leading-[1.02] text-fg sm:text-7xl">
+            Hiring for data and AI? <em className="text-accent">Let&apos;s talk.</em>
+          </h2>
+          <a
+            href={`mailto:${profile.email}`}
+            className="mt-10 inline-block break-all font-display text-3xl text-fg underline decoration-line decoration-2 underline-offset-[10px] transition-colors duration-200 hover:text-accent hover:decoration-accent sm:text-5xl"
+          >
             {profile.email}
           </a>
-        </p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <CopyEmail />
-          <a href={`mailto:${profile.email}`} className={`${linkCls} border-accent bg-accent text-on-accent hover:text-on-accent hover:opacity-90`}>
-            <Icon name="mail" /> Send email
-          </a>
-          <a href={profile.github} target="_blank" rel="noopener noreferrer" className={linkCls}>
-            <Icon name="github" /> GitHub<span className="sr-only"> (opens in a new tab)</span>
-          </a>
-          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className={linkCls}>
-            <Icon name="linkedin" /> LinkedIn<span className="sr-only"> (opens in a new tab)</span>
-          </a>
-          <a href={profile.resume} target="_blank" rel="noopener" className={linkCls}>
-            <Icon name="file" /> Résumé (PDF)<span className="sr-only"> (opens in a new tab)</span>
-          </a>
-        </div>
-      </Reveal>
+          <div className="mt-10 flex flex-wrap gap-3">
+            <CopyEmail />
+            <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className={linkCls}>
+              <Icon name="linkedin" /> LinkedIn<span className="sr-only"> (opens in a new tab)</span>
+            </a>
+            <a href={profile.github} target="_blank" rel="noopener noreferrer" className={linkCls}>
+              <Icon name="github" /> GitHub<span className="sr-only"> (opens in a new tab)</span>
+            </a>
+            {__HAS_RESUME__ && (
+              <a href={profile.resume} target="_blank" rel="noopener" className={linkCls}>
+                <Icon name="file" /> Résumé (PDF)<span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            )}
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }
@@ -211,11 +238,16 @@ export function Contact() {
 export function Footer() {
   return (
     <footer className="border-t border-line">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-6 font-mono text-sm text-muted sm:px-6">
-        <p>
-          © {new Date().getFullYear()} {profile.name}
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-6">
+        <p className="font-mono text-sm text-muted">
+          © {new Date().getFullYear()} {profile.name} · {profile.location}
         </p>
-        <p>{profile.location}</p>
+        <div className="flex flex-wrap items-center gap-3">
+          <span id="look-label" className="font-mono text-xs text-muted">
+            Try another look
+          </span>
+          <LookSwitcher />
+        </div>
       </div>
     </footer>
   );

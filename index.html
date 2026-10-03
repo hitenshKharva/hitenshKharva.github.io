@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en" data-look="pipeline">
+<html lang="en" data-look="default">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Hitensh Kharva · Data Engineer Portfolio</title>
     <meta name="description" content="Hitensh Kharva, Data Engineer II at Amazon. Data platforms, pipelines and the AI tools that run on them." />
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#0a0a0b" />
     <link rel="canonical" href="https://hitenshkharva.github.io/" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -30,7 +30,8 @@
       // Apply the saved look before first paint to avoid a flash.
       try {
         var l = localStorage.getItem("portfolio-look");
-        if (["pipeline", "terminal", "bold", "horizon"].indexOf(l) > -1) document.documentElement.dataset.look = l;
+        if (l === "pipeline") l = "default";
+        if (["default", "terminal", "bold", "horizon"].indexOf(l) > -1) document.documentElement.dataset.look = l;
       } catch (e) {}
     </script>
   </head>
