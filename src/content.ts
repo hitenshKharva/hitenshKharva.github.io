@@ -404,7 +404,7 @@ export const experience: Role[] = [
   {
     role: "Data Engineer → Senior Data Engineer (2026)",
     company: "Amazon · Global Logistics",
-    dates: "Dec 2023 – Present",
+    dates: "2024 – Present",
     impact:
       "Own the team's self-service ingestion platform and cross-regional inventory model, and built its first AI-powered operational tool.",
     highlights: [
@@ -415,7 +415,6 @@ export const experience: Role[] = [
     ],
   },
   {
-    // TODO(verify): dates overlap the Data Engineer start. The source doc says confirm framing before publishing.
     role: "Software Development Engineer",
     company: "Amazon Web Services",
     dates: "Dec 2023 – Jul 2024",
