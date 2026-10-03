@@ -1,7 +1,7 @@
 import { m } from "motion/react";
 import { profile } from "../content";
 import { BlackHole } from "./BlackHole";
-import { Headline, HeroActions, HeroSection, useIntro } from "./shared";
+import { Eyebrow, Headline, HeroActions, HeroSection, Subhead, useIntro } from "./shared";
 
 export default function HorizonHero() {
   const { container, item, reduce } = useIntro(0.16);
@@ -19,14 +19,15 @@ export default function HorizonHero() {
         animate="show"
         className="relative mx-auto w-full max-w-6xl px-4 pb-16 pt-40 sm:px-6 md:pb-24"
       >
-        <m.p variants={item} className="font-mono text-sm uppercase tracking-[0.3em] text-accent">
-          {profile.location}
-        </m.p>
+        <m.div variants={item}>
+          <Eyebrow className="font-mono text-xs uppercase tracking-[0.25em] text-accent sm:text-sm" />
+        </m.div>
         <m.h1 variants={item} id="hero-title" className="mt-4 max-w-xl font-display text-5xl font-semibold leading-[1.05] text-fg sm:text-6xl lg:text-7xl">
           {profile.name}
         </m.h1>
         <m.div variants={item}>
-          <Headline className="mt-5 max-w-lg text-lg text-muted" />
+          <Headline className="mt-5 max-w-lg text-xl font-medium text-fg" />
+          <Subhead className="mt-2 max-w-lg text-muted" />
         </m.div>
         <HeroActions item={item} />
       </m.div>

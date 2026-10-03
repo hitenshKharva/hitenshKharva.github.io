@@ -1,6 +1,6 @@
 import { m } from "motion/react";
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent, type ReactNode } from "react";
-import { profile, projects, stack } from "../content";
+import { profile, projects, skills, type Project } from "../content";
 import { LOOKS, LOOK_LABEL, isLook, useSite } from "../state";
 import { Todo } from "../components/Todo";
 import { HeroActions, HeroSection, useIntro } from "./shared";
@@ -20,6 +20,12 @@ const COMMANDS: { name: string; usage: string; desc: string }[] = [
   { name: "contact", usage: "contact", desc: "how to reach me" },
   { name: "theme", usage: "theme <name>", desc: "switch the site look" },
   { name: "clear", usage: "clear", desc: "clear the screen" },
+];
+
+const PROJECT_GROUPS: [Project["kind"], string][] = [
+  ["work", "work (Amazon)"],
+  ["side", "side projects"],
+  ["earlier", "earlier"],
 ];
 
 const TAPS = ["help", "whoami", "projects", "stack", "contact", "theme", "clear"];
@@ -89,8 +95,10 @@ export default function TerminalHero() {
         push(
           "out",
           <div>
-            <p className="text-fg">{profile.name}</p>
-            <p className="text-muted">{profile.headline ?? <Todo>headline</Todo>}</p>
+            <p className="text-fg">
+              {profile.name} <span className="text-muted">·</span> {profile.role}, {profile.company}
+            </p>
+            <p className="text-fg">{profile.headline ?? <Todo>headline</Todo>}</p>
             <p className="text-muted">{profile.location}</p>
           </div>,
         );
@@ -98,13 +106,22 @@ export default function TerminalHero() {
       case "projects":
         push(
           "out",
-          <ul>
-            {projects.map((p) => (
-              <li key={p.id}>
-                {cmdButton(`open ${p.slug}`, p.slug)} <span className="text-muted">· {p.name}</span>
-              </li>
+          <div className="space-y-2">
+            {PROJECT_GROUPS.map(([kind, label]) => (
+              <div key={kind}>
+                <p className="text-muted"># {label}</p>
+                <ul>
+                  {projects
+                    .filter((p) => p.kind === kind)
+                    .map((p) => (
+                      <li key={p.id}>
+                        {cmdButton(`open ${p.slug}`, p.slug)} <span className="text-muted">· {p.name}</span>
+                      </li>
+                    ))}
+                </ul>
+              </div>
             ))}
-          </ul>,
+          </div>,
         );
         break;
       case "open": {
@@ -118,7 +135,16 @@ export default function TerminalHero() {
         break;
       }
       case "stack":
-        push("out", <p className="text-fg">{stack.join("  ·  ")}</p>);
+        push(
+          "out",
+          <ul>
+            {skills.map((g) => (
+              <li key={g.group}>
+                <span className="text-accent">{g.group.toLowerCase()}:</span> <span className="text-fg">{g.items.join(", ")}</span>
+              </li>
+            ))}
+          </ul>,
+        );
         break;
       case "contact":
         push(

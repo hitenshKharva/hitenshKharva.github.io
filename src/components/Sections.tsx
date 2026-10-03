@@ -1,10 +1,9 @@
 import { m, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { education, experience, profile } from "../content";
+import { certifications, education, experience, profile, skills } from "../content";
 import { Icon } from "./Icon";
-import { OrTodo } from "./Todo";
 
-function Reveal({ children, className }: { children: ReactNode; className?: string }) {
+export function Reveal({ children, className }: { children: ReactNode; className?: string }) {
   const reduce = useReducedMotion();
   return (
     <m.div
@@ -28,37 +27,94 @@ export function Experience() {
       <Reveal>
         <ol className="mt-8 divide-y divide-line border-y border-line">
           {experience.map((r) => (
-            <li key={`${r.company}-${r.dates}`} className="grid gap-1 py-5 md:grid-cols-[14rem_1fr] md:gap-6">
+            <li key={`${r.company}-${r.dates}`} className="grid gap-1 py-6 md:grid-cols-[12rem_1fr] md:gap-6">
               <p className="font-mono text-sm text-muted">{r.dates}</p>
               <div>
                 <h3 className="font-semibold text-fg">
                   {r.role} <span className="text-muted">·</span> <span className="text-accent">{r.company}</span>
                 </h3>
-                <p className="mt-1 text-muted">
-                  <OrTodo value={r.impact} label="one-line impact" />
-                </p>
+                <p className="mt-1 text-muted">{r.impact}</p>
+                {r.highlights?.length ? (
+                  <ul className="mt-3 space-y-1.5 text-sm text-muted">
+                    {r.highlights.map((h) => (
+                      <li key={h} className="flex gap-2">
+                        <span aria-hidden="true" className="text-accent">
+                          ›
+                        </span>
+                        <span>{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </div>
             </li>
           ))}
         </ol>
       </Reveal>
+    </section>
+  );
+}
 
-      <h2 id="education-title" className="mt-16 font-display text-2xl font-bold text-fg sm:text-3xl">
-        Education
-      </h2>
-      <Reveal>
-        <ul aria-labelledby="education-title" className="mt-6 grid gap-4 md:grid-cols-2">
-          {education.map((d) => (
-            <li key={d.degree} className="rounded-[var(--radius)] border border-line bg-surface p-5">
-              <h3 className="font-semibold text-fg">{d.degree}</h3>
-              <p className="mt-1 text-muted">
-                <OrTodo value={d.university} label="university" /> <span aria-hidden="true">·</span>{" "}
-                <span className="font-mono text-sm">{d.year}</span>
-              </p>
-            </li>
-          ))}
-        </ul>
-      </Reveal>
+export function Skills() {
+  return (
+    <section id="skills" aria-labelledby="skills-title" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6">
+      <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
+        <div>
+          <h2 id="skills-title" className="font-display text-3xl font-bold text-fg sm:text-4xl">
+            Toolbox
+          </h2>
+          <Reveal>
+            <dl className="mt-8 space-y-5">
+              {skills.map((s) => (
+                <div key={s.group} className="grid gap-2 sm:grid-cols-[10rem_1fr]">
+                  <dt className="font-mono text-sm text-accent">{s.group}</dt>
+                  <dd>
+                    <ul className="flex flex-wrap gap-1.5">
+                      {s.items.map((i) => (
+                        <li key={i} className="rounded bg-surface-2 px-2 py-1 font-mono text-xs text-fg">
+                          {i}
+                        </li>
+                      ))}
+                    </ul>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+        </div>
+        <div>
+          <h2 id="education-title" className="font-display text-3xl font-bold text-fg sm:text-4xl">
+            Education
+          </h2>
+          <Reveal>
+            <ul aria-labelledby="education-title" className="mt-8 space-y-4">
+              {education.map((d) => (
+                <li key={d.degree} className="rounded-[var(--radius)] border border-line bg-surface p-5">
+                  <h3 className="font-semibold text-fg">{d.degree}</h3>
+                  <p className="mt-1 text-muted">
+                    {d.university} <span aria-hidden="true">·</span> <span className="font-mono text-sm">{d.dates}</span>
+                  </p>
+                </li>
+              ))}
+            </ul>
+            <h3 className="mt-8 font-mono text-xs uppercase tracking-wider text-muted">Certifications</h3>
+            <ul className="mt-3 space-y-2">
+              {certifications.map((c) => (
+                <li key={c.name} className="text-fg">
+                  {c.link ? (
+                    <a href={c.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 underline-offset-4 hover:text-accent hover:underline">
+                      {c.name} <Icon name="external" size={14} />
+                      <span className="sr-only">(opens in a new tab)</span>
+                    </a>
+                  ) : (
+                    c.name
+                  )}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+      </div>
     </section>
   );
 }

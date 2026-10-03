@@ -1,7 +1,7 @@
 import { AnimatePresence, m } from "motion/react";
 import { useEffect, useState } from "react";
 import { buildPhrases, profile } from "../content";
-import { Headline, HeroActions, HeroSection, useIntro } from "./shared";
+import { Headline, HeroActions, HeroSection, Subhead, useIntro } from "./shared";
 
 function RotatingLine() {
   const { reduce } = useIntro();
@@ -96,7 +96,8 @@ export default function BoldHero() {
           <RotatingLine />
         </m.div>
         <m.div variants={item}>
-          <Headline className="mt-4 max-w-2xl text-lg text-muted" />
+          <Headline className="mt-4 max-w-2xl text-xl font-medium text-fg" />
+          <Subhead className="mt-2 max-w-2xl text-muted" />
         </m.div>
         <HeroActions item={item} />
       </m.div>

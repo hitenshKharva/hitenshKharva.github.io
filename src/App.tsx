@@ -2,7 +2,8 @@ import { LazyMotion, MotionConfig } from "motion/react";
 import { lazy, Suspense } from "react";
 import { Header } from "./components/Header";
 import { Projects } from "./components/Projects";
-import { Contact, Experience, Footer } from "./components/Sections";
+import { Pillars, ProofStrip } from "./components/Intro";
+import { Contact, Experience, Footer, Skills } from "./components/Sections";
 import PipelineHero from "./heroes/PipelineHero";
 import { SiteProvider, useSite, type Look } from "./state";
 
@@ -38,8 +39,11 @@ export default function App() {
           <main id="main" tabIndex={-1} className="outline-none">
             <div id="top" />
             <Hero />
+            <ProofStrip />
+            <Pillars />
             <Projects />
             <Experience />
+            <Skills />
             <Contact />
           </main>
           <Footer />

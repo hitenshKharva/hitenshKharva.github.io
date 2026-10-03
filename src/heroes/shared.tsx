@@ -27,14 +27,26 @@ export function Headline({ className = "" }: { className?: string }) {
   );
 }
 
+export function Subhead({ className = "" }: { className?: string }) {
+  return <p className={className}>{profile.subhead}</p>;
+}
+
+export function Eyebrow({ className = "" }: { className?: string }) {
+  return (
+    <p className={className}>
+      {profile.role} · {profile.company} · {profile.location}
+    </p>
+  );
+}
+
 export function HeroActions({ item }: { item: Variants }) {
   return (
     <m.div variants={item} className="mt-8 flex flex-wrap gap-3">
       <a
-        href="#projects"
+        href="#work"
         className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-accent px-5 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90"
       >
-        View projects <Icon name="arrowDown" size={16} />
+        See my work <Icon name="arrowDown" size={16} />
       </a>
       <a
         href={profile.resume}

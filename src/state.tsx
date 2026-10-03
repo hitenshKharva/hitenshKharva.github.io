@@ -1,3 +1,4 @@
+import type { Category } from "./content";
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 
 export const LOOKS = ["pipeline", "terminal", "bold", "horizon"] as const;
@@ -26,8 +27,10 @@ function readStoredLook(): Look {
   return "pipeline";
 }
 
+/** A request from a hero to show a project, or a whole category, in the list. */
 export interface JumpTarget {
-  id: string;
+  id?: string;
+  category?: Category;
   tick: number;
 }
 
@@ -39,6 +42,8 @@ interface SiteState {
   setOpenProject: (id: string | null) => void;
   /** Scroll to a project, clear filters that hide it, and open its details. */
   jumpToProject: (id: string) => void;
+  /** Scroll to the project list filtered to one category. */
+  jumpToCategory: (category: Category) => void;
   /** Latest jump request; the project list resets its filter, then scrolls and focuses. */
   jumpTarget: JumpTarget | null;
 }
@@ -71,9 +76,13 @@ export function SiteProvider({ children }: { children: ReactNode }) {
     setJumpTarget({ id, tick: Date.now() });
   }, []);
 
+  const jumpToCategory = useCallback((category: Category) => {
+    setJumpTarget({ category, tick: Date.now() });
+  }, []);
+
   const value = useMemo(
-    () => ({ look, setLook, openProject, setOpenProject, jumpToProject, jumpTarget }),
-    [look, setLook, openProject, jumpToProject, jumpTarget],
+    () => ({ look, setLook, openProject, setOpenProject, jumpToProject, jumpToCategory, jumpTarget }),
+    [look, setLook, openProject, jumpToProject, jumpToCategory, jumpTarget],
   );
 
   return <SiteContext.Provider value={value}>{children}</SiteContext.Provider>;
