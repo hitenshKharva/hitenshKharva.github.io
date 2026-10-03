@@ -1,0 +1,160 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@source "../index.html";
+
+/* Design tokens (UI UX Pro Max "Portfolio" system, design-system/portfolio/MASTER.md).
+   Pipeline is the generated palette; the other looks are variants that keep its
+   4.5:1 text contrast (checked for fg, muted, accent and todo on bg and surface). */
+:root,
+[data-look="pipeline"] {
+  --bg: #0f172a;
+  --surface: #1b2336;
+  --surface-2: #272f42;
+  --fg: #f8fafc;
+  --muted: #a3b1c6;
+  --line: #475569;
+  --accent: #22c55e;
+  --on-accent: #0f172a;
+  --todo: #fbbf24;
+  --ring: #ffffff;
+  --font-display: "JetBrains Mono", ui-monospace, monospace;
+  --radius: 12px;
+  color-scheme: dark;
+}
+
+[data-look="terminal"] {
+  --bg: #050805;
+  --surface: #0c140d;
+  --surface-2: #142016;
+  --fg: #d7f5dd;
+  --muted: #8fbf98;
+  --line: #2f5a37;
+  --accent: #4ade80;
+  --on-accent: #04140a;
+  --todo: #facc15;
+  --ring: #d7f5dd;
+  --font-display: "JetBrains Mono", ui-monospace, monospace;
+  --radius: 4px;
+  color-scheme: dark;
+}
+
+[data-look="bold"] {
+  --bg: #f6f4ee;
+  --surface: #ffffff;
+  --surface-2: #ebe8df;
+  --fg: #111111;
+  --muted: #4b4b4b;
+  --line: #8a8a8a;
+  --accent: #c2410c;
+  --on-accent: #ffffff;
+  --todo: #92400e;
+  --ring: #111111;
+  --font-display: "IBM Plex Sans", system-ui, sans-serif;
+  --radius: 0px;
+  color-scheme: light;
+}
+
+[data-look="horizon"] {
+  --bg: #06060a;
+  --surface: #111018;
+  --surface-2: #1b1924;
+  --fg: #f4efe6;
+  --muted: #b3aa9c;
+  --line: #4a4458;
+  --accent: #f5a524;
+  --on-accent: #140c02;
+  --todo: #fcd34d;
+  --ring: #f4efe6;
+  --font-display: "IBM Plex Sans", system-ui, sans-serif;
+  --radius: 16px;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-todo: var(--todo);
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display: var(--font-display);
+}
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 250ms ease, color 250ms ease;
+}
+
+/* Visible focus everywhere (keyboard only). */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+button,
+a,
+summary,
+[role="button"] {
+  cursor: pointer;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+  border-radius: 8px;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Pipeline diagram: dashes travelling along the edges. */
+@keyframes flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+.flow-dash {
+  stroke-dasharray: 4 8;
+  animation: flow 1.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
