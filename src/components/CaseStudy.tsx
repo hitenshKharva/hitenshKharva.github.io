@@ -4,13 +4,16 @@ import { CATEGORY_LABEL, projects, type Project } from "../content";
 import { openCaseStudy } from "../state";
 import { FlowViz } from "./FlowViz";
 import { Icon } from "./Icon";
+import { TriageDemo } from "./TriageDemo";
 
 const work = projects.filter((p) => p.kind === "work");
 
 function readRoute(): string | null {
-  const match = window.location.hash.match(/^#\/work\/([\w-]+)$/);
+  const match = window.location.hash.match(/^#\/work\/([\w-]+)(\/demo)?$/);
   return match && work.some((p) => p.id === match[1]) ? match[1] : null;
 }
+
+const wantsDemo = () => window.location.hash.endsWith("/demo");
 
 function Block({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -42,6 +45,12 @@ function Body({ project }: { project: Project }) {
         </div>
         {project.flow && <FlowViz steps={project.flow} size="lg" />}
       </div>
+
+      {project.demo && (
+        <div className="mt-10">
+          <TriageDemo />
+        </div>
+      )}
 
       <div className="mt-12 grid gap-10 md:grid-cols-[1.6fr_1fr]">
         <div className="space-y-10">
@@ -143,7 +152,10 @@ export function CaseStudy() {
   const project = work.find((p) => p.id === id);
 
   useEffect(() => {
-    const onHash = () => setId(readRoute());
+    const onHash = () => {
+      setId(readRoute());
+      if (wantsDemo()) requestAnimationFrame(() => document.getElementById("triage-demo")?.scrollIntoView({ block: "start" }));
+    };
     window.addEventListener("hashchange", onHash);
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
@@ -154,8 +166,12 @@ export function CaseStudy() {
     if (project) {
       lastOpened.current = project.id;
       if (!dialog.open) dialog.showModal();
-      scrollRef.current?.scrollTo({ top: 0 });
       dialog.querySelector<HTMLElement>("[data-close]")?.focus();
+      if (wantsDemo()) {
+        requestAnimationFrame(() => document.getElementById("triage-demo")?.scrollIntoView({ block: "start" }));
+      } else {
+        scrollRef.current?.scrollTo({ top: 0 });
+      }
       document.documentElement.style.overflow = "hidden";
     } else if (dialog.open) {
       dialog.close();
