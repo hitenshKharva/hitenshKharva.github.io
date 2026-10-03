@@ -57,12 +57,12 @@ export const profile = {
   name: "Hitensh Kharva",
   firstName: "Hitensh",
   lastName: "Kharva",
-  role: "Senior Data Engineer",
+  role: "Data Engineer II",
   company: "Amazon",
   /** Draft positioning line written from the résumé doc. Edit freely. */
   headline: "I build data platforms, and the AI tools that run on them." as string | null,
   subhead:
-    "Senior Data Engineer at Amazon Global Logistics, working across data engineering, LLM tooling and the software around them.",
+    "Data Engineer II at Amazon Global Logistics, working across data engineering, LLM tooling and the software around them.",
   email: "hkharva3283@gmail.com",
   github: "https://github.com/hitenshKharva",
   githubHandle: "hitenshKharva",
@@ -402,7 +402,7 @@ export const projects: Project[] = [
 
 export const experience: Role[] = [
   {
-    role: "Data Engineer → Senior Data Engineer (2026)",
+    role: "Data Engineer → Data Engineer II (2026)",
     company: "Amazon · Global Logistics",
     dates: "2024 – Present",
     impact:
@@ -411,7 +411,7 @@ export const experience: Role[] = [
       "Weekly business review automation: 135 slides across 3 leadership decks, prep cut from 2–4 hours to 5–10 minutes.",
       "Data-access migration: 5,000+ access requests automated and 500+ tables migrated; other teams later adopted the scripts.",
       "BI usage analytics from vended logs, shipped in both phases in one week.",
-      "Promoted to Senior Data Engineer in 2026. Mentor to 3 engineers.",
+      "Promoted to Data Engineer II in 2026. Mentor to 3 engineers.",
     ],
   },
   {
