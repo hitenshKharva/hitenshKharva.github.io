@@ -95,6 +95,6 @@ export function useSite() {
 }
 
 /** Case studies live at #/work/<id> so they can be linked and shared. */
-export function openCaseStudy(id: string) {
-  window.location.hash = `/work/${id}`;
+export function openCaseStudy(id: string, section?: "demo") {
+  window.location.hash = `/work/${id}${section ? `/${section}` : ""}`;
 }

@@ -167,15 +167,27 @@ function FeatureRow({ project, index }: { project: Project; index: number }) {
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <CategoryChips categories={project.categories} />
           </div>
-          <button
-            type="button"
-            data-project-toggle
-            onClick={() => openCaseStudy(project.id)}
-            className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full border border-fg/30 px-5 font-medium text-fg transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-on-accent"
-          >
-            Read the case study <span aria-hidden="true">→</span>
-            <span className="sr-only">: {project.name}</span>
-          </button>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <button
+              type="button"
+              data-project-toggle
+              onClick={() => openCaseStudy(project.id)}
+              className="inline-flex min-h-12 items-center gap-2 rounded-full border border-fg/30 px-5 font-medium text-fg transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-on-accent"
+            >
+              Read the case study <span aria-hidden="true">→</span>
+              <span className="sr-only">: {project.name}</span>
+            </button>
+            {project.demo && (
+              <button
+                type="button"
+                onClick={() => openCaseStudy(project.id, "demo")}
+                className="inline-flex min-h-12 items-center gap-2 rounded-full bg-accent px-5 font-semibold text-on-accent transition-transform duration-200 hover:-translate-y-0.5"
+              >
+                <Icon name="play" size={15} /> Try the demo
+                <span className="sr-only">: triage a sample ticket</span>
+              </button>
+            )}
+          </div>
         </div>
       </article>
     </m.li>

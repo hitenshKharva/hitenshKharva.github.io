@@ -44,6 +44,7 @@ const PATHS = {
     </>
   ),
   chevron: <path d="m6 9 6 6 6-6" />,
+  play: <polygon points="6 3 20 12 6 21 6 3" />,
   close: (
     <>
       <path d="M18 6 6 18" />

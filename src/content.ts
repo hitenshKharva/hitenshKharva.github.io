@@ -32,6 +32,8 @@ export interface Project {
   role?: string;
   /** The single number that leads the case study. */
   metric?: { value: string; label: string };
+  /** Has a playable demo in its case study. */
+  demo?: boolean;
   /** Architecture, left to right, for the animated flow visual. */
   flow?: string[];
   problem?: string | null;
@@ -162,6 +164,7 @@ export const projects: Project[] = [
     role: "Sole builder. I spotted the problem and built the whole tool without being asked.",
     metric: { value: "80%", label: "less time per ticket (15 → 3 min)" },
     flow: ["Ticket", "Orchestrator", "Vector KB", "LLM", "Route + comment"],
+    demo: true,
     problem: "Engineers spent about 15 minutes per ticket searching runbooks before they could start on a fix.",
     summary:
       "I spotted the problem and built the whole tool without being asked. It was the team's first AI-powered operational tool and is now part of its triage SOP.",
