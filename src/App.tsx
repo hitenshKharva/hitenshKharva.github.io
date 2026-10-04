@@ -1,6 +1,7 @@
 import { LazyMotion, MotionConfig, m, useReducedMotion } from "motion/react";
 import type { MouseEvent } from "react";
 import { About } from "./components/About";
+import { Certifications } from "./components/Certifications";
 import { HeroVisual } from "./components/HeroVisual";
 import { Icon } from "./components/Icon";
 import { Nav } from "./components/Nav";
@@ -81,9 +82,7 @@ function Page() {
         <About />
         <Skills />
         <Work />
-        <Section id="certifications" number="04" eyebrow="Certifications" lead="Always" accent="learning.">
-          <Placeholder phase={6} what="Numbered certifications list" />
-        </Section>
+        <Certifications />
         <Section
           id="experience"
           number="05"
