@@ -316,7 +316,9 @@ export const timeline: TimelineEntry[] = [
 ];
 
 export interface Achievement {
-  value: number;
+  /** Counted up when visible. Omit and use `display` for rank-style cards. */
+  value?: number;
+  display?: string;
   prefix?: string;
   suffix?: string;
   label: string;
@@ -329,4 +331,5 @@ export const achievements: Achievement[] = [
   { value: 13, suffix: "+", label: "Teams self-onboarded", line: "On the ingestion platform I own." },
   { value: 5000, suffix: "+", label: "Access requests automated", line: "During a 500+ table migration." },
   { value: 135, label: "Slides automated", line: "Weekly review prep from 2–4 hours to 5–10 minutes." },
+  { display: "1st", label: "AI ops tool on the team", line: "The RAG ticket analyzer, now part of the triage SOP." },
 ];

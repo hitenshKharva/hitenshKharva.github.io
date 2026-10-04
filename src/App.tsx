@@ -1,6 +1,8 @@
 import { LazyMotion, MotionConfig, m, useReducedMotion } from "motion/react";
 import type { MouseEvent } from "react";
 import { About } from "./components/About";
+import { Achievements } from "./components/Achievements";
+import { Contact, Footer } from "./components/Contact";
 import { Certifications } from "./components/Certifications";
 import { HeroVisual } from "./components/HeroVisual";
 import { Icon } from "./components/Icon";
@@ -8,7 +10,6 @@ import { Nav } from "./components/Nav";
 import { Skills } from "./components/Skills";
 import { Timeline } from "./components/Timeline";
 import { Work } from "./components/Work";
-import { Placeholder, Section } from "./components/Section";
 import { profile } from "./content/site";
 import { SmoothScrollProvider, useScrollTo } from "./lib/smoothScroll";
 
@@ -85,21 +86,10 @@ function Page() {
         <Work />
         <Certifications />
         <Timeline />
-        <Section id="achievements" number="06" eyebrow="Achievements" lead="Proud" accent="moments.">
-          <Placeholder phase={8} what="Impact stat cards with count-up" />
-        </Section>
-        <Section id="contact" number="07" eyebrow="Contact" lead="Let's" accent="build" tail="something.">
-          <Placeholder phase={8} what="Email (copy), GitHub, LinkedIn, résumé" />
-        </Section>
+        <Achievements />
+        <Contact />
       </main>
-      <footer className="border-t border-line">
-        <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-2 px-4 py-6 font-mono text-xs text-muted sm:px-6">
-          <p>
-            © {new Date().getFullYear()} {profile.name}
-          </p>
-          <p>{profile.location}</p>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

@@ -70,13 +70,3 @@ export function Section({
     </section>
   );
 }
-
-/** Marks a part of the page a later build phase fills in. Review builds only. */
-export function Placeholder({ phase, what }: { phase: number; what: string }) {
-  return (
-    <div className="rounded-3xl border border-dashed border-line bg-surface/60 p-10 text-center">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted">Phase {phase}</p>
-      <p className="mt-2 text-ink">{what}</p>
-    </div>
-  );
-}
