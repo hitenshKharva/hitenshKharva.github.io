@@ -1,5 +1,6 @@
 import { LazyMotion, MotionConfig, m, useReducedMotion } from "motion/react";
 import type { MouseEvent } from "react";
+import { HeroVisual } from "./components/HeroVisual";
 import { Icon } from "./components/Icon";
 import { Nav } from "./components/Nav";
 import { Placeholder, Section } from "./components/Section";
@@ -26,8 +27,8 @@ function Hero() {
       </p>
 
       <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 pb-14 pt-28 sm:px-6">
-        <div className="flex flex-1 items-center justify-center py-8">
-          <Placeholder phase={2} what="Animated avatar (poster placeholder until the video is ready)" />
+        <div className="relative my-6 min-h-[260px] flex-1 sm:min-h-[320px]">
+          <HeroVisual />
         </div>
 
         <m.div
