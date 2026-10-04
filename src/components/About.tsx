@@ -1,4 +1,4 @@
-import { animate, m, useInView, useMotionValue, useReducedMotion, type PanInfo } from "motion/react";
+import { m, useInView, useMotionValue, useReducedMotion, type MotionValue, type PanInfo } from "motion/react";
 import { useEffect, useMemo, useRef } from "react";
 import { about, links, profile, quickFacts } from "../content/site";
 import { Icon } from "./Icon";
@@ -6,6 +6,42 @@ import { Reveal } from "./Reveal";
 import { Eyebrow, Heading } from "./Section";
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+
+/**
+ * Tiny damped-spring pendulum. Motion's standalone animate() would pull the whole
+ * animation engine into the main bundle, so the swing is integrated by hand.
+ */
+function useSwing(angle: MotionValue<number>) {
+  const raf = useRef(0);
+  const stop = () => {
+    cancelAnimationFrame(raf.current);
+    raf.current = 0;
+  };
+  const release = (velocity = 0) => {
+    stop();
+    let v = velocity;
+    let last = performance.now();
+    const k = 70; // stiffness
+    const c = 5; // damping
+    const tick = (now: number) => {
+      const dt = Math.min(0.032, (now - last) / 1000);
+      last = now;
+      const x = angle.get();
+      v += (-k * x - c * v) * dt;
+      const next = x + v * dt;
+      if (Math.abs(next) < 0.05 && Math.abs(v) < 0.05) {
+        angle.set(0);
+        raf.current = 0;
+        return;
+      }
+      angle.set(next);
+      raf.current = requestAnimationFrame(tick);
+    };
+    raf.current = requestAnimationFrame(tick);
+  };
+  useEffect(() => stop, []);
+  return { release, stop };
+}
 
 /** Deterministic barcode bars from a string, so it's stable between renders. */
 function Barcode({ seed }: { seed: string }) {
@@ -37,7 +73,7 @@ function IdCard() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.4 });
   const angle = useMotionValue(0);
-  const swing = (velocity = 0) => animate(angle, 0, { type: "spring", stiffness: 70, damping: 5, velocity });
+  const { release: swing, stop } = useSwing(angle);
 
   useEffect(() => {
     if (!inView || reduce) return;
@@ -47,7 +83,7 @@ function IdCard() {
 
   const onPan = (_: PointerEvent, info: PanInfo) => {
     if (reduce) return;
-    angle.stop();
+    stop();
     angle.set(clamp(-info.offset.x / 5, -32, 32));
   };
   const onPanEnd = (_: PointerEvent, info: PanInfo) => {

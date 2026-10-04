@@ -4,6 +4,7 @@ import { About } from "./components/About";
 import { HeroVisual } from "./components/HeroVisual";
 import { Icon } from "./components/Icon";
 import { Nav } from "./components/Nav";
+import { Skills } from "./components/Skills";
 import { Placeholder, Section } from "./components/Section";
 import { profile } from "./content/site";
 import { SmoothScrollProvider, useScrollTo } from "./lib/smoothScroll";
@@ -77,17 +78,7 @@ function Page() {
       <main id="main" tabIndex={-1} className="outline-none">
         <Hero />
         <About />
-        <Section
-          id="skills"
-          number="02"
-          eyebrow="Skills"
-          lead="The periodic table"
-          accent="of my stack."
-          intro="Elements in six families. Hover a tile to see how I've used it, or pick a family to light it up."
-          className="glow"
-        >
-          <Placeholder phase={4} what="Periodic table of skills with family filters and hover detail" />
-        </Section>
+        <Skills />
         <Section id="work" number="03" eyebrow="Work" lead="Things I've" accent="built." intro="Production systems at Amazon and side projects. Hover a panel to open it.">
           <Placeholder phase={5} what="Horizontal project accordion with illustrative mini UIs" />
         </Section>
