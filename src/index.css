@@ -1,134 +1,68 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @source "../index.html";
+@import "lenis/dist/lenis.css";
 
-/* Design tokens. The default look evolves the UI UX Pro Max "Portfolio" system
-   (design-system/portfolio/MASTER.md): still dark, still a "run green" accent, but
-   pushed to an editorial direction (serif display, acid-lime accent) so it doesn't
-   read as a template. Every look keeps 4.5:1 text contrast on bg and surface. */
-:root,
-[data-look="default"] {
-  --bg: #0a0a0b;
-  --surface: #141416;
-  --surface-2: #1e1e21;
-  --fg: #f2f0ea;
-  --muted: #a3a3ab;
-  --line: #2e2e33;
-  --accent: #d4ff3a;
-  --on-accent: #0a0a0b;
-  --todo: #fbbf24;
-  --ring: #d4ff3a;
-  --font-display: "Instrument Serif", Georgia, serif;
-  --display-weight: 400;
-  --radius: 14px;
-  color-scheme: dark;
-}
-
-[data-look="terminal"] {
-  --display-weight: 700;
-  --bg: #050805;
-  --surface: #0c140d;
-  --surface-2: #142016;
-  --fg: #d7f5dd;
-  --muted: #8fbf98;
-  --line: #2f5a37;
-  --accent: #4ade80;
-  --on-accent: #04140a;
-  --todo: #facc15;
-  --ring: #d7f5dd;
-  --font-display: "JetBrains Mono", ui-monospace, monospace;
-  --radius: 4px;
-  color-scheme: dark;
-}
-
-[data-look="bold"] {
-  --display-weight: 700;
-  --bg: #f6f4ee;
-  --surface: #ffffff;
-  --surface-2: #ebe8df;
-  --fg: #111111;
-  --muted: #4b4b4b;
-  --line: #8a8a8a;
-  --accent: #c2410c;
-  --on-accent: #ffffff;
-  --todo: #92400e;
-  --ring: #111111;
-  --font-display: "IBM Plex Sans", system-ui, sans-serif;
-  --radius: 0px;
+/* Tokens from PORTFOLIO_PLAN.md (warm editorial). `--muted` is darkened from the plan's
+   #7A7468 (4.0:1 on --bg) to #625C51 (5.7:1) to pass WCAG AA for body copy. */
+:root {
+  --bg: #f3eee2;
+  --bg-glow: #f6ebc4;
+  --surface: #fbf8f1;
+  --ink: #1c1f2e;
+  --muted: #625c51;
+  --line: #d9d1c1;
+  --on-ink: #f3eee2;
+  /* Skills family tints: ink → taupe → sand → pale sand. */
+  --tint-1: #1c1f2e;
+  --tint-2: #4a4558;
+  --tint-3: #8c8275;
+  --tint-4: #b5aa98;
+  --tint-5: #d6ccb9;
+  --tint-6: #e8e0cf;
   color-scheme: light;
-}
-
-[data-look="horizon"] {
-  --display-weight: 700;
-  --bg: #06060a;
-  --surface: #111018;
-  --surface-2: #1b1924;
-  --fg: #f4efe6;
-  --muted: #b3aa9c;
-  --line: #4a4458;
-  --accent: #f5a524;
-  --on-accent: #140c02;
-  --todo: #fcd34d;
-  --ring: #f4efe6;
-  --font-display: "IBM Plex Sans", system-ui, sans-serif;
-  --radius: 16px;
-  color-scheme: dark;
 }
 
 @theme inline {
   --color-bg: var(--bg);
+  --color-glow: var(--bg-glow);
   --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
-  --color-fg: var(--fg);
+  --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
-  --color-accent: var(--accent);
-  --color-on-accent: var(--on-accent);
-  --color-todo: var(--todo);
-  --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --color-on-ink: var(--on-ink);
+  --font-sans: "Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-display: var(--font-display);
 }
 
 html {
   background: var(--bg);
-  scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
   background: var(--bg);
-  color: var(--fg);
+  color: var(--ink);
   font-family: var(--font-sans);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 250ms ease, color 250ms ease;
-}
-
-/* Serif display has one weight; the other looks use bold sans/mono. */
-.font-display {
-  font-weight: var(--display-weight);
-}
-[data-look="default"] .font-display {
-  letter-spacing: -0.015em;
 }
 
 /* Visible focus everywhere (keyboard only). */
 :focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid var(--ink);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--ink);
+  color: var(--on-ink);
 }
 
-button,
 a,
-summary,
+button,
 [role="button"] {
   cursor: pointer;
 }
@@ -139,24 +73,21 @@ summary,
   top: -4rem;
   z-index: 100;
   padding: 0.5rem 1rem;
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--ink);
+  color: var(--on-ink);
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: 999px;
 }
 .skip-link:focus {
   top: 1rem;
 }
 
-dialog.case-study::backdrop {
-  background: rgb(0 0 0 / 0.7);
-  backdrop-filter: blur(6px);
+/* Soft yellow glow behind sections. */
+.glow {
+  background: radial-gradient(60% 50% at 50% 40%, var(--bg-glow), transparent 70%);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
   *,
   *::before,
   *::after {
