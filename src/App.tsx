@@ -5,6 +5,7 @@ import { HeroVisual } from "./components/HeroVisual";
 import { Icon } from "./components/Icon";
 import { Nav } from "./components/Nav";
 import { Skills } from "./components/Skills";
+import { Work } from "./components/Work";
 import { Placeholder, Section } from "./components/Section";
 import { profile } from "./content/site";
 import { SmoothScrollProvider, useScrollTo } from "./lib/smoothScroll";
@@ -79,9 +80,7 @@ function Page() {
         <Hero />
         <About />
         <Skills />
-        <Section id="work" number="03" eyebrow="Work" lead="Things I've" accent="built." intro="Production systems at Amazon and side projects. Hover a panel to open it.">
-          <Placeholder phase={5} what="Horizontal project accordion with illustrative mini UIs" />
-        </Section>
+        <Work />
         <Section id="certifications" number="04" eyebrow="Certifications" lead="Always" accent="learning.">
           <Placeholder phase={6} what="Numbered certifications list" />
         </Section>

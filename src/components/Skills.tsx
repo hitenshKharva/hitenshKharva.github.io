@@ -140,7 +140,7 @@ export function Skills() {
                     dim ? "opacity-25" : "opacity-100"
                   } ${selected ? "ring-2 ring-ink ring-offset-2 ring-offset-[var(--bg)]" : ""}`}
                 >
-                  <span className="font-mono text-[10px] opacity-80">{String(s.number).padStart(2, "0")}</span>
+                  <span className="font-mono text-[10px]">{String(s.number).padStart(2, "0")}</span>
                   <span className="text-2xl font-extrabold leading-none tracking-tight sm:text-3xl" aria-hidden="true">
                     {s.symbol}
                   </span>
