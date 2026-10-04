@@ -52,7 +52,7 @@ export function Nav() {
         <a
           href="#top"
           onClick={(e) => go(e, "top")}
-          className="pointer-events-auto hidden text-sm font-medium text-ink sm:block"
+          className="pointer-events-auto hidden min-h-11 items-center rounded-full border border-line/80 bg-surface/70 px-4 text-sm font-medium text-ink shadow-[0_8px_30px_-12px_rgb(28_31_46/0.25)] backdrop-blur-md sm:inline-flex"
         >
           {profile.name}
         </a>

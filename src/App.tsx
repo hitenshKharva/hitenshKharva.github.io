@@ -1,5 +1,6 @@
 import { LazyMotion, MotionConfig, m, useReducedMotion } from "motion/react";
 import type { MouseEvent } from "react";
+import { About } from "./components/About";
 import { HeroVisual } from "./components/HeroVisual";
 import { Icon } from "./components/Icon";
 import { Nav } from "./components/Nav";
@@ -75,9 +76,7 @@ function Page() {
       <Nav />
       <main id="main" tabIndex={-1} className="outline-none">
         <Hero />
-        <Section id="about" number="01" eyebrow="About" lead="Hi, I'm" accent={`${profile.firstName}.`}>
-          <Placeholder phase={3} what="Bio, swinging developer ID card and quick facts" />
-        </Section>
+        <About />
         <Section
           id="skills"
           number="02"
