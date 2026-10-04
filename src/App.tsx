@@ -6,6 +6,7 @@ import { HeroVisual } from "./components/HeroVisual";
 import { Icon } from "./components/Icon";
 import { Nav } from "./components/Nav";
 import { Skills } from "./components/Skills";
+import { Timeline } from "./components/Timeline";
 import { Work } from "./components/Work";
 import { Placeholder, Section } from "./components/Section";
 import { profile } from "./content/site";
@@ -83,17 +84,7 @@ function Page() {
         <Skills />
         <Work />
         <Certifications />
-        <Section
-          id="experience"
-          number="05"
-          eyebrow="Experience"
-          lead="Education &"
-          accent="experience."
-          intro="Banking software, backend, data, then AWS and Amazon, in order."
-          className="glow"
-        >
-          <Placeholder phase={7} what="Scroll-filled timeline ending in “Next: your team?”" />
-        </Section>
+        <Timeline />
         <Section id="achievements" number="06" eyebrow="Achievements" lead="Proud" accent="moments.">
           <Placeholder phase={8} what="Impact stat cards with count-up" />
         </Section>
