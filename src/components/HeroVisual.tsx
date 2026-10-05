@@ -51,6 +51,8 @@ function DataFlowCanvas({ playing }: { playing: boolean }) {
     let caption: { text: string; start: number } | null = null;
     let lastCaption = -Infinity;
     let pulseAt = -Infinity;
+    // Dots pick up the next event each time they re-enter, so the whole pool cycles through.
+    let nextEvent = 0;
 
     function setup() {
       const rect = canvas!.getBoundingClientRect();
@@ -72,6 +74,7 @@ function DataFlowCanvas({ playing }: { playing: boolean }) {
         size: 1.6 + ((i * 3) % 5) * 0.4,
         event: (i * 7) % rawEvents.length,
       }));
+      nextEvent = count % rawEvents.length;
       hovered = null;
       tapped = null;
     }
@@ -177,7 +180,7 @@ function DataFlowCanvas({ playing }: { playing: boolean }) {
       ctx!.fillStyle = `rgba(${INK}, ${alpha})`;
       const maxW = Math.min(phone ? 200 : 300, 2 * Math.min(c.x, w - c.x) - 12);
       wrap(caption.text, maxW)
-        .slice(0, 2)
+        .slice(0, 3)
         .forEach((l, i) => ctx!.fillText(l, c.x, y0 + 15 + i * (phone ? 14 : 17)));
     }
 
@@ -273,7 +276,11 @@ function DataFlowCanvas({ playing }: { playing: boolean }) {
           lastCaption = now;
           pulseAt = now;
         }
-        if (p.t >= 1) p.t -= 1;
+        if (p.t >= 1) {
+          p.t -= 1;
+          p.event = nextEvent;
+          nextEvent = (nextEvent + 1) % rawEvents.length;
+        }
       });
       draw(now);
       raf = requestAnimationFrame(step);
