@@ -291,16 +291,28 @@ export interface TimelineEntry {
 /** Newest first. */
 export const timeline: TimelineEntry[] = [
   {
+    year: "2026",
+    kind: "experience",
+    dates: "2026 – Present",
+    title: "Data Engineer II",
+    org: "Amazon · Global Logistics · Seattle",
+    bullets: [
+      "Promoted from Data Engineer in 2026.",
+      "Mentor 3 engineers; gave the talk “Building AI Agents for ETL Automation”.",
+    ],
+    tags: ["LLMs", "Agents", "PySpark"],
+  },
+  {
     year: "2024",
     kind: "experience",
-    dates: "2024 – Present",
-    title: "Data Engineer → Data Engineer II",
+    dates: "Jul 2024 – 2026",
+    title: "Data Engineer",
     org: "Amazon · Global Logistics · Seattle",
     bullets: [
       "Own the self-service ingestion platform (13+ teams) and the cross-regional inventory model.",
-      "Built the team's first AI operational tool; promoted to Data Engineer II in 2026.",
+      "Built the team's first AI operational tool, a RAG ticket analyzer, in 2025.",
     ],
-    tags: ["PySpark", "LLMs", "IaC"],
+    tags: ["PySpark", "SQL", "IaC"],
   },
   {
     year: "2023",
