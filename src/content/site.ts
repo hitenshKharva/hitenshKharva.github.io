@@ -34,18 +34,43 @@ export const profile = {
 };
 
 /**
- * Hero animation: real moments from the timeline flow in as "raw events" and come out as
- * the engineer. `short` is used on narrow screens.
+ * Hero animation: each incoming dot carries one of these "raw events". They appear when a
+ * dot is hovered (or tapped) and when it enters the HK core. Facts only, from the résumé
+ * doc and the old project pages.
  */
-export const heroEvents: { label: string; short: string }[] = [
-  { label: "2014 · BE, E&TC", short: "BE '14" },
-  { label: "LTI · banking apps", short: "LTI" },
-  { label: "Bloomstack · REST APIs", short: "Bloomstack" },
-  { label: "SDSU · MS CS", short: "SDSU" },
-  { label: "Wind River · dbt + CI", short: "Wind River" },
-  { label: "AWS · Java services", short: "AWS" },
-  { label: "Amazon · data platforms", short: "Amazon" },
-  { label: "Amazon · RAG + agents", short: "RAG" },
+export const rawEvents: string[] = [
+  // Education
+  "2014 · Started BE, E&TC at University of Mumbai (SPIT)",
+  "2018 · Graduated BE, Electronics & Telecom",
+  "2021 · Started MS CS at San Diego State",
+  "2023 · Graduated MS CS, San Diego State",
+  // Career
+  "2018 · First role: Software Engineer at LTI, Pune",
+  "LTI · Banking apps shipped across 9 countries",
+  "LTI · Test automation lifted team efficiency 20%",
+  "2020 · Backend Python Engineer at Bloomstack",
+  "Bloomstack · Dashboards that saved 2 hours a day",
+  "2022 · Data Developer Intern at Wind River",
+  "Wind River · PII masking models in Snowflake",
+  "2023 · Data Developer at Wind River, San Diego",
+  "Wind River · Data-model reviews 25% faster",
+  "2023 · SDE at Amazon Web Services, Seattle",
+  "2024 · Data Engineer, Amazon Global Logistics",
+  "Amazon · Ingestion platform for 13+ teams",
+  "Amazon · 5,000+ access requests automated",
+  "2025 · Built the team's first AI ops tool (RAG)",
+  "2026 · Promoted to Data Engineer II",
+  "2026 · Talk: Building AI Agents for ETL Automation",
+  "Amazon · Mentoring 3 engineers",
+  // Projects
+  "Project · Reddit batch ELT with Airflow + dbt",
+  "Project · F1 data on Azure Databricks",
+  "Project · Stack Overflow expert finder (K-means)",
+  "Project · MotoGP race analytics in Looker",
+  // Certifications
+  "Cert · Algorithms Specialization (Stanford)",
+  "Cert · Data Engineering Professional Certificate",
+  // Life: add personal moments here (cities, hobbies, milestones). Keep them short.
 ];
 
 export const heroOutput = { title: "Hitensh · engineer", tags: "data · AI · software" };
