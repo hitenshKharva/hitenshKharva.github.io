@@ -1,29 +1,97 @@
-import { LazyMotion, MotionConfig } from "motion/react";
-import { lazy, Suspense } from "react";
-import { Header } from "./components/Header";
-import { Projects } from "./components/Projects";
-import { CaseStudy } from "./components/CaseStudy";
-import { Contact, Footer, Skills, Story } from "./components/Sections";
-import DefaultHero from "./heroes/DefaultHero";
-import { SiteProvider, useSite, type Look } from "./state";
+import { LazyMotion, MotionConfig, m } from "motion/react";
+import { useReducedMotion } from "./lib/useReducedMotion";
+import type { MouseEvent } from "react";
+import { About } from "./components/About";
+import { Achievements } from "./components/Achievements";
+import { Contact, Footer } from "./components/Contact";
+import { Certifications } from "./components/Certifications";
+import { HeroVisual } from "./components/HeroVisual";
+import { Icon } from "./components/Icon";
+import { Nav } from "./components/Nav";
+import { Skills } from "./components/Skills";
+import { Timeline } from "./components/Timeline";
+import { Work } from "./components/Work";
+import { profile } from "./content/site";
+import { SmoothScrollProvider, useScrollTo } from "./lib/smoothScroll";
 
 const loadMotionFeatures = () => import("./motion-features").then((mod) => mod.default);
 
-// The default look and ships in the main bundle; the rest load on demand.
-const heroes: Record<Exclude<Look, "default">, ReturnType<typeof lazy>> = {
-  terminal: lazy(() => import("./heroes/TerminalHero")),
-  bold: lazy(() => import("./heroes/BoldHero")),
-  horizon: lazy(() => import("./heroes/HorizonHero")),
-};
-
 function Hero() {
-  const { look } = useSite();
-  if (look === "default") return <DefaultHero />;
-  const LazyHero = heroes[look];
+  const reduce = useReducedMotion();
+  const scrollTo = useScrollTo();
+  const go = (e: MouseEvent<HTMLAnchorElement>, target: string) => {
+    e.preventDefault();
+    scrollTo(target);
+  };
   return (
-    <Suspense fallback={<div className="min-h-[36rem]" aria-hidden="true" />}>
-      <LazyHero key={look} />
-    </Suspense>
+    <section id="top" aria-labelledby="hero-title" className="glow relative flex min-h-[100svh] flex-col overflow-hidden outline-none">
+      {/* Oversized watermark name. */}
+      <p
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-[14%] select-none text-center text-[22vw] font-extrabold uppercase leading-none tracking-[-0.06em] text-ink/[0.05]"
+      >
+        {profile.firstName}
+      </p>
+
+      <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 pb-14 pt-28 sm:px-6">
+        <div className="relative my-6 min-h-[260px] flex-1 sm:min-h-[320px]">
+          <HeroVisual />
+        </div>
+
+        <m.div
+          initial={reduce ? false : { y: 20 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-3xl"
+        >
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted">{profile.name}</p>
+          <h1 id="hero-title" className="mt-3 text-6xl font-extrabold leading-[0.9] tracking-[-0.045em] text-ink sm:text-8xl">
+            <span className="sr-only">{profile.name}, </span>
+            {profile.title.text}
+            <em className="font-serif font-normal">{profile.title.accent}</em>
+          </h1>
+          <p className="mt-5 max-w-xl text-lg text-muted sm:text-xl">{profile.tagline}</p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href="#work"
+              onClick={(e) => go(e, "#work")}
+              className="inline-flex min-h-12 items-center gap-2 rounded-full bg-ink px-6 font-medium text-on-ink transition-transform duration-200 hover:-translate-y-0.5"
+            >
+              Explore work <Icon name="arrowDown" size={16} />
+            </a>
+            <a
+              href="#contact"
+              onClick={(e) => go(e, "#contact")}
+              className="inline-flex min-h-12 items-center gap-2 rounded-full border border-ink/25 px-6 font-medium text-ink transition-colors duration-200 hover:border-ink"
+            >
+              Let&apos;s talk
+            </a>
+          </div>
+        </m.div>
+      </div>
+    </section>
+  );
+}
+
+function Page() {
+  return (
+    <>
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
+      <Nav />
+      <main id="main" tabIndex={-1} className="outline-none">
+        <Hero />
+        <About />
+        <Skills />
+        <Work />
+        <Certifications />
+        <Timeline />
+        <Achievements />
+        <Contact />
+      </main>
+      <Footer />
+    </>
   );
 }
 
@@ -31,22 +99,9 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <LazyMotion features={loadMotionFeatures} strict>
-        <SiteProvider>
-          <a href="#main" className="skip-link">
-            Skip to content
-          </a>
-          <Header />
-          <main id="main" tabIndex={-1} className="outline-none">
-            <div id="top" />
-            <Hero />
-            <Projects />
-            <Story />
-            <Skills />
-            <Contact />
-          </main>
-          <Footer />
-          <CaseStudy />
-        </SiteProvider>
+        <SmoothScrollProvider>
+          <Page />
+        </SmoothScrollProvider>
       </LazyMotion>
     </MotionConfig>
   );
