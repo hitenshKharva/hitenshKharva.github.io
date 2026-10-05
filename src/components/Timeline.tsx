@@ -1,4 +1,5 @@
-import { m, useReducedMotion, useScroll } from "motion/react";
+import { m, useScroll } from "motion/react";
+import { useReducedMotion } from "../lib/useReducedMotion";
 import { useRef, type MouseEvent } from "react";
 import { timeline, type TimelineEntry } from "../content/site";
 import { useScrollTo } from "../lib/smoothScroll";
@@ -71,7 +72,8 @@ export function Timeline() {
       lead="Education &"
       accent="experience."
       intro="Banking software, backend, data, then AWS and Amazon, in order."
-      className="glow"
+      // Cards start offset sideways before they slide in; clip so that never adds page width.
+      className="glow overflow-x-clip"
     >
       <ol ref={ref} className="relative">
         {/* Track + scroll-driven fill. Left edge on mobile, centre on desktop. */}

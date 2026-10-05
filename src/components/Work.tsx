@@ -1,4 +1,5 @@
-import { AnimatePresence, m, useReducedMotion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
+import { useReducedMotion } from "../lib/useReducedMotion";
 import { useState } from "react";
 import { projects, type Project } from "../content/site";
 import { Icon } from "./Icon";

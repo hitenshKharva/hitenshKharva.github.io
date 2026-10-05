@@ -1,4 +1,5 @@
-import { m, useInView, useMotionValue, useReducedMotion, type MotionValue, type PanInfo } from "motion/react";
+import { m, useInView, useMotionValue, type MotionValue, type PanInfo } from "motion/react";
+import { useReducedMotion } from "../lib/useReducedMotion";
 import { useEffect, useMemo, useRef } from "react";
 import { about, links, profile, quickFacts } from "../content/site";
 import { Icon } from "./Icon";

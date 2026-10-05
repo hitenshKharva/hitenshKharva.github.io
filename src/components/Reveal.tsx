@@ -1,4 +1,5 @@
-import { m, useReducedMotion } from "motion/react";
+import { m } from "motion/react";
+import { useReducedMotion } from "../lib/useReducedMotion";
 import type { ReactNode } from "react";
 
 /** Fade + slight rise when scrolled into view, once. Static under reduced motion. */

@@ -1,4 +1,5 @@
-import { useInView, useReducedMotion } from "motion/react";
+import { useInView } from "motion/react";
+import { useReducedMotion } from "../lib/useReducedMotion";
 import { useEffect, useRef, useState } from "react";
 import { achievements, type Achievement } from "../content/site";
 import { Reveal } from "./Reveal";

@@ -1,4 +1,5 @@
-import { m, useReducedMotion } from "motion/react";
+import { m } from "motion/react";
+import { useReducedMotion } from "../lib/useReducedMotion";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { profile } from "../content/site";
 import { useScrollTo } from "../lib/smoothScroll";

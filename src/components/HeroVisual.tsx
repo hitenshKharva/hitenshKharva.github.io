@@ -1,4 +1,4 @@
-import { useReducedMotion } from "motion/react";
+import { useReducedMotion } from "../lib/useReducedMotion";
 import { useEffect, useRef, useState } from "react";
 import { profile } from "../content/site";
 import { Icon } from "./Icon";

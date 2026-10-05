@@ -1,4 +1,5 @@
-import { AnimatePresence, m, useReducedMotion, type Variants } from "motion/react";
+import { AnimatePresence, m, type Variants } from "motion/react";
+import { useReducedMotion } from "../lib/useReducedMotion";
 import { useEffect, useState } from "react";
 import { families, skills, type Family, type Skill } from "../content/site";
 import { Section } from "./Section";

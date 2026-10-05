@@ -1,40 +1,57 @@
 # hitenshkharva.github.io
 
-Personal portfolio. Vite + React + TypeScript + Tailwind CSS v4 + Motion for React.
-Live at https://hitenshkharva.github.io/.
+Personal portfolio of Hitensh Kharva. Live at https://hitenshkharva.github.io/.
 
-## Develop
+Built with Vite, React, TypeScript, Tailwind CSS v4, Motion for React and Lenis, following
+[`PORTFOLIO_PLAN.md`](PORTFOLIO_PLAN.md)'s design. The page is prerendered to static HTML
+at build time and hydrated in the browser.
+
+## Run it
 
 ```sh
 npm install
 npm run dev        # http://localhost:5173
-npm run build      # typecheck + production build into dist/
-npm run preview    # serve dist/ locally
+npm run build      # typecheck, build, prerender into dist/
+npm run preview    # serve dist/ at http://localhost:4173
 ```
 
 ## Editing content
 
-All copy lives in [`src/content.ts`](src/content.ts). A `null` value renders as a visible
-**TODO** badge on the site, so missing facts are obvious instead of invented.
+All text lives in **[`src/content/site.ts`](src/content/site.ts)**. Components only read
+from it, so you never need to touch them to change copy.
 
-- Résumé: add the PDF at `public/resume.pdf`.
-- Projects: fill in `summary`, `steps` ("How it works"), `stack` and `link`, and check `categories`.
+| What | Where in `site.ts` |
+|---|---|
+| Name, title, tagline, email, location | `profile` |
+| GitHub / LinkedIn | `links` |
+| About bio and pull quote | `about` |
+| Quick facts next to the ID card | `quickFacts` |
+| Periodic table tiles | `skills` (symbol, name, family, note, optional `icon`) |
+| Work panels | `projects` (illustration: `rag`, `dag`, `heatmap`, `dashboard`, `stream`, `lakehouse`) |
+| Certifications | `certifications` |
+| Timeline | `timeline` |
+| Count-up cards | `achievements` (`value` counts up; `display` for text like "1st") |
+
+### Files you can drop in
+
+- **Résumé:** add `public/resume.pdf`. The Resume buttons appear automatically on the next build.
+- **Photo for the ID card:** add e.g. `public/photo/me.jpg` and set `profile.photo = "/photo/me.jpg"`.
+- **Avatar video for the hero:** add `public/avatar/hero.webm` / `hero.mp4` / `poster.webp` and
+  set `profile.avatar`. It replaces the data-flow animation.
+
+### Skill logos
+
+Logos come from [Simple Icons](https://simpleicons.org). To add one, put its slug in the
+`slugs` list in `scripts/gen-skill-icons.mjs`, run `npm run icons`, and set `icon` on the
+skill in `site.ts`. Skills without a logo show their symbol instead.
 
 ## Design
 
-The default look is a "data editorial" design: a hero query console, animated
-architecture strips, and deep-linkable case studies at `#/work/<id>`. The direction is
-documented in [`design-system/portfolio/pages/home.md`](design-system/portfolio/pages/home.md),
-on top of the generated [`MASTER.md`](design-system/portfolio/MASTER.md).
-
-Three alternate looks (Terminal, Bold, Horizon) are available from the footer switcher
-and the terminal's `theme` command. The choice is saved in `localStorage` (`portfolio-look`).
-
-Projects without a write-up, and missing links, show as TODO badges in `npm run dev` only.
-The résumé link appears once `public/resume.pdf` exists.
+Tokens are in `src/index.css`. The design-system notes are in
+[`design-system/portfolio/`](design-system/portfolio/) (`MASTER.md` from the UI UX Pro Max
+skill, `pages/home.md` for this page).
 
 ## Deploy
 
-`.github/workflows/deploy.yml` builds on every PR and deploys `dist/` to GitHub Pages on
-push to `main`. One-time setup: **Settings → Pages → Build and deployment → Source:
-GitHub Actions**.
+`.github/workflows/deploy.yml` builds every pull request and deploys `dist/` to GitHub
+Pages on every push to `main` (Pages source: **GitHub Actions**).

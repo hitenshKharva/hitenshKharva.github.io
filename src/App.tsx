@@ -1,4 +1,5 @@
-import { LazyMotion, MotionConfig, m, useReducedMotion } from "motion/react";
+import { LazyMotion, MotionConfig, m } from "motion/react";
+import { useReducedMotion } from "./lib/useReducedMotion";
 import type { MouseEvent } from "react";
 import { About } from "./components/About";
 import { Achievements } from "./components/Achievements";

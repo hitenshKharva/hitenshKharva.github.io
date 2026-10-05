@@ -1,5 +1,5 @@
 import Lenis from "lenis";
-import { useReducedMotion } from "motion/react";
+import { useReducedMotion } from "./useReducedMotion";
 import { createContext, useCallback, useContext, useEffect, useRef, type ReactNode } from "react";
 
 type ScrollTo = (target: string) => void;
