@@ -34,11 +34,11 @@ export const profile = {
 };
 
 /**
- * Hero animation: each incoming dot carries one of these "raw events". They appear when a
- * dot is hovered (or tapped) and when it enters the HK core. Facts only, from the résumé
- * doc and the old project pages.
+ * Hero animation: milestones for the "raw events" stream. Skills and certifications are
+ * added automatically from their lists further down (see `rawEvents` at the end of the file).
+ * Facts only, from the résumé doc and the old project pages.
  */
-export const rawEvents: string[] = [
+const milestoneEvents: string[] = [
   // Education
   "2014 · Started BE, E&TC at University of Mumbai (SPIT)",
   "2018 · Graduated BE, Electronics & Telecom",
@@ -67,13 +67,19 @@ export const rawEvents: string[] = [
   "Project · F1 data on Azure Databricks",
   "Project · Stack Overflow expert finder (K-means)",
   "Project · MotoGP race analytics in Looker",
-  // Certifications
-  "Cert · Algorithms Specialization (Stanford)",
-  "Cert · Data Engineering Professional Certificate",
   // Life: add personal moments here (cities, hobbies, milestones). Keep them short.
 ];
 
-export const heroOutput = { title: "Hitensh · engineer", tags: "data · AI · software" };
+/** First full-time role (LTI, July 2018). The hero output "engineer vN.0" counts whole years from here. */
+export const careerStart = new Date(2018, 6, 1);
+
+export function yearsShipping(now = new Date()) {
+  let years = now.getFullYear() - careerStart.getFullYear();
+  if (now < new Date(now.getFullYear(), careerStart.getMonth(), careerStart.getDate())) years -= 1;
+  return years;
+}
+
+export const heroOutput = { tags: "data · AI · software" };
 
 export const links = {
   github: "https://github.com/hitenshKharva",
@@ -376,4 +382,14 @@ export const achievements: Achievement[] = [
   { value: 5000, suffix: "+", label: "Access requests automated", line: "During a 500+ table migration." },
   { value: 135, label: "Slides automated", line: "Weekly review prep from 2–4 hours to 5–10 minutes." },
   { display: "1st", label: "AI ops tool on the team", line: "The RAG ticket analyzer, now part of the triage SOP." },
+];
+
+/**
+ * Everything the hero's dots can carry: milestones, every skill (with how I've used it) and
+ * every certification. Each dot shows one of these on hover/tap and when it enters the core.
+ */
+export const rawEvents: string[] = [
+  ...milestoneEvents,
+  ...skills.map((s) => `${s.name} · ${s.note.replace(/\.$/, "")}`),
+  ...certifications.map((c) => `Certified · ${c.name}${/certification/i.test(c.issuer) ? "" : ` (${c.issuer})`}`),
 ];
