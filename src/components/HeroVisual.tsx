@@ -1,6 +1,6 @@
 import { useReducedMotion } from "../lib/useReducedMotion";
 import { useEffect, useRef, useState } from "react";
-import { heroOutput, profile, rawEvents } from "../content/site";
+import { heroOutput, profile, rawEvents, yearsShipping } from "../content/site";
 import { Icon } from "./Icon";
 
 const INK = "28, 31, 46";
@@ -243,15 +243,16 @@ function DataFlowCanvas({ playing }: { playing: boolean }) {
       ctx!.textBaseline = "middle";
       ctx!.fillText("HK", c.x, c.y + 1);
 
-      // Output: the engineer.
       ctx!.textAlign = "right";
       ctx!.textBaseline = "middle";
       ctx!.font = `600 ${phone ? 10 : 12}px ${MONO}`;
       ctx!.fillStyle = `rgba(${INK}, 1)`;
-      ctx!.fillText(phone ? "HITENSH" : heroOutput.title.toUpperCase(), sinkX(), c.y - (phone ? 14 : 18));
-      ctx!.font = `${phone ? 600 : 400} ${phone ? 10 : 11}px ${MONO}`;
-      ctx!.fillStyle = phone ? `rgba(${INK}, 1)` : `rgba(${MUTED}, 1)`;
-      ctx!.fillText(phone ? "ENGINEER" : heroOutput.tags, sinkX(), c.y + (phone ? 14 : 18));
+      // Output: the current release. vN.0 = N years since the first role; spelled out below.
+      const years = yearsShipping();
+      ctx!.fillText(`ENGINEER v${years}.0`, sinkX(), c.y - (phone ? 14 : 18));
+      ctx!.font = `${phone ? 10 : 11}px ${MONO}`;
+      ctx!.fillStyle = `rgba(${MUTED}, 1)`;
+      ctx!.fillText(phone ? `${years} yrs shipping` : `${years} yrs · ${heroOutput.tags}`, sinkX(), c.y + (phone ? 14 : 18));
 
       drawCaption(time);
       const tip = hovered ?? (tapped && tapped.until > time ? tapped.p : null);
@@ -422,7 +423,7 @@ export function HeroVisual() {
         ) : (
           <>
             Illustration: raw events from my life and career flow in as dots, pass through me, and come out as
-            one engineer working across data, AI and software. The events:
+            the current release of one engineer, shipping across data, AI and software since 2018. The events:
             <ul>
               {rawEvents.map((e) => (
                 <li key={e}>{e}</li>

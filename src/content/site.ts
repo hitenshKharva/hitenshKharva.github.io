@@ -73,7 +73,16 @@ export const rawEvents: string[] = [
   // Life: add personal moments here (cities, hobbies, milestones). Keep them short.
 ];
 
-export const heroOutput = { title: "Hitensh · engineer", tags: "data · AI · software" };
+/** First full-time role (LTI, July 2018). The hero output "engineer vN.0" counts whole years from here. */
+export const careerStart = new Date(2018, 6, 1);
+
+export function yearsShipping(now = new Date()) {
+  let years = now.getFullYear() - careerStart.getFullYear();
+  if (now < new Date(now.getFullYear(), careerStart.getMonth(), careerStart.getDate())) years -= 1;
+  return years;
+}
+
+export const heroOutput = { tags: "data · AI · software" };
 
 export const links = {
   github: "https://github.com/hitenshKharva",
