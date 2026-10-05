@@ -1,6 +1,6 @@
 import { useReducedMotion } from "../lib/useReducedMotion";
 import { useEffect, useRef, useState } from "react";
-import { profile } from "../content/site";
+import { heroEvents, heroOutput, profile } from "../content/site";
 import { Icon } from "./Icon";
 
 const INK = "28, 31, 46";
@@ -12,10 +12,15 @@ interface Particle {
   size: number;
 }
 
+const MUTED = "98, 92, 81";
+const MONO = '"JetBrains Mono", ui-monospace, monospace';
+const SANS = '"Inter Tight", system-ui, sans-serif';
+
 /**
- * "Raw events → real decisions": scattered points stream from many sources into a
- * pipeline core and leave as one orderly line. Canvas 2D, ink on cream.
- * Pauses off-screen and when the tab is hidden; a still frame under reduced motion.
+ * "Data in. Decisions out.": moments from Hitensh's career stream in from the left as
+ * raw events, pass through the HK core and leave as one orderly line: the engineer.
+ * Canvas 2D, ink on cream. Pauses off-screen and when the tab is hidden; a still frame
+ * under reduced motion.
  */
 function DataFlowCanvas({ playing }: { playing: boolean }) {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -29,6 +34,10 @@ function DataFlowCanvas({ playing }: { playing: boolean }) {
     let w = 0;
     let h = 0;
     let lanes: number[] = [];
+    let labels: string[] = [];
+    let phone = false;
+    let labelFont = "";
+    let colX = 0; // where lanes start, right of the label column
     let particles: Particle[] = [];
     let raf = 0;
     let visible = true;
@@ -36,16 +45,21 @@ function DataFlowCanvas({ playing }: { playing: boolean }) {
 
     function setup() {
       const rect = canvas!.getBoundingClientRect();
-      const phone = rect.width < 640;
+      phone = rect.width < 640;
       const dpr = Math.min(window.devicePixelRatio || 1, phone ? 1.5 : 2);
       w = rect.width;
       h = rect.height;
       canvas!.width = Math.round(w * dpr);
       canvas!.height = Math.round(h * dpr);
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const laneCount = phone ? 6 : 9;
-      lanes = Array.from({ length: laneCount }, (_, i) => 0.12 + (0.76 * i) / (laneCount - 1));
-      const count = phone ? 70 : 150;
+      labels = heroEvents.map((e) => (phone ? e.short : e.label));
+      const laneCount = labels.length;
+      lanes = Array.from({ length: laneCount }, (_, i) => 0.1 + (0.8 * i) / (laneCount - 1));
+      labelFont = `${phone ? 10 : 11}px ${MONO}`;
+      ctx!.font = labelFont;
+      const widest = Math.max(...labels.map((l) => ctx!.measureText(l).width));
+      colX = Math.min(w * 0.42, widest + 22);
+      const count = phone ? 80 : 160;
       // Deterministic spread so the still frame looks the same every time.
       particles = Array.from({ length: count }, (_, i) => ({
         lane: i % laneCount,
@@ -55,8 +69,8 @@ function DataFlowCanvas({ playing }: { playing: boolean }) {
       }));
     }
 
-    const core = () => ({ x: w * 0.56, y: h * 0.5 });
-    const sourceX = () => w * 0.04;
+    const core = () => ({ x: phone ? w * 0.6 : Math.max(colX + (w - colX) * 0.45, w * 0.5), y: h * 0.5 });
+    const sourceX = () => colX;
     const sinkX = () => w * 0.97;
 
     // Cubic bezier from a source lane into the core.
@@ -94,6 +108,31 @@ function DataFlowCanvas({ playing }: { playing: boolean }) {
       ctx!.lineTo(sinkX(), c.y);
       ctx!.stroke();
 
+      // Raw events: a career moment at the start of each lane.
+      ctx!.font = labelFont;
+      ctx!.textAlign = "right";
+      ctx!.textBaseline = "middle";
+      labels.forEach((label, lane) => {
+        const y = h * lanes[lane];
+        ctx!.fillStyle = `rgba(${MUTED}, 1)`;
+        ctx!.fillText(label, colX - 10, y);
+        ctx!.fillStyle = `rgba(${INK}, 0.5)`;
+        ctx!.beginPath();
+        ctx!.arc(colX - 2, y, 2, 0, Math.PI * 2);
+        ctx!.fill();
+      });
+
+      // Output: the engineer.
+      const outTop = phone ? "HITENSH" : heroOutput.title.toUpperCase();
+      const outBottom = phone ? "ENGINEER" : heroOutput.tags;
+      ctx!.textAlign = "right";
+      ctx!.font = `600 ${phone ? 10 : 12}px ${MONO}`;
+      ctx!.fillStyle = `rgba(${INK}, 1)`;
+      ctx!.fillText(outTop, sinkX(), c.y - (phone ? 14 : 18));
+      ctx!.font = `${phone ? 600 : 400} ${phone ? 10 : 11}px ${MONO}`;
+      ctx!.fillStyle = phone ? `rgba(${INK}, 1)` : `rgba(${MUTED}, 1)`;
+      ctx!.fillText(outBottom, sinkX(), c.y + (phone ? 14 : 18));
+
       // Particles: round and scattered on the way in, square and in step on the way out.
       particles.forEach((p) => {
         if (p.t < 0.5) {
@@ -127,9 +166,10 @@ function DataFlowCanvas({ playing }: { playing: boolean }) {
       ctx!.strokeStyle = `rgba(${INK}, 0.12)`;
       ctx!.stroke();
       ctx!.fillStyle = `rgba(${INK}, 1)`;
-      ctx!.beginPath();
-      ctx!.arc(c.x, c.y, r * 0.28, 0, Math.PI * 2);
-      ctx!.fill();
+      ctx!.font = `800 ${Math.round(r * 0.62)}px ${SANS}`;
+      ctx!.textAlign = "center";
+      ctx!.textBaseline = "middle";
+      ctx!.fillText("HK", c.x, c.y + 1);
     }
 
     function step(now: number) {
@@ -157,6 +197,11 @@ function DataFlowCanvas({ playing }: { playing: boolean }) {
 
     setup();
     draw(0);
+    // Labels are drawn in web fonts: measure and repaint once they've loaded.
+    document.fonts?.ready.then(() => {
+      setup();
+      draw(performance.now());
+    });
 
     const ro = new ResizeObserver(() => {
       setup();
@@ -218,16 +263,13 @@ export function HeroVisual() {
       ) : (
         <>
           <DataFlowCanvas playing={playing} />
-          <span aria-hidden="true" className="absolute left-[4%] top-[6%] font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
+          <span aria-hidden="true" className="absolute left-0 top-0 font-mono text-[11px] uppercase tracking-[0.2em] text-ink">
             Raw events
-          </span>
-          <span aria-hidden="true" className="absolute bottom-[6%] right-[3%] font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
-            Real decisions
           </span>
         </>
       )}
       <figcaption className="sr-only">
-        {hasVideo ? `Animated avatar of ${profile.name}.` : "Illustration: raw events flowing into a pipeline and out as real decisions."}
+        {hasVideo ? `Animated avatar of ${profile.name}.` : "Illustration: moments from my career (BE in 2014, LTI, Bloomstack, SDSU, Wind River, AWS, Amazon) flowing in as raw events and coming out as one engineer: data, AI and software."}
       </figcaption>
       {!reduce && (
         <button

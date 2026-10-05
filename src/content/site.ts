@@ -22,15 +22,33 @@ export const profile = {
   company: "Amazon",
   team: "Global Logistics",
   location: "Seattle, WA",
-  /** Hero headline: the title, with an italic-serif accent. */
-  title: { text: "Data Engineer", accent: "." },
-  tagline: "I build data platforms, and the AI tools that run on them.",
+  /** Hero: a role line for recruiters' keyword scan, then the hook (accent in italic serif). */
+  roleLine: "Software · Data · AI engineer",
+  headline: { lead: "Data in.", accent: "Decisions out." },
+  tagline: "I build the platforms data flows through, and the AI that puts it to work.",
   email: "hkharva3283@gmail.com",
   resume: "/resume.pdf",
   /** Avatar video / photo: drop files in public/avatar and public/photo, then set these. */
   avatar: { webm: null as string | null, mp4: null as string | null, poster: null as string | null },
   photo: null as string | null,
 };
+
+/**
+ * Hero animation: real moments from the timeline flow in as "raw events" and come out as
+ * the engineer. `short` is used on narrow screens.
+ */
+export const heroEvents: { label: string; short: string }[] = [
+  { label: "2014 · BE, E&TC", short: "BE '14" },
+  { label: "LTI · banking apps", short: "LTI" },
+  { label: "Bloomstack · REST APIs", short: "Bloomstack" },
+  { label: "SDSU · MS CS", short: "SDSU" },
+  { label: "Wind River · dbt + CI", short: "Wind River" },
+  { label: "AWS · Java services", short: "AWS" },
+  { label: "Amazon · data platforms", short: "Amazon" },
+  { label: "Amazon · RAG + agents", short: "RAG" },
+];
+
+export const heroOutput = { title: "Hitensh · engineer", tags: "data · AI · software" };
 
 export const links = {
   github: "https://github.com/hitenshKharva",
