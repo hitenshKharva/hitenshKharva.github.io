@@ -71,7 +71,7 @@ export function Timeline() {
       eyebrow="Experience"
       lead="Education &"
       accent="experience."
-      intro="Banking software, backend, data, then AWS and Amazon, in order."
+      intro="Most recent first: from Amazon back to banking software and engineering school."
       // Cards start offset sideways before they slide in; clip so that never adds page width.
       className="glow overflow-x-clip"
     >
@@ -84,8 +84,30 @@ export function Timeline() {
           style={{ scaleY: reduce ? 1 : scrollYProgress }}
         />
 
+        {/* What's next, at the top: the timeline runs newest first. */}
+        <li className="relative pb-12 pl-10 md:grid md:grid-cols-2 md:gap-16 md:pb-16 md:pl-0">
+          <span
+            aria-hidden="true"
+            className="absolute left-0 top-3 size-[15px] rounded-full border-2 border-ink bg-[var(--bg)] md:left-1/2 md:-translate-x-1/2"
+          />
+          <p className="mb-3 font-serif text-5xl italic leading-none text-ink/70 md:order-2 md:mb-0 md:text-7xl">Next</p>
+          <div className="md:order-1">
+            <div className="rounded-3xl border border-dashed border-ink/30 bg-surface/70 p-6">
+              <p className="text-2xl font-extrabold tracking-tight text-ink">Your team?</p>
+              <p className="mt-1 text-muted">Building data platforms or applied AI? I'd like to hear about it.</p>
+              <a
+                href="#contact"
+                onClick={go}
+                className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-ink px-5 text-sm font-medium text-on-ink transition-transform duration-200 hover:-translate-y-0.5"
+              >
+                Let's talk <Icon name="arrowDown" size={15} />
+              </a>
+            </div>
+          </div>
+        </li>
+
         {timeline.map((entry, i) => {
-          const side = i % 2 === 0 ? "left" : "right";
+          const side = i % 2 === 0 ? "right" : "left";
           const showYear = i === 0 || timeline[i - 1].year !== entry.year;
           return (
             <li key={`${entry.year}-${entry.title}`} className="relative pb-12 pl-10 md:grid md:grid-cols-2 md:gap-16 md:pl-0 md:pb-16">
@@ -113,27 +135,6 @@ export function Timeline() {
           );
         })}
 
-        {/* What's next */}
-        <li className="relative pl-10 md:grid md:grid-cols-2 md:gap-16 md:pl-0">
-          <span
-            aria-hidden="true"
-            className="absolute left-0 top-3 size-[15px] rounded-full border-2 border-ink bg-[var(--bg)] md:left-1/2 md:-translate-x-1/2"
-          />
-          <p className="mb-3 font-serif text-5xl italic leading-none text-ink/70 md:order-2 md:mb-0 md:text-7xl">Next</p>
-          <div className="md:order-1">
-            <div className="rounded-3xl border border-dashed border-ink/30 bg-surface/70 p-6">
-              <p className="text-2xl font-extrabold tracking-tight text-ink">Your team?</p>
-              <p className="mt-1 text-muted">Building data platforms or applied AI? I'd like to hear about it.</p>
-              <a
-                href="#contact"
-                onClick={go}
-                className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-ink px-5 text-sm font-medium text-on-ink transition-transform duration-200 hover:-translate-y-0.5"
-              >
-                Let's talk <Icon name="arrowDown" size={15} />
-              </a>
-            </div>
-          </div>
-        </li>
       </ol>
     </Section>
   );
