@@ -30,7 +30,7 @@ export const profile = {
   resume: "/resume.pdf",
   /** Avatar video / photo: drop files in public/avatar and public/photo, then set these. */
   avatar: { webm: null as string | null, mp4: null as string | null, poster: null as string | null },
-  photo: null as string | null,
+  photo: "/photo/hitensh.webp" as string | null,
 };
 
 /**

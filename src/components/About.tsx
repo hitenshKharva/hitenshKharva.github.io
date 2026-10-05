@@ -133,7 +133,7 @@ function IdCard() {
           <div className="px-5 pb-5 pt-5 text-center">
             <div className="mx-auto flex aspect-[4/5] w-32 items-center justify-center overflow-hidden rounded-2xl border border-line bg-[linear-gradient(160deg,#e8e0cf,#d6ccb9)]">
               {profile.photo ? (
-                <img src={profile.photo} alt="" className="h-full w-full object-cover" draggable={false} />
+                <img src={profile.photo} alt="" width={384} height={480} loading="lazy" decoding="async" className="h-full w-full object-cover" draggable={false} />
               ) : (
                 <span className="font-serif text-6xl italic text-ink/80">{initials}</span>
               )}
