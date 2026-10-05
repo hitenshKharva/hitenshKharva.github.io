@@ -180,7 +180,7 @@ function DataFlowCanvas({ playing }: { playing: boolean }) {
       ctx!.fillStyle = `rgba(${INK}, ${alpha})`;
       const maxW = Math.min(phone ? 200 : 300, 2 * Math.min(c.x, w - c.x) - 12);
       wrap(caption.text, maxW)
-        .slice(0, 3)
+        .slice(0, 2)
         .forEach((l, i) => ctx!.fillText(l, c.x, y0 + 15 + i * (phone ? 14 : 17)));
     }
 
@@ -416,11 +416,7 @@ export function HeroVisual() {
         <>
           <DataFlowCanvas playing={playing} />
           <span aria-hidden="true" className="pointer-events-none absolute left-0 top-0 font-mono text-[11px] uppercase tracking-[0.2em] text-ink">
-            Raw events{" "}
-            <span className="normal-case tracking-normal text-muted">
-              · <span className="sm:hidden">tap</span>
-              <span className="hidden sm:inline">hover</span> a dot
-            </span>
+            Raw events
           </span>
         </>
       )}
