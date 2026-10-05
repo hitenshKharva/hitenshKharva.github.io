@@ -44,10 +44,11 @@ function Hero() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-3xl"
         >
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted" aria-hidden="true">
-            {profile.name} <span className="text-muted/60">·</span> {profile.roleLine}
+          <p className="flex flex-wrap items-baseline gap-x-4 gap-y-1" aria-hidden="true">
+            <span className="text-2xl font-bold tracking-[-0.02em] text-ink sm:text-3xl">{profile.name}</span>
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted">{profile.roleLine}</span>
           </p>
-          <h1 id="hero-title" className="mt-3 text-5xl font-extrabold leading-[0.92] tracking-[-0.045em] text-ink sm:text-7xl lg:text-8xl">
+          <h1 id="hero-title" className="mt-4 text-5xl font-extrabold leading-[0.92] tracking-[-0.045em] text-ink sm:text-7xl lg:text-8xl">
             <span className="sr-only">
               {profile.name}, {profile.roleLine}.{" "}
             </span>
