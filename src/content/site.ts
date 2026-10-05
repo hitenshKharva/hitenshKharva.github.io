@@ -34,39 +34,39 @@ export const profile = {
 };
 
 /**
- * Hero animation: milestones for the "raw events" stream. Skills and certifications are
- * added automatically from their lists further down (see `rawEvents` at the end of the file).
- * Facts only, from the résumé doc and the old project pages.
+ * Hero animation: short labels for the "raw events" stream (one to four words each, so they
+ * read at a glance). Skills and certifications are added automatically from their lists
+ * further down (see `rawEvents` at the end of the file). Facts only.
  */
 const milestoneEvents: string[] = [
   // Education
-  "2014 · Started BE, E&TC at University of Mumbai (SPIT)",
-  "2018 · Graduated BE, Electronics & Telecom",
-  "2021 · Started MS CS at San Diego State",
-  "2023 · Graduated MS CS, San Diego State",
+  "BE · SPIT Mumbai",
+  "MS CS · SDSU",
   // Career
-  "2018 · First role: Software Engineer at LTI, Pune",
-  "LTI · Banking apps shipped across 9 countries",
-  "LTI · Test automation lifted team efficiency 20%",
-  "2020 · Backend Python Engineer at Bloomstack",
-  "Bloomstack · Dashboards that saved 2 hours a day",
-  "2022 · Data Developer Intern at Wind River",
-  "Wind River · PII masking models in Snowflake",
-  "2023 · Data Developer at Wind River, San Diego",
-  "Wind River · Data-model reviews 25% faster",
-  "2023 · SDE at Amazon Web Services, Seattle",
-  "2024 · Data Engineer, Amazon Global Logistics",
-  "Amazon · Ingestion platform for 13+ teams",
-  "Amazon · 5,000+ access requests automated",
-  "2025 · Built the team's first AI ops tool (RAG)",
-  "2026 · Promoted to Data Engineer II",
-  "2026 · Talk: Building AI Agents for ETL Automation",
-  "Amazon · Mentoring 3 engineers",
+  "LTI · Software Engineer",
+  "Bloomstack · Backend",
+  "Wind River · Data Intern",
+  "Wind River · Data Dev",
+  "AWS · SDE",
+  "Amazon · Data Engineer",
+  "Data Engineer II",
+  // Highlights
+  "Banking apps · 9 countries",
+  "13+ teams onboarded",
+  "5,000+ requests automated",
+  "Triage: 15 → 3 min",
+  "Talk · AI agents for ETL",
+  "Mentor × 3",
+  // Moves
+  "Pune → San Diego",
+  "San Diego → Seattle",
   // Projects
-  "Project · Reddit batch ELT with Airflow + dbt",
-  "Project · F1 data on Azure Databricks",
-  "Project · Stack Overflow expert finder (K-means)",
-  "Project · MotoGP race analytics in Looker",
+  "RAG ticket analyzer",
+  "Ingestion platform",
+  "Reddit ELT",
+  "F1 on Databricks",
+  "Stack Overflow experts",
+  "MotoGP analytics",
   // Life: add personal moments here (cities, hobbies, milestones). Keep them short.
 ];
 
@@ -262,15 +262,17 @@ export const projects: Project[] = [
   },
 ];
 
-export const certifications: { name: string; issuer: string; link?: string }[] = [
-  { name: "Cloud Data Engineer Associate", issuer: "Cloud certification" },
+export const certifications: { name: string; issuer: string; link?: string; /** Hero label */ short: string }[] = [
+  { name: "Cloud Data Engineer Associate", issuer: "Cloud certification", short: "Cloud Data Eng. cert" },
   {
     name: "Algorithms Specialization",
+    short: "Stanford Algorithms",
     issuer: "Stanford · Coursera",
     link: "https://www.coursera.org/account/accomplishments/specialization/788VTXK6GBAQ",
   },
   {
     name: "Data Engineering Professional Certificate",
+    short: "Data Eng. Pro cert",
     issuer: "Coursera",
     link: "https://www.coursera.org/account/accomplishments/professional-cert/6578B2HCR8FD",
   },
@@ -385,11 +387,10 @@ export const achievements: Achievement[] = [
 ];
 
 /**
- * Everything the hero's dots can carry: milestones, every skill (with how I've used it) and
- * every certification. Each dot shows one of these on hover/tap and when it enters the core.
+ * Everything the hero's dots can carry: milestones, every skill and every certification. Each dot shows one of these on hover/tap and when it enters the core.
  */
 export const rawEvents: string[] = [
   ...milestoneEvents,
-  ...skills.map((s) => `${s.name} · ${s.note.replace(/\.$/, "")}`),
-  ...certifications.map((c) => `Certified · ${c.name}${/certification/i.test(c.issuer) ? "" : ` (${c.issuer})`}`),
+  ...skills.map((s) => s.name),
+  ...certifications.map((c) => c.short),
 ];
