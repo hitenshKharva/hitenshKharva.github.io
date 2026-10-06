@@ -293,11 +293,11 @@ export const timeline: TimelineEntry[] = [
   {
     year: "2026",
     kind: "experience",
-    dates: "2026 – Present",
+    dates: "Jul 2026 – Present",
     title: "Data Engineer II",
     org: "Amazon · Global Logistics · Seattle",
     bullets: [
-      "Promoted from Data Engineer in 2026.",
+      "Promoted from Data Engineer in July 2026.",
       "Mentor 3 engineers; gave the talk “Building AI Agents for ETL Automation”.",
     ],
     tags: ["LLMs", "Agents", "PySpark"],
@@ -305,7 +305,7 @@ export const timeline: TimelineEntry[] = [
   {
     year: "2024",
     kind: "experience",
-    dates: "Jul 2024 – 2026",
+    dates: "Jul 2024 – Jul 2026",
     title: "Data Engineer",
     org: "Amazon · Global Logistics · Seattle",
     bullets: [
