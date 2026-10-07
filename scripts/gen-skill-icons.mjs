@@ -5,8 +5,8 @@ import { writeFileSync } from "node:fs";
 import * as icons from "simple-icons";
 
 const slugs = [
-  "python", "typescript", "openjdk", "apachespark", "apacheairflow", "apachekafka", "looker", "django",
-  "snowflake", "postgresql", "mysql", "apachecassandra", "mongodb", "docker", "githubactions",
+  "python", "typescript", "openjdk", "apachespark", "apacheairflow", "looker", "django",
+  "snowflake", "postgresql", "mysql", "apachecassandra", "mongodb", "docker", "githubactions", "modelcontextprotocol",
 ];
 const bySlug = Object.fromEntries(Object.values(icons).filter((i) => i && i.slug).map((i) => [i.slug, i]));
 const entries = slugs.map((s) => {
