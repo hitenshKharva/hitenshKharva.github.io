@@ -27,7 +27,8 @@ from it, so you never need to touch them to change copy.
 | About bio and pull quote | `about` |
 | Quick facts next to the ID card | `quickFacts` |
 | Periodic table tiles | `skills` (symbol, name, family, note, optional `icon`) |
-| Work panels | `projects` (illustration: `rag`, `dag`, `heatmap`, `dashboard`, `stream`, `lakehouse`) |
+| Work panels | `projects` (illustration: `queue`, `catalog`, `rag`, `gem`, `dashboard`, `dag`) |
+| More work · side projects | `moreWork`, `sideProjects` |
 | Certifications | `certifications` |
 | Timeline | `timeline` |
 | Count-up cards | `achievements` (`value` counts up; `display` for text like "1st") |

@@ -1,7 +1,7 @@
 // All personal content for the site. Components only read from here.
 //
-// Sources: Hitensh's résumé source doc (product-neutral) and the previous site's project
-// pages. Nothing is invented; anything not yet provided is marked TODO or left out.
+// Sources: Hitensh's résumé (Kharva_Hitensh_Resume.pdf), his public-safe project case studies
+// (Portfolio-Projects.md) and the previous site's project pages. Nothing is invented; anything not yet provided is marked TODO or left out.
 
 export type Family = "languages" | "data" | "backend" | "databases" | "cloud" | "ai";
 
@@ -48,25 +48,31 @@ const milestoneEvents: string[] = [
   "Wind River · Data Intern",
   "Wind River · Data Dev",
   "AWS · SDE",
-  "Amazon · Data Engineer",
+  "Amazon · Data Engineer I",
   "Data Engineer II",
   // Highlights
   "Banking apps · 9 countries",
   "13+ teams onboarded",
   "5,000+ requests automated",
   "Triage: 15 → 3 min",
+  "Attribution: 14% → 98%",
+  "0 failures, no human",
+  "135 slides automated",
   "Talk · AI agents for ETL",
   "Mentor × 3",
   // Moves
   "Pune → San Diego",
   "San Diego → Seattle",
   // Projects
-  "RAG ticket analyzer",
+  "Congestion agent",
+  "25 datasets · 8 domains",
+  "Ruby on CodeArtifact",
+  "RAG triage assistant",
   "Ingestion platform",
+  "Multi-agent platform",
   "Reddit ELT",
   "F1 on Databricks",
-  "Stack Overflow experts",
-  "MotoGP analytics",
+  "E-commerce on AWS",
   // Life: add personal moments here (cities, hobbies, milestones). Keep them short.
 ];
 
@@ -90,8 +96,8 @@ export const links = {
 export const about = {
   /** Draft bio written from the résumé doc; edit freely. */
   bio: [
-    "I'm a Data Engineer II at Amazon Global Logistics. I own a self-service ingestion platform used by 13+ teams and the cross-regional inventory model that weekly business reviews run on.",
-    "I started out shipping banking software, moved through backend Python and data at Wind River, and spent time as an SDE at AWS. These days I also build the AI tools that put the data to work, like the team's first RAG-powered ticket analyzer.",
+    "I'm a Data Engineer II at Amazon Global Logistics, where I build the data platforms that logistics planning runs on and the AI agents that act on that data. I recently shipped an LLM agent that resolves data-warehouse congestion with no human in the loop, built the 25-dataset foundation behind an AI capacity-planning agent, and co-built my team's production multi-agent platform.",
+    "Before that I was an SDE at AWS, where I helped build and launch Ruby package support for AWS CodeArtifact. Earlier I was a data developer at Wind River and a backend and banking software engineer in India. I like problems where the hard part is finding the real cause, and where the fix has to be safe enough to run unattended.",
   ],
   quote: "From raw events to real decisions.",
 };
@@ -100,8 +106,8 @@ export const quickFacts: { label: string; value: string }[] = [
   { label: "Based in", value: "Seattle, WA" },
   { label: "Role", value: "Data Engineer II · Amazon" },
   { label: "Studied", value: "MS CS · San Diego State" },
-  { label: "Previously", value: "AWS · Wind River" },
-  { label: "Focus", value: "Data platforms · AI tools" },
+  { label: "Previously", value: "AWS CodeArtifact · Wind River" },
+  { label: "Focus", value: "Data platforms · AI agents" },
 ];
 
 export interface Skill {
@@ -117,13 +123,13 @@ export interface Skill {
 
 export const skills: Skill[] = [
   { number: 1, symbol: "Py", name: "Python", family: "languages", icon: "python", note: "My main language for pipelines and automation, for 7+ years." },
-  { number: 2, symbol: "Sq", name: "SQL", family: "languages", note: "Daily driver, including a ~2,200-line transform behind a 189-column model." },
+  { number: 2, symbol: "Sq", name: "SQL", family: "languages", note: "Daily driver, including a 2,000+ line transform behind a 189-column model." },
   { number: 3, symbol: "Ts", name: "TypeScript", family: "languages", icon: "typescript", note: "Part of my core stack at Amazon; 3+ years with JS/TS." },
-  { number: 4, symbol: "Jv", name: "Java", family: "languages", icon: "openjdk", note: "Package-manager protocol client and adapter service at AWS." },
+  { number: 4, symbol: "Jv", name: "Java", family: "languages", icon: "openjdk", note: "RubyGems adapter service and client library for AWS CodeArtifact." },
   { number: 5, symbol: "Sp", name: "PySpark", family: "data", icon: "apachespark", note: "Big-data ETL at work, and Databricks for the F1 project." },
   { number: 6, symbol: "Db", name: "dbt", family: "data", note: "Staging-to-marts models and CI checks at Wind River." },
-  { number: 7, symbol: "Af", name: "Airflow", family: "data", icon: "apacheairflow", note: "Orchestrated the Reddit batch ELT pipeline." },
-  { number: 8, symbol: "Kf", name: "Kafka", family: "data", icon: "apachekafka", note: "Part of the MotoGP race analytics project." },
+  { number: 7, symbol: "Af", name: "Airflow", family: "data", icon: "apacheairflow", note: "MWAA DAGs of modular Spark jobs at work; the Reddit ELT pipeline at home." },
+  { number: 8, symbol: "Ib", name: "Iceberg", family: "data", note: "Idempotent merges and a stage-by-stage checkpoint tool at ~12M rows." },
   { number: 9, symbol: "Ft", name: "Fivetran", family: "data", note: "Connectors moving survey and social data into the warehouse." },
   { number: 10, symbol: "Lk", name: "Looker", family: "data", icon: "looker", note: "Dashboards and automated LookML validation at Wind River." },
   { number: 11, symbol: "Ra", name: "REST APIs", family: "backend", note: "Pipelines from external APIs, 200+ data points a day at Bloomstack." },
@@ -134,7 +140,7 @@ export const skills: Skill[] = [
   { number: 16, symbol: "My", name: "MySQL", family: "databases", icon: "mysql", note: "Backend and ETL work at LTI and Bloomstack." },
   { number: 17, symbol: "Cs", name: "Cassandra", family: "databases", icon: "apachecassandra", note: "NoSQL databases are part of my stack at Amazon." },
   { number: 18, symbol: "Mg", name: "MongoDB", family: "databases", icon: "mongodb", note: "NoSQL work at LTI." },
-  { number: 19, symbol: "Rs", name: "Redshift", family: "databases", note: "Warehouse for the Reddit, MotoGP and e-commerce projects." },
+  { number: 19, symbol: "Rs", name: "Redshift", family: "databases", note: "Shared warehouse I keep healthy at work; Reddit and e-commerce pipelines." },
   { number: 20, symbol: "Ic", name: "IaC", family: "cloud", note: "The ingestion platform I own is built and run as code." },
   { number: 21, symbol: "Sv", name: "Serverless", family: "cloud", note: "The orchestrator behind the RAG ticket analyzer." },
   { number: 22, symbol: "Dk", name: "Docker", family: "cloud", icon: "docker", note: "Packaged the Reddit ELT pipeline with Airflow." },
@@ -142,15 +148,17 @@ export const skills: Skill[] = [
   { number: 24, symbol: "Ll", name: "LLMs", family: "ai", note: "Ticket analysis and web-scraping agents in production." },
   { number: 25, symbol: "Rg", name: "RAG", family: "ai", note: "Runbook retrieval that cut ticket triage from 15 to 3 minutes." },
   { number: 26, symbol: "Vs", name: "Vector search", family: "ai", note: "The knowledge base behind the ticket analyzer." },
-  { number: 27, symbol: "Ag", name: "Agents", family: "ai", note: "Carrier-schedule agents at work and my own agent stack." },
-  { number: 28, symbol: "Km", name: "K-means", family: "ai", note: "Expert clustering in the Stack Overflow project." },
+  { number: 27, symbol: "Ag", name: "Agents", family: "ai", note: "An LLM agent that clears warehouse congestion on its own, plus carrier-schedule agents." },
+  { number: 28, symbol: "Mc", name: "MCP", family: "ai", icon: "modelcontextprotocol", note: "Serves 25 curated datasets to an AI planning agent." },
 ];
 
-export type Illustration = "rag" | "dag" | "heatmap" | "dashboard" | "stream" | "lakehouse";
+export type Illustration = "queue" | "catalog" | "rag" | "gem" | "dashboard" | "dag";
 
 export interface Project {
   id: string;
   title: string;
+  /** Shorter title for the collapsed accordion panel. */
+  short: string;
   /** Mono eyebrow: domain · technique. */
   eyebrow: string;
   context: string;
@@ -161,104 +169,168 @@ export interface Project {
   illustration: Illustration;
 }
 
+/**
+ * Featured work (the accordion). Public-safe versions of the case studies: the problem, the
+ * hard part, the decision and the result, with the employer's internals kept general.
+ */
 export const projects: Project[] = [
   {
-    id: "ticket-analyzer",
-    title: "RAG-Powered Ticket Analyzer",
+    id: "congestion-agent",
+    title: "Autonomous Congestion Agent",
+    short: "Congestion Agent",
+    eyebrow: "AI agents · Guardrails",
+    context: "Amazon · 2026",
+    description:
+      "A shared data warehouse kept seizing up, with waits past 10 minutes. I traced it to BI dashboard refreshes and built an LLM agent that clears congestion on its own, behind a database guardrail that can never touch production ETL.",
+    bullets: [
+      "First live incident: 3 cancels, 0 failures, no human",
+      "Query-owner attribution from ~14% to 98%",
+      "Guardrail in the database, not the prompt",
+      "Shadow mode to fully autonomous in ~6 weeks",
+    ],
+    tech: ["Python", "Bedrock AgentCore", "Step Functions", "Lambda", "Redshift"],
+    illustration: "queue",
+  },
+  {
+    id: "planning-data-platform",
+    title: "Data Platform for an AI Planning Agent",
+    short: "AI Planning Data",
+    eyebrow: "Data platform · MCP",
+    context: "Amazon · 2026",
+    description:
+      "An AI agent for logistics capacity planning was running on hand-refreshed spreadsheets. I built its data foundation from scratch and moved the agent onto it, which surfaced jobs that reported success while their data had been frozen for months.",
+    bullets: [
+      "25 governed datasets across 8 domains",
+      "Refreshed weekly, served to the agent over MCP",
+      "8 silently stale transforms found and fixed",
+      "Supports a 3-month planning cycle → ~1 day goal",
+    ],
+    tech: ["Spark SQL", "CDK", "Glue", "Lake Formation", "S3", "MCP"],
+    illustration: "catalog",
+  },
+  {
+    id: "rag-triage",
+    title: "RAG Ticket-Triage Assistant",
+    short: "RAG Triage",
     eyebrow: "AI ops · RAG",
     context: "Amazon · 2025–present",
     description:
-      "Engineers spent about 15 minutes per ticket searching runbooks. I spotted the problem and built the whole tool without being asked; it's now part of the team's triage SOP.",
+      "On-call engineers spent about 15 minutes per ticket digging through runbooks. Nobody asked me to, but I built an assistant that reads each new ticket and posts ranked fixes from runbooks and past tickets. It became the team's standard triage step.",
     bullets: [
       "80% less analysis time (15 → 3 min)",
-      "Under 15 s latency, ~78% average confidence",
-      "Labels, routes, ranks and comments automatically",
-      "The team's first AI-powered operational tool",
+      "Ranked fixes in under 15 seconds",
+      "Posts in the ticket itself, where engineers work",
+      "The team's first AI operational tool",
     ],
-    tech: ["Serverless", "LLM", "RAG", "Vector search"],
+    tech: ["Python", "Lambda", "Bedrock (Claude)", "OpenSearch Serverless"],
     illustration: "rag",
+  },
+  {
+    id: "codeartifact-ruby",
+    title: "Ruby Support for AWS CodeArtifact",
+    short: "Ruby on CodeArtifact",
+    eyebrow: "AWS service · Java",
+    context: "AWS · Dec 2023 – Jul 2024",
+    description:
+      "AWS CodeArtifact had no Ruby support. On the team that built and launched it, I implemented the gem upload and download paths of the service that speaks the RubyGems protocol, built its client library from scratch, and wrote the tests that gated every deployment.",
+    bullets: [
+      "Launched to AWS customers in April 2024",
+      "gem push, gem install and Bundler requests",
+      "Client library with 7 typed error classes",
+      "Billing, audit and canary tests gating deploys",
+    ],
+    tech: ["Java", "Guice", "ECS", "DynamoDB", "TestNG"],
+    illustration: "gem",
+  },
+  {
+    id: "cross-border-pipelines",
+    title: "Cross-Border Logistics Data Pipelines",
+    short: "Cross-Border Pipelines",
+    eyebrow: "Data modeling · Airflow",
+    context: "Amazon · Nov 2024 – present · lead",
+    description:
+      "A new cross-border logistics business needed one trusted view of inventory moving between North America and Europe. I led its data engineering end to end, from EU and US requirements to the model and the pipelines.",
+    bullets: [
+      "189-column model across 8+ source systems",
+      "Monolithic SQL rebuilt as Airflow DAGs of Spark jobs",
+      "Checkpoint tool found 4 defects, incl. 46% inflation",
+      "3–6 weeks of forward capacity visibility",
+    ],
+    tech: ["Spark SQL", "Airflow (MWAA)", "Iceberg", "Glue", "Redshift"],
+    illustration: "dashboard",
   },
   {
     id: "ingestion-platform",
     title: "Self-Service Ingestion Platform",
+    short: "Ingestion Platform",
     eyebrow: "Data platform · IaC",
     context: "Amazon · 2024–present · owner",
     description:
-      "A platform any team can use to bring its own data in. I designed, built and operate it end to end in infrastructure as code, with multiple ingestion paths.",
+      "Every team that needed data in the governed lake was building one-off pipelines or waiting on someone else. I built a multi-tenant platform in infrastructure as code and run it as a product.",
     bullets: [
-      "13+ teams onboarded self-service",
-      "Documented 9-step onboarding SOP",
-      "Platform-wide changes rolled out to every team",
-      "Same-day feature turnaround for consumers",
+      "13+ teams onboarded themselves",
+      "Two processing back ends: Spark and SQL-ETL",
+      "9-step self-service onboarding SOP",
+      "Changes roll out to every tenant at once",
     ],
-    tech: ["IaC", "Serverless", "Event-driven"],
+    tech: ["CDK", "Lambda", "S3", "Spark"],
     illustration: "dag",
   },
+];
+
+/** More professional work, one card each. */
+export const moreWork: { title: string; context: string; line: string }[] = [
   {
-    id: "warehouse-monitoring",
-    title: "Warehouse Performance & Ownership Audit",
-    eyebrow: "Observability · Monitoring",
+    title: "Warehouse performance recovery",
     context: "Amazon · 2025–2026",
-    description:
-      "Recurring disk and CPU spikes were degrading a critical production warehouse. I root-caused the incident, then built monitoring that moved the team from firefighting to continuous visibility.",
-    bullets: [
-      "Ownership accuracy from ~14% to 98/100",
-      "Proactive alarms at a 90% threshold",
-      "Hourly job extracts offending queries and tables",
-      "Years of usage history kept in cheap storage",
-    ],
-    tech: ["Cloud warehouse", "Object storage", "Alarms", "Python"],
-    illustration: "heatmap",
+    line: "Root-caused recurring disk and CPU saturation, then added alarms, an hourly workload monitor and cheap long-term query logs.",
   },
   {
-    id: "inventory-model",
-    title: "Cross-Regional Inventory Visibility Model",
-    eyebrow: "Data modeling · SQL",
-    context: "Amazon · Nov 2024–present",
-    description:
-      "The single source of truth for inventory moving between North America and Europe. As the sole data engineer, I own it from requirements across 4 organizations to ongoing data quality.",
-    bullets: [
-      "189 columns, mapped across 8+ source systems",
-      "Weekly review data from hours to minutes",
-      "3–6 weeks of capacity visibility that didn't exist",
-      "Redesigned granularity to win back trust",
-    ],
-    tech: ["SQL", "Data modeling", "Cloud warehouse"],
-    illustration: "dashboard",
+    title: "Business-review automation",
+    context: "Amazon · 2026",
+    line: "135 slides across 3 leadership reviews moved to automated reports; weekly prep from 2–4 hours to 5–10 minutes.",
   },
   {
-    id: "reddit-elt",
+    title: "Carrier-schedule agents",
+    context: "Amazon · 2026",
+    line: "Browser-automation agents replaced manual collection; a leadership demo led to carrier API partnerships.",
+  },
+  {
+    title: "Config-driven carrier API service",
+    context: "Amazon · 2026 · in progress",
+    line: "Leading the rollout of DCSA-standard schedule ingestion, where a new carrier is one configuration entry.",
+  },
+  {
+    title: "Multi-agent platform",
+    context: "Amazon · 2026 · co-built",
+    line: "Built its deployment pipeline and root-caused a cold-start failure hitting 60% of invocations.",
+  },
+  {
+    title: "Access automation",
+    context: "Amazon · 2024–2025",
+    line: "5,000+ access requests generated to migrate 500+ tables; other teams adopted the scripts on their own.",
+  },
+];
+
+/** Side projects with public code. */
+export const sideProjects: { title: string; line: string; tech: string[]; github: string }[] = [
+  {
     title: "Reddit Cloud Batch ELT",
-    eyebrow: "Batch ELT · Airflow",
-    context: "Side project",
-    description:
-      "An end-to-end pipeline that extracts posts from the Reddit API, transforms them with dbt and loads them into S3 and Redshift.",
-    bullets: [
-      "10,000+ posts processed per 24 hours",
-      "~500 posts a minute on average",
-      "Airflow + Docker orchestration",
-      "dbt models ready for analysis",
-    ],
-    tech: ["Python", "Airflow", "Docker", "S3", "Redshift", "dbt"],
+    line: "Reddit API → S3 → Redshift → dbt → Looker Studio, orchestrated by Airflow in Docker and provisioned with Terraform. 10K+ posts a day.",
+    tech: ["Airflow", "dbt", "Redshift", "Terraform"],
     github: "https://github.com/hitenshKharva/Reddit-Cloud-Batch-ELT",
-    illustration: "stream",
   },
   {
-    id: "f1-azure",
-    title: "F1 Data Analysis on Azure",
-    eyebrow: "Lakehouse · Spark",
-    context: "Side project",
-    description:
-      "Formula 1 data from 1950 onward, processed in Azure Databricks with PySpark and Spark SQL, then moved to a Delta Lakehouse for GDPR compliance and time travel.",
-    bullets: [
-      "Raw → processed → presentation layers",
-      "Columnar Parquet storage in ADLS",
-      "Scheduled and monitored with Data Factory",
-      "Delta Lake for time travel",
-    ],
+    title: "F1 Lakehouse on Azure",
+    line: "70+ years of Formula 1 data in Databricks with raw → ingested → presentation layers, incremental loads and Delta Lake.",
     tech: ["Databricks", "PySpark", "Delta Lake", "Data Factory"],
     github: "https://github.com/hitenshKharva/F1-Data-Analysis-with-Azure",
-    illustration: "lakehouse",
+  },
+  {
+    title: "E-Commerce Analytics on AWS",
+    line: "~540K transactions: S3 → Lambda → RDS MySQL → Glue (PySpark) → Redshift, with Athena checks and a Tableau dashboard.",
+    tech: ["Lambda", "Glue", "Redshift", "Athena"],
+    github: "https://github.com/hitenshKharva/Ecommerce-Data-Engineering",
   },
 ];
 
@@ -277,8 +349,8 @@ export const certifications: { name: string; issuer: string; link?: string; /** 
   },
   {
     name: "Data Engineering Professional Certificate",
-    short: "Data Eng. Pro cert",
-    issuer: "Coursera",
+    short: "IBM Data Engineering",
+    issuer: "IBM · Coursera",
     link: "https://www.coursera.org/account/accomplishments/professional-cert/6578B2HCR8FD",
   },
 ];
@@ -298,35 +370,40 @@ export const timeline: TimelineEntry[] = [
   {
     year: "2026",
     kind: "experience",
-    dates: "Jul 2026 – Present",
+    dates: "Jun 2026 – Present",
     title: "Data Engineer II",
     org: "Amazon · Global Logistics · Seattle",
     bullets: [
-      "Promoted from Data Engineer in July 2026.",
-      "Mentor 3 engineers; gave the talk “Building AI Agents for ETL Automation”.",
+      "Built an LLM agent that clears warehouse congestion on its own, behind a guardrail that can't touch ETL.",
+      "Architected the data platform for an AI capacity-planning agent: 25 datasets across 8 domains, served over MCP.",
+      "Co-built the team's multi-agent platform; mentor 3 engineers.",
     ],
-    tags: ["LLMs", "Agents", "PySpark"],
+    tags: ["Bedrock AgentCore", "Spark SQL", "MCP"],
   },
   {
     year: "2024",
     kind: "experience",
-    dates: "Jul 2024 – Jul 2026",
-    title: "Data Engineer",
+    dates: "Jul 2024 – Jun 2026",
+    title: "Data Engineer I",
     org: "Amazon · Global Logistics · Seattle",
     bullets: [
-      "Own the self-service ingestion platform (13+ teams) and the cross-regional inventory model.",
-      "Built the team's first AI operational tool, a RAG ticket analyzer, in 2025.",
+      "Launched a multi-tenant ingestion platform that 13+ teams onboarded themselves.",
+      "Built the team's first AI operational tool, a RAG triage assistant that cut analysis time 80%.",
+      "Recovered a production warehouse and rebuilt query-owner attribution (14% → 98%).",
     ],
-    tags: ["PySpark", "SQL", "IaC"],
+    tags: ["CDK", "Spark", "RAG"],
   },
   {
     year: "2023",
     kind: "experience",
     dates: "Dec 2023 – Jul 2024",
     title: "Software Development Engineer",
-    org: "Amazon Web Services · Seattle",
-    bullets: ["Java client for a package-manager protocol, with integration and load tests.", "Adapter service translating package-manager requests into backend calls."],
-    tags: ["Java", "React", "IaC"],
+    org: "AWS CodeArtifact · Seattle",
+    bullets: [
+      "Built gem upload and download for Ruby support in CodeArtifact, launched April 2024.",
+      "Wrote the RubyGems client library and the integration tests that gated deployment.",
+    ],
+    tags: ["Java", "Guice", "TestNG"],
   },
   {
     year: "2023",
@@ -334,8 +411,11 @@ export const timeline: TimelineEntry[] = [
     dates: "Jun 2023 – Dec 2023",
     title: "Data Developer",
     org: "Wind River Systems · San Diego",
-    bullets: ["Validation hooks in CI/CD cut data-model review time by 25%.", "CI that re-runs only the BI tiles a model change affects."],
-    tags: ["dbt", "Fivetran", "CI/CD"],
+    bullets: [
+      "dbt-checkpoint hooks in CI/CD cut data-model review time 25% and raised docs accuracy 30%.",
+      "CI that re-runs only the Looker tiles a dbt change affects.",
+    ],
+    tags: ["dbt", "Fivetran", "Snowflake"],
   },
   {
     year: "2022",
@@ -349,7 +429,7 @@ export const timeline: TimelineEntry[] = [
   {
     year: "2021",
     kind: "education",
-    dates: "2021 – 2023",
+    dates: "2021 – May 2023",
     title: "MS, Computer Science",
     org: "San Diego State University",
     bullets: [],
@@ -376,7 +456,7 @@ export const timeline: TimelineEntry[] = [
   {
     year: "2014",
     kind: "education",
-    dates: "2014 – 2018",
+    dates: "2014 – May 2018",
     title: "BE, Electronics & Telecommunication",
     org: "University of Mumbai (SPIT)",
     bullets: [],

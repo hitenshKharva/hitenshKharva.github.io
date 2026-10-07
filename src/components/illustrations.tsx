@@ -8,15 +8,6 @@ const MUTED = "var(--muted)";
 const LINE = "var(--line)";
 const SURF = "var(--surface)";
 
-// Deterministic pseudo-random so illustrations render the same every time.
-function seeded(seed: number) {
-  let s = seed;
-  return () => {
-    s = (s * 9301 + 49297) % 233280;
-    return s / 233280;
-  };
-}
-
 const mono = { fontFamily: "var(--font-mono)" } as const;
 
 function Rag() {
@@ -92,32 +83,96 @@ function Dag() {
   );
 }
 
-function Heatmap() {
-  const r = seeded(7);
-  const cols = 12;
-  const rows = 7;
+function Queue() {
+  const rows: { kind: "BI" | "ETL"; w: number; cancel?: boolean }[] = [
+    { kind: "BI", w: 0.95, cancel: true },
+    { kind: "ETL", w: 0.7 },
+    { kind: "BI", w: 0.88, cancel: true },
+    { kind: "BI", w: 0.4 },
+    { kind: "ETL", w: 0.55 },
+    { kind: "BI", w: 0.82, cancel: true },
+  ];
   return (
     <svg viewBox="0 0 320 240" className="h-full w-full">
-      <text x="16" y="22" fontSize="9" fill={MUTED} style={mono}>load · hour × day</text>
-      {Array.from({ length: rows * cols }, (_, i) => {
-        const c = i % cols;
-        const row = Math.floor(i / cols);
-        const hot = c > 6 && c < 10 && row > 1 && row < 5;
-        const v = Math.min(1, r() * 0.55 + (hot ? 0.45 : 0.05));
+      <text x="16" y="22" fontSize="9" fill={MUTED} style={mono}>queued queries · wait</text>
+      {rows.map((r, i) => {
+        const y = 32 + i * 24;
         return (
-          <rect key={i} x={16 + c * 24} y={34 + row * 24} width="20" height="20" rx="4" fill={INK} opacity={0.08 + v * 0.85} />
+          <g key={i}>
+            <rect x="16" y={y} width="30" height="16" rx="4" fill={r.kind === "ETL" ? INK : SURF} stroke={r.kind === "ETL" ? INK : LINE} />
+            <text x="31" y={y + 11} textAnchor="middle" fontSize="8" fill={r.kind === "ETL" ? "var(--on-ink)" : INK} style={mono}>
+              {r.kind}
+            </text>
+            <rect x="54" y={y + 5} width="190" height="6" rx="3" fill={LINE} />
+            <rect x="54" y={y + 5} width={190 * r.w} height="6" rx="3" fill={INK} opacity={r.cancel ? 0.3 : 0.85} />
+            {r.cancel && <line x1="54" y1={y + 8} x2={54 + 190 * r.w} y2={y + 8} stroke={INK} strokeWidth="1.5" />}
+            <text x="252" y={y + 11} fontSize="8" fill={r.cancel ? INK : MUTED} style={mono}>
+              {r.cancel ? "cancel" : r.kind === "ETL" ? "guarded" : "keep"}
+            </text>
+          </g>
         );
       })}
-      <line x1="16" y1="214" x2="304" y2="214" stroke={LINE} />
-      <rect x="16" y="208" width="288" height="12" rx="6" fill="url(#hm)" />
-      <defs>
-        <linearGradient id="hm">
-          <stop offset="0" stopColor={INK} stopOpacity=".08" />
-          <stop offset="1" stopColor={INK} stopOpacity=".95" />
-        </linearGradient>
-      </defs>
-      <line x1="275" y1="202" x2="275" y2="226" stroke={INK} strokeWidth="2" />
-      <text x="248" y="236" fontSize="9" fill={INK} style={mono}>90% alarm</text>
+      <rect x="16" y="182" width="288" height="42" rx="10" fill={INK} />
+      <text x="30" y="200" fontSize="9" fill="var(--on-ink)" opacity=".7" style={mono}>agent → guardrail → cancel</text>
+      <text x="30" y="215" fontSize="10" fill="var(--on-ink)" style={mono}>3 cancelled · 0 failures</text>
+      <circle cx="286" cy="203" r="6" fill="var(--on-ink)" />
+    </svg>
+  );
+}
+
+function Catalog() {
+  const domains: [string, number][] = [
+    ["ocean", 3],
+    ["actuals", 3],
+    ["baselines", 3],
+    ["bookings", 4],
+    ["fuel", 3],
+    ["costs", 3],
+    ["rates", 3],
+    ["promise", 3],
+  ];
+  return (
+    <svg viewBox="0 0 320 240" className="h-full w-full">
+      <text x="16" y="22" fontSize="9" fill={MUTED} style={mono}>curated datasets · weekly</text>
+      {domains.map(([d, n], i) => (
+        <g key={d} transform={`translate(16 ${34 + i * 23})`}>
+          <text x="0" y="12" fontSize="9" fill={MUTED} style={mono}>{d}</text>
+          {Array.from({ length: n }, (_, k) => (
+            <rect key={k} x={64 + k * 22} y="2" width="18" height="14" rx="3" fill={INK} opacity={0.35 + ((i + k) % 3) * 0.25} />
+          ))}
+        </g>
+      ))}
+      <path d="M168 128 C190 128 196 128 214 128" fill="none" stroke={INK} strokeOpacity=".5" strokeWidth="1.5" strokeDasharray="3 3" />
+      <rect x="214" y="96" width="90" height="64" rx="12" fill={INK} />
+      <text x="259" y="122" textAnchor="middle" fontSize="10" fill="var(--on-ink)" style={mono}>MCP</text>
+      <text x="259" y="140" textAnchor="middle" fontSize="9" fill="var(--on-ink)" opacity=".7" style={mono}>planning agent</text>
+    </svg>
+  );
+}
+
+function Gem() {
+  const lines: [string, string][] = [
+    ["$ gem push pkg-1.0.gem", "published"],
+    ["$ gem install pkg", "1 gem installed"],
+    ["$ bundle install", "resolved deps"],
+  ];
+  return (
+    <svg viewBox="0 0 320 240" className="h-full w-full">
+      <rect x="16" y="16" width="288" height="110" rx="10" fill={INK} />
+      {lines.map(([cmd, out], i) => (
+        <g key={cmd}>
+          <text x="30" y={40 + i * 30} fontSize="10" fill="var(--on-ink)" style={mono}>{cmd}</text>
+          <text x="30" y={52 + i * 30} fontSize="8" fill="var(--on-ink)" opacity=".6" style={mono}>↳ {out}</text>
+        </g>
+      ))}
+      {["client", "adapter", "backend"].map((l, i) => (
+        <g key={l} transform={`translate(${16 + i * 100} 160)`}>
+          <rect width="88" height="40" rx="10" fill={i === 1 ? INK : SURF} stroke={i === 1 ? INK : LINE} />
+          <text x="44" y="24" textAnchor="middle" fontSize="10" fill={i === 1 ? "var(--on-ink)" : INK} style={mono}>{l}</text>
+        </g>
+      ))}
+      <path d="M104 180 L116 180 M204 180 L216 180" stroke={INK} strokeWidth="1.5" />
+      <text x="16" y="224" fontSize="9" fill={MUTED} style={mono}>RubyGems protocol · Java service</text>
     </svg>
   );
 }
@@ -148,68 +203,13 @@ function Dashboard() {
   );
 }
 
-function Stream() {
-  const r = seeded(3);
-  const pts = Array.from({ length: 28 }, (_, i) => [16 + i * 10.6, 150 - (40 + r() * 50 + Math.sin(i / 3) * 18)]);
-  const line = pts.map((p, i) => `${i ? "L" : "M"}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" ");
-  return (
-    <svg viewBox="0 0 320 240" className="h-full w-full">
-      <text x="16" y="22" fontSize="9" fill={MUTED} style={mono}>posts / min</text>
-      <circle cx="292" cy="18" r="4" fill={INK} />
-      <text x="262" y="22" fontSize="9" fill={INK} style={mono}>live</text>
-      {[60, 100, 140].map((y) => (
-        <line key={y} x1="16" y1={y} x2="304" y2={y} stroke={LINE} strokeDasharray="3 4" />
-      ))}
-      <path d={`${line} L${pts[pts.length - 1][0]} 150 L16 150 Z`} fill={INK} opacity=".08" />
-      <path d={line} fill="none" stroke={INK} strokeWidth="2" />
-      {["extract", "load", "dbt"].map((s, i) => (
-        <g key={s} transform={`translate(${16 + i * 98} 176)`}>
-          <rect width="90" height="44" rx="10" fill={i === 2 ? INK : SURF} stroke={i === 2 ? INK : LINE} />
-          <text x="45" y="27" textAnchor="middle" fontSize="11" fill={i === 2 ? "var(--on-ink)" : INK} style={mono}>
-            {s}
-          </text>
-        </g>
-      ))}
-    </svg>
-  );
-}
-
-function Lakehouse() {
-  const layers = [
-    { l: "presentation", w: 160, o: 1 },
-    { l: "processed", w: 220, o: 0.6 },
-    { l: "raw", w: 288, o: 0.3 },
-  ];
-  return (
-    <svg viewBox="0 0 320 240" className="h-full w-full">
-      <text x="16" y="22" fontSize="9" fill={MUTED} style={mono}>delta lake · layers</text>
-      {layers.map((L, i) => (
-        <g key={L.l}>
-          <rect x={160 - L.w / 2} y={44 + i * 54} width={L.w} height="42" rx="10" fill={INK} opacity={L.o} />
-          <text
-            x="160"
-            y={70 + i * 54}
-            textAnchor="middle"
-            fontSize="11"
-            fill={i === 2 ? INK : "var(--on-ink)"}
-            style={mono}
-          >
-            {L.l}
-          </text>
-        </g>
-      ))}
-      <text x="16" y="222" fontSize="9" fill={MUTED} style={mono}>parquet · time travel ↺</text>
-    </svg>
-  );
-}
-
 const MAP: Record<Illustration, () => ReactElement> = {
+  queue: Queue,
+  catalog: Catalog,
   rag: Rag,
-  dag: Dag,
-  heatmap: Heatmap,
+  gem: Gem,
   dashboard: Dashboard,
-  stream: Stream,
-  lakehouse: Lakehouse,
+  dag: Dag,
 };
 
 export function MiniUI({ kind }: { kind: Illustration }) {
