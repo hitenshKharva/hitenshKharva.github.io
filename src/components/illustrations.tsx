@@ -120,6 +120,36 @@ function Queue() {
   );
 }
 
+function Agents() {
+  const specialists = ["data quality", "support", "analysis"];
+  return (
+    <svg viewBox="0 0 320 240" className="h-full w-full">
+      <text x="16" y="22" fontSize="9" fill={MUTED} style={mono}>slack · IDE · MCP</text>
+      <rect x="110" y="32" width="100" height="34" rx="10" fill={INK} />
+      <text x="160" y="53" textAnchor="middle" fontSize="10" fill="var(--on-ink)" style={mono}>router</text>
+      {specialists.map((l, i) => {
+        const x = 16 + i * 100;
+        return (
+          <g key={l}>
+            <path d={`M160 66 C160 82 ${x + 44} 78 ${x + 44} 96`} fill="none" stroke={INK} strokeOpacity=".4" strokeWidth="1.5" />
+            <rect x={x} y="96" width="88" height="34" rx="10" fill={SURF} stroke={LINE} />
+            <text x={x + 44} y="117" textAnchor="middle" fontSize="9" fill={INK} style={mono}>{l}</text>
+          </g>
+        );
+      })}
+      <text x="16" y="156" fontSize="9" fill={MUTED} style={mono}>ticket workflow</text>
+      {["trigger", "safety gate", "action"].map((l, i) => (
+        <g key={l} transform={`translate(${16 + i * 100} 166)`}>
+          <rect width="88" height="40" rx="10" fill={i === 1 ? INK : SURF} stroke={i === 1 ? INK : LINE} />
+          <text x="44" y="24" textAnchor="middle" fontSize="9" fill={i === 1 ? "var(--on-ink)" : INK} style={mono}>{l}</text>
+        </g>
+      ))}
+      <path d="M104 186 L116 186 M204 186 L216 186" stroke={INK} strokeWidth="1.5" />
+      <text x="16" y="228" fontSize="9" fill={MUTED} style={mono}>answer → act, safely</text>
+    </svg>
+  );
+}
+
 function Catalog() {
   const domains: [string, number][] = [
     ["ocean", 3],
@@ -205,6 +235,7 @@ function Dashboard() {
 
 const MAP: Record<Illustration, () => ReactElement> = {
   queue: Queue,
+  agents: Agents,
   catalog: Catalog,
   rag: Rag,
   gem: Gem,
