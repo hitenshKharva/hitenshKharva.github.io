@@ -181,7 +181,7 @@ export function About() {
           ))}
           <div className="mt-8 flex flex-wrap gap-2.5">
             {__HAS_RESUME__ && (
-              <a href={profile.resume} download className={pillCls}>
+              <a href={profile.resume} download="Kharva_Hitensh_Resume.pdf" className={pillCls}>
                 Resume <Icon name="arrowDown" size={15} />
               </a>
             )}
