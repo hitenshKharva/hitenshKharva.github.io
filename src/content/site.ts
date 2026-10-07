@@ -147,10 +147,10 @@ export const skills: Skill[] = [
   { number: 21, symbol: "Sv", name: "Serverless", family: "cloud", note: "The orchestrator behind the RAG ticket analyzer." },
   { number: 22, symbol: "Dk", name: "Docker", family: "cloud", icon: "docker", note: "Packaged the Reddit ELT pipeline with Airflow." },
   { number: 23, symbol: "Gh", name: "GitHub CI", family: "cloud", icon: "githubactions", note: "CI pipelines and pre-commit checks for data models." },
-  { number: 24, symbol: "Ll", name: "LLMs", family: "ai", note: "Ticket analysis and web-scraping agents in production." },
+  { number: 24, symbol: "Ll", name: "LLMs", family: "ai", note: "Ticket triage and data-support agents in production." },
   { number: 25, symbol: "Rg", name: "RAG", family: "ai", note: "Runbook retrieval that cut ticket triage from 15 to 3 minutes." },
   { number: 26, symbol: "Vs", name: "Vector search", family: "ai", note: "The knowledge base behind the ticket analyzer." },
-  { number: 27, symbol: "Ag", name: "Agents", family: "ai", note: "An LLM agent that clears warehouse congestion on its own, plus carrier-schedule agents." },
+  { number: 27, symbol: "Ag", name: "Agents", family: "ai", note: "An LLM agent that clears warehouse congestion on its own, and a multi-agent support platform." },
   { number: 28, symbol: "Mc", name: "MCP", family: "ai", icon: "modelcontextprotocol", note: "Serves 25 curated datasets to an AI planning agent." },
 ];
 
@@ -308,11 +308,6 @@ export const moreWork: { title: string; context: string; line: string }[] = [
     title: "Business-review automation",
     context: "Amazon · 2026",
     line: "135 slides across 3 leadership reviews moved to automated reports; weekly prep from 2–4 hours to 5–10 minutes.",
-  },
-  {
-    title: "Carrier-schedule agents",
-    context: "Amazon · 2026",
-    line: "Browser-automation agents replaced manual collection; a leadership demo led to carrier API partnerships.",
   },
   {
     title: "Config-driven carrier API service",
