@@ -46,6 +46,12 @@ Logos come from [Simple Icons](https://simpleicons.org). To add one, put its slu
 `slugs` list in `scripts/gen-skill-icons.mjs`, run `npm run icons`, and set `icon` on the
 skill in `site.ts`. Skills without a logo show their symbol instead.
 
+## Résumé
+
+The Word file `resume/Kharva_Hitensh_Resume.docx` is the source. The site serves `public/resume.pdf`, and the About and Contact "Resume" buttons appear only when that file exists.
+
+To update it, edit the .docx, then run `npm run resume` to rebuild the PDF and commit both files. The script uses LibreOffice with the Carlito font, a metric-compatible stand-in for Calibri (`apt-get install libreoffice-writer-nogui fonts-crosextra-carlito fonts-crosextra-caladea`). A PDF exported from Word also works: save it over `public/resume.pdf`.
+
 ## Design
 
 Tokens are in `src/index.css`. The design-system notes are in
