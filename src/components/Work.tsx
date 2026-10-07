@@ -65,7 +65,7 @@ function Accordion({ open, setOpen }: { open: number; setOpen: (i: number) => vo
               if (e.pointerType === "mouse" && !isOpen) setOpen(i);
             }}
             className={`relative min-w-0 overflow-hidden rounded-[28px] border border-line bg-surface transition-[flex-grow,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              isOpen ? "grow-[7] shadow-[0_30px_60px_-30px_rgb(28_31_46/0.35)]" : "grow"
+              isOpen ? "grow-[8] shadow-[0_30px_60px_-30px_rgb(28_31_46/0.35)]" : "grow"
             }`}
             style={{ flexBasis: 0 }}
           >

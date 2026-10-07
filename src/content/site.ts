@@ -70,6 +70,7 @@ const milestoneEvents: string[] = [
   "RAG triage assistant",
   "Ingestion platform",
   "Multi-agent platform",
+  "Carrier EDI pattern",
   "Reddit ELT",
   "F1 on Databricks",
   "E-commerce on AWS",
@@ -153,7 +154,7 @@ export const skills: Skill[] = [
   { number: 28, symbol: "Mc", name: "MCP", family: "ai", icon: "modelcontextprotocol", note: "Serves 25 curated datasets to an AI planning agent." },
 ];
 
-export type Illustration = "queue" | "catalog" | "rag" | "gem" | "dashboard" | "dag";
+export type Illustration = "queue" | "agents" | "catalog" | "rag" | "gem" | "dashboard" | "dag";
 
 export interface Project {
   id: string;
@@ -191,6 +192,23 @@ export const projects: Project[] = [
     ],
     tech: ["Python", "Bedrock AgentCore", "Step Functions", "Lambda", "Redshift"],
     illustration: "queue",
+  },
+  {
+    id: "multi-agent-platform",
+    title: "Multi-Agent Support Platform",
+    short: "Multi-Agent Platform",
+    eyebrow: "AI agents · Multi-agent",
+    context: "Amazon · 2026 · co-built",
+    description:
+      "A data team supporting ~700 engineers and analysts answered the same questions by hand: three in four were about freshness, schemas or deprecated tables. We built a production multi-agent assistant that answers them and automates routine tickets behind safety gates.",
+    bullets: [
+      "Live since May 2026 · 600K+ queries/month",
+      "Router + data-quality, support, analysis agents",
+      "First ticket workflow fully automated",
+      "Mine: deploy pipeline, congestion workflow",
+    ],
+    tech: ["Bedrock AgentCore", "Strands Agents", "Step Functions", "EventBridge", "MCP"],
+    illustration: "agents",
   },
   {
     id: "planning-data-platform",
@@ -302,9 +320,9 @@ export const moreWork: { title: string; context: string; line: string }[] = [
     line: "Leading the rollout of DCSA-standard schedule ingestion, where a new carrier is one configuration entry.",
   },
   {
-    title: "Multi-agent platform",
-    context: "Amazon · 2026 · co-built",
-    line: "Built its deployment pipeline and root-caused a cold-start failure hitting 60% of invocations.",
+    title: "Carrier EDI ingestion pattern",
+    context: "Amazon · 2026 · team build",
+    line: "Turns carriers' EDI booking feeds into governed data-lake tables. Adding a carrier is one small processor, not a new pipeline; the first went live in June 2026.",
   },
   {
     title: "Access automation",
