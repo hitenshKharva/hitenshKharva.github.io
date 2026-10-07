@@ -80,8 +80,8 @@ export function Contact() {
               <Icon name="linkedin" size={17} /> LinkedIn<span className="sr-only"> (opens in a new tab)</span>
             </a>
             {__HAS_RESUME__ && (
-              <a href={profile.resume} download className={pill}>
-                <Icon name="file" size={17} /> Résumé
+              <a href={profile.resume} download="Kharva_Hitensh_Resume.pdf" className={pill}>
+                <Icon name="file" size={17} /> Resume
               </a>
             )}
           </div>
