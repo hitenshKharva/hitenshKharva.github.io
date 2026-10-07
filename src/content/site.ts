@@ -96,8 +96,9 @@ export const links = {
 export const about = {
   /** Draft bio written from the résumé doc; edit freely. */
   bio: [
-    "I'm a Data Engineer II at Amazon Global Logistics, where I build the data platforms that logistics planning runs on and the AI agents that act on that data. I recently shipped an LLM agent that resolves data-warehouse congestion with no human in the loop, built the 25-dataset foundation behind an AI capacity-planning agent, and co-built my team's production multi-agent platform.",
-    "Before that I was an SDE at AWS, where I helped build and launch Ruby package support for AWS CodeArtifact. Earlier I was a data developer at Wind River and a backend and banking software engineer in India. I like problems where the hard part is finding the real cause, and where the fix has to be safe enough to run unattended.",
+    "I'm a Data Engineer II at Amazon Global Logistics. I build the data platforms that logistics planning runs on, and the AI agents that act on that data safely in production.",
+    "Recently I shipped an LLM agent that clears data-warehouse congestion with no human in the loop, built the 25-dataset foundation behind an AI capacity-planning agent, and created my team's first AI operational tool, a RAG triage assistant that cut on-call analysis time by 80%. The self-service ingestion platform I built and own is used by 13+ teams.",
+    "In eight years across the stack, I've shipped banking software at LTI, backend Python services at Bloomstack, data pipelines at Wind River, and Ruby support for AWS CodeArtifact as an SDE at AWS. I do my best work on problems where the hard part is finding the real cause, and the fix has to be safe enough to run unattended.",
   ],
   quote: "From raw events to real decisions.",
 };
