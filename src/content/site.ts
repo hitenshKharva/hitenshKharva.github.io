@@ -263,7 +263,12 @@ export const projects: Project[] = [
 ];
 
 export const certifications: { name: string; issuer: string; link?: string; /** Hero label */ short: string }[] = [
-  { name: "Cloud Data Engineer Associate", issuer: "Cloud certification", short: "Cloud Data Eng. cert" },
+  {
+    name: "Azure Data Engineer Associate",
+    issuer: "Microsoft",
+    short: "Azure Data Engineer",
+    link: "https://learn.microsoft.com/en-us/users/hitenshkharva-6801/credentials/19f41e24f75c4415",
+  },
   {
     name: "Algorithms Specialization",
     short: "Stanford Algorithms",
