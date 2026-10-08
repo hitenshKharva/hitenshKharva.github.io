@@ -152,14 +152,14 @@ function Agents() {
 
 function Catalog() {
   const domains: [string, number][] = [
-    ["ocean", 3],
-    ["actuals", 3],
-    ["baselines", 3],
-    ["bookings", 4],
-    ["fuel", 3],
-    ["costs", 3],
-    ["rates", 3],
-    ["promise", 3],
+    ["domain a", 3],
+    ["domain b", 3],
+    ["domain c", 3],
+    ["domain d", 4],
+    ["domain e", 3],
+    ["domain f", 3],
+    ["domain g", 3],
+    ["domain h", 3],
   ];
   return (
     <svg viewBox="0 0 320 240" className="h-full w-full">
@@ -212,8 +212,8 @@ function Dashboard() {
   return (
     <svg viewBox="0 0 320 240" className="h-full w-full">
       {[
-        ["in transit", "NA → EU"],
-        ["visibility", "3–6 wks"],
+        ["sources", "unified"],
+        ["data prep", "hrs → min"],
       ].map(([k, v], i) => (
         <g key={k} transform={`translate(${16 + i * 148} 16)`}>
           <rect width="140" height="58" rx="10" fill={SURF} stroke={LINE} />
@@ -222,7 +222,7 @@ function Dashboard() {
         </g>
       ))}
       <rect x="16" y="88" width="288" height="136" rx="10" fill={SURF} stroke={LINE} />
-      <text x="28" y="108" fontSize="9" fill={MUTED} style={mono}>weekly review · units</text>
+      <text x="28" y="108" fontSize="9" fill={MUTED} style={mono}>weekly view · trend</text>
       {bars.map((b, i) => (
         <g key={i}>
           <rect x={36 + i * 44} y={208 - b * 84} width="14" height={b * 84} rx="3" fill={INK} />

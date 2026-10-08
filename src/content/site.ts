@@ -20,7 +20,6 @@ export const profile = {
   lastName: "Kharva",
   role: "Data Engineer II",
   company: "Amazon",
-  team: "Global Logistics",
   location: "Seattle, WA",
   /** Hero: a role line for recruiters' keyword scan, then the hook (accent in italic serif). */
   roleLine: "Software · Data · AI engineer",
@@ -53,11 +52,11 @@ const milestoneEvents: string[] = [
   // Highlights
   "Banking apps · 9 countries",
   "13+ teams onboarded",
-  "5,000+ requests automated",
+  "Access automation",
   "Triage: 15 → 3 min",
   "Attribution: 14% → 98%",
   "0 failures, no human",
-  "135 slides automated",
+  "Reports: hours → minutes",
   "Talk · AI agents for ETL",
   "Mentor × 3",
   // Moves
@@ -65,16 +64,22 @@ const milestoneEvents: string[] = [
   "San Diego → Seattle",
   // Projects
   "Congestion agent",
-  "25 datasets · 8 domains",
+  "AI planning data platform",
   "Ruby on CodeArtifact",
   "RAG triage assistant",
   "Ingestion platform",
   "Multi-agent platform",
-  "Carrier EDI pattern",
+  "EDI ingestion pattern",
   "Reddit ELT",
   "F1 on Databricks",
   "E-commerce on AWS",
-  // Life: add personal moments here (cities, hobbies, milestones). Keep them short.
+  // Life
+  "Ping pong",
+  "Gaming",
+  "Chess",
+  "Football",
+  "Reading",
+  "Devil's Circuit finisher",
 ];
 
 /** First full-time role (LTI, July 2018). The hero output "engineer vN.0" counts whole years from here. */
@@ -97,8 +102,8 @@ export const links = {
 export const about = {
   /** Draft bio written from the résumé doc; edit freely. */
   bio: [
-    "I'm a Data Engineer II at Amazon Global Logistics. I build the data platforms that logistics planning runs on, and the AI agents that act on that data safely in production.",
-    "Recently I shipped an LLM agent that clears data-warehouse congestion with no human in the loop, built the 25-dataset foundation behind an AI capacity-planning agent, and created my team's first AI operational tool, a RAG triage assistant that cut on-call analysis time by 80%. The self-service ingestion platform I built and own is used by 13+ teams.",
+    "I'm a Data Engineer II at Amazon. I build the data platforms that planning and operations run on, and the AI agents that act on that data safely in production.",
+    "Recently I shipped an LLM agent that clears data-warehouse congestion with no human in the loop, built the curated data foundation behind an AI planning agent, co-built a multi-agent support platform, and created my team's first AI operational tool, a RAG triage assistant that cut on-call analysis time by 80%. The self-service ingestion platform I built and own is used by 13+ teams.",
     "In eight years across the stack, I've shipped banking software at LTI, backend Python services at Bloomstack, data pipelines at Wind River, and Ruby support for AWS CodeArtifact as an SDE at AWS. I do my best work on problems where the hard part is finding the real cause, and the fix has to be safe enough to run unattended.",
   ],
   quote: "From raw events to real decisions.",
@@ -110,6 +115,7 @@ export const quickFacts: { label: string; value: string }[] = [
   { label: "Studied", value: "MS CS · San Diego State" },
   { label: "Previously", value: "AWS CodeArtifact · Wind River" },
   { label: "Focus", value: "Data platforms · AI agents" },
+  { label: "Off the clock", value: "Ping pong · chess · football" },
 ];
 
 export interface Skill {
@@ -125,13 +131,13 @@ export interface Skill {
 
 export const skills: Skill[] = [
   { number: 1, symbol: "Py", name: "Python", family: "languages", icon: "python", note: "My main language for pipelines and automation, for 7+ years." },
-  { number: 2, symbol: "Sq", name: "SQL", family: "languages", note: "Daily driver, including a 2,000+ line transform behind a 189-column model." },
+  { number: 2, symbol: "Sq", name: "SQL", family: "languages", note: "Daily driver, including untangling and modularizing 2,000+ line transforms." },
   { number: 3, symbol: "Ts", name: "TypeScript", family: "languages", icon: "typescript", note: "Part of my core stack at Amazon; 3+ years with JS/TS." },
   { number: 4, symbol: "Jv", name: "Java", family: "languages", icon: "openjdk", note: "RubyGems adapter service and client library for AWS CodeArtifact." },
   { number: 5, symbol: "Sp", name: "PySpark", family: "data", icon: "apachespark", note: "Big-data ETL at work, and Databricks for the F1 project." },
   { number: 6, symbol: "Db", name: "dbt", family: "data", note: "Staging-to-marts models and CI checks at Wind River." },
   { number: 7, symbol: "Af", name: "Airflow", family: "data", icon: "apacheairflow", note: "MWAA DAGs of modular Spark jobs at work; the Reddit ELT pipeline at home." },
-  { number: 8, symbol: "Ib", name: "Iceberg", family: "data", note: "Idempotent merges and a stage-by-stage checkpoint tool at ~12M rows." },
+  { number: 8, symbol: "Ib", name: "Iceberg", family: "data", note: "Idempotent merges and a stage-by-stage checkpoint tool for large transforms." },
   { number: 9, symbol: "Ft", name: "Fivetran", family: "data", note: "Connectors moving survey and social data into the warehouse." },
   { number: 10, symbol: "Lk", name: "Looker", family: "data", icon: "looker", note: "Dashboards and automated LookML validation at Wind River." },
   { number: 11, symbol: "Ra", name: "REST APIs", family: "backend", note: "Pipelines from external APIs, 200+ data points a day at Bloomstack." },
@@ -151,7 +157,7 @@ export const skills: Skill[] = [
   { number: 25, symbol: "Rg", name: "RAG", family: "ai", note: "Runbook retrieval that cut ticket triage from 15 to 3 minutes." },
   { number: 26, symbol: "Vs", name: "Vector search", family: "ai", note: "The knowledge base behind the ticket analyzer." },
   { number: 27, symbol: "Ag", name: "Agents", family: "ai", note: "An LLM agent that clears warehouse congestion on its own, and a multi-agent support platform." },
-  { number: 28, symbol: "Mc", name: "MCP", family: "ai", icon: "modelcontextprotocol", note: "Serves 25 curated datasets to an AI planning agent." },
+  { number: 28, symbol: "Mc", name: "MCP", family: "ai", icon: "modelcontextprotocol", note: "Serves curated datasets to an AI planning agent." },
 ];
 
 export type Illustration = "queue" | "agents" | "catalog" | "rag" | "gem" | "dashboard" | "dag";
@@ -200,9 +206,9 @@ export const projects: Project[] = [
     eyebrow: "AI agents · Multi-agent",
     context: "Amazon · 2026 · co-built",
     description:
-      "A data team supporting ~700 engineers and analysts answered the same questions by hand: three in four were about freshness, schemas or deprecated tables. We built a production multi-agent assistant that answers them and automates routine tickets behind safety gates.",
+      "A data team was answering the same questions by hand, most of them about freshness, schemas or deprecated tables. We built a production multi-agent assistant that answers them and automates routine tickets behind deterministic safety gates.",
     bullets: [
-      "Live since May 2026 · 600K+ queries/month",
+      "In production since May 2026",
       "Router + data-quality, support, analysis agents",
       "First ticket workflow fully automated",
       "Mine: deploy pipeline, congestion workflow",
@@ -217,12 +223,12 @@ export const projects: Project[] = [
     eyebrow: "Data platform · MCP",
     context: "Amazon · 2026",
     description:
-      "An AI agent for logistics capacity planning was running on hand-refreshed spreadsheets. I built its data foundation from scratch and moved the agent onto it, which surfaced jobs that reported success while their data had been frozen for months.",
+      "An AI planning agent was running on hand-refreshed spreadsheets. I built its data foundation from scratch and moved the agent onto it, which surfaced jobs that reported success while their data had been frozen for months.",
     bullets: [
-      "25 governed datasets across 8 domains",
-      "Refreshed weekly, served to the agent over MCP",
-      "8 silently stale transforms found and fixed",
-      "Supports a 3-month planning cycle → ~1 day goal",
+      "Governed datasets built from scratch, refreshed weekly",
+      "Served to the agent over MCP",
+      "Silently stale transforms found and fixed",
+      "Freshness checks, not just job status",
     ],
     tech: ["Spark SQL", "CDK", "Glue", "Lake Formation", "S3", "MCP"],
     illustration: "catalog",
@@ -262,20 +268,20 @@ export const projects: Project[] = [
     illustration: "gem",
   },
   {
-    id: "cross-border-pipelines",
-    title: "Cross-Border Logistics Data Pipelines",
-    short: "Cross-Border Pipelines",
+    id: "source-of-truth-pipelines",
+    title: "Source-of-Truth Data Pipelines",
+    short: "Source-of-Truth Pipelines",
     eyebrow: "Data modeling · Airflow",
     context: "Amazon · Nov 2024 – present · lead",
     description:
-      "A new cross-border logistics business needed one trusted view of inventory moving between North America and Europe. I led its data engineering end to end, from EU and US requirements to the model and the pipelines.",
+      "A newly launched business needed one trusted view of its data across regions, and its teams had stopped trusting the existing numbers. I led its data engineering end to end, from requirements to the data model and the pipelines.",
     bullets: [
-      "189-column model across 8+ source systems",
+      "One model unifying many source systems",
       "Monolithic SQL rebuilt as Airflow DAGs of Spark jobs",
       "Checkpoint tool found 4 defects, incl. 46% inflation",
-      "3–6 weeks of forward capacity visibility",
+      "Weekly data prep from hours to minutes",
     ],
-    tech: ["Spark SQL", "Airflow (MWAA)", "Iceberg", "Glue", "Redshift"],
+    tech: ["Spark SQL", "Airflow", "Iceberg", "Glue", "Redshift"],
     illustration: "dashboard",
   },
   {
@@ -307,22 +313,22 @@ export const moreWork: { title: string; context: string; line: string }[] = [
   {
     title: "Business-review automation",
     context: "Amazon · 2026",
-    line: "135 slides across 3 leadership reviews moved to automated reports; weekly prep from 2–4 hours to 5–10 minutes.",
+    line: "Weekly business reports moved from manual decks to automated, data-driven reports; prep from 2–4 hours to 5–10 minutes.",
   },
   {
-    title: "Config-driven carrier API service",
+    title: "Config-driven partner API ingestion",
     context: "Amazon · 2026 · in progress",
-    line: "Leading the rollout of DCSA-standard schedule ingestion, where a new carrier is one configuration entry.",
+    line: "Leading the rollout of standards-based API ingestion, where onboarding a new data partner is one configuration entry.",
   },
   {
-    title: "Carrier EDI ingestion pattern",
-    context: "Amazon · 2026 · team build",
-    line: "Turns carriers' EDI booking feeds into governed data-lake tables. Adding a carrier is one small processor, not a new pipeline; the first went live in June 2026.",
+    title: "EDI ingestion pattern",
+    context: "Amazon · 2026 · collaborated",
+    line: "Turns partners' EDI feeds into governed data-lake tables. Adding a partner is one small processor, not a new pipeline; it's now the team's standard pattern.",
   },
   {
     title: "Access automation",
     context: "Amazon · 2024–2025",
-    line: "5,000+ access requests generated to migrate 500+ tables; other teams adopted the scripts on their own.",
+    line: "5,000+ access requests generated for a large warehouse migration; other teams adopted the scripts on their own.",
   },
 ];
 
@@ -386,10 +392,10 @@ export const timeline: TimelineEntry[] = [
     kind: "experience",
     dates: "Jun 2026 – Present",
     title: "Data Engineer II",
-    org: "Amazon · Global Logistics · Seattle",
+    org: "Amazon · Seattle",
     bullets: [
       "Built an LLM agent that clears warehouse congestion on its own, behind a guardrail that can't touch ETL.",
-      "Architected the data platform for an AI capacity-planning agent: 25 datasets across 8 domains, served over MCP.",
+      "Architected the data platform for an AI planning agent, served to it over MCP.",
       "Co-built the team's multi-agent platform; mentor 3 engineers.",
     ],
     tags: ["Bedrock AgentCore", "Spark SQL", "MCP"],
@@ -399,7 +405,7 @@ export const timeline: TimelineEntry[] = [
     kind: "experience",
     dates: "Jul 2024 – Jun 2026",
     title: "Data Engineer I",
-    org: "Amazon · Global Logistics · Seattle",
+    org: "Amazon · Seattle",
     bullets: [
       "Launched a multi-tenant ingestion platform that 13+ teams onboarded themselves.",
       "Built the team's first AI operational tool, a RAG triage assistant that cut analysis time 80%.",
@@ -492,8 +498,8 @@ export interface Achievement {
 export const achievements: Achievement[] = [
   { value: 80, suffix: "%", label: "Faster ticket triage", line: "15 → 3 minutes with the RAG analyzer I built." },
   { value: 13, suffix: "+", label: "Teams self-onboarded", line: "On the ingestion platform I own." },
-  { value: 5000, suffix: "+", label: "Access requests automated", line: "During a 500+ table migration." },
-  { value: 135, label: "Slides automated", line: "Weekly review prep from 2–4 hours to 5–10 minutes." },
+  { value: 5000, suffix: "+", label: "Access requests automated", line: "For a large warehouse migration." },
+  { value: 98, suffix: "%", label: "Owner-attribution accuracy", line: "Rebuilt from audit logs, up from about 14%." },
   { display: "1st", label: "AI ops tool on the team", line: "The RAG ticket analyzer, now part of the triage SOP." },
 ];
 
