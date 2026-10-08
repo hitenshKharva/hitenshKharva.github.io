@@ -14,18 +14,18 @@ function Rag() {
   return (
     <svg viewBox="0 0 320 240" className="h-full w-full">
       <rect x="16" y="16" width="288" height="34" rx="8" fill={SURF} stroke={LINE} />
-      <text x="28" y="38" fontSize="10" fill={MUTED} style={mono}>ticket ›</text>
+      <text x="28" y="38" fontSize="10" fill={MUTED} style={mono}>Ticket ›</text>
       <rect x="74" y="29" width="150" height="8" rx="4" fill={INK} opacity=".75" />
       {[0.92, 0.81, 0.63].map((s, i) => (
         <g key={i} transform={`translate(16 ${66 + i * 30})`}>
-          <text x="0" y="12" fontSize="9" fill={MUTED} style={mono}>runbook {i + 1}</text>
+          <text x="0" y="12" fontSize="9" fill={MUTED} style={mono}>Runbook {i + 1}</text>
           <rect x="70" y="4" width="180" height="10" rx="5" fill={LINE} />
           <rect x="70" y="4" width={180 * s} height="10" rx="5" fill={INK} opacity={1 - i * 0.25} />
           <text x="258" y="13" fontSize="9" fill={INK} style={mono}>{s.toFixed(2)}</text>
         </g>
       ))}
       <rect x="16" y="162" width="288" height="62" rx="10" fill={INK} />
-      <text x="30" y="182" fontSize="9" fill="var(--on-ink)" opacity=".7" style={mono}>draft · routed</text>
+      <text x="30" y="182" fontSize="9" fill="var(--on-ink)" opacity=".7" style={mono}>Draft · routed</text>
       <rect x="30" y="192" width="200" height="6" rx="3" fill="var(--on-ink)" opacity=".85" />
       <rect x="30" y="204" width="150" height="6" rx="3" fill="var(--on-ink)" opacity=".55" />
       <circle cx="284" cy="186" r="6" fill="var(--on-ink)" />
@@ -35,12 +35,12 @@ function Rag() {
 
 function Dag() {
   const nodes = [
-    { x: 20, y: 40, l: "src a" },
-    { x: 20, y: 105, l: "src b" },
-    { x: 20, y: 170, l: "src c" },
-    { x: 120, y: 105, l: "ingest" },
-    { x: 210, y: 60, l: "validate" },
-    { x: 210, y: 150, l: "catalog" },
+    { x: 20, y: 40, l: "Source A" },
+    { x: 20, y: 105, l: "Source B" },
+    { x: 20, y: 170, l: "Source C" },
+    { x: 120, y: 105, l: "Ingest" },
+    { x: 210, y: 60, l: "Validate" },
+    { x: 210, y: 150, l: "Catalog" },
   ];
   const edges = [
     [0, 3],
@@ -75,7 +75,7 @@ function Dag() {
           </text>
         </g>
       ))}
-      <text x="210" y="214" fontSize="9" fill={MUTED} style={mono}>teams</text>
+      <text x="210" y="214" fontSize="9" fill={MUTED} style={mono}>Teams</text>
       {Array.from({ length: 13 }, (_, i) => (
         <circle key={i} cx={212 + (i % 7) * 13} cy={224 + Math.floor(i / 7) * 10 - 4} r="3.5" fill={INK} opacity={0.35 + (i % 4) * 0.15} />
       ))}
@@ -94,7 +94,7 @@ function Queue() {
   ];
   return (
     <svg viewBox="0 0 320 240" className="h-full w-full">
-      <text x="16" y="22" fontSize="9" fill={MUTED} style={mono}>queued queries · wait</text>
+      <text x="16" y="22" fontSize="9" fill={MUTED} style={mono}>Queued queries · wait</text>
       {rows.map((r, i) => {
         const y = 32 + i * 24;
         return (
@@ -107,13 +107,13 @@ function Queue() {
             <rect x="54" y={y + 5} width={190 * r.w} height="6" rx="3" fill={INK} opacity={r.cancel ? 0.3 : 0.85} />
             {r.cancel && <line x1="54" y1={y + 8} x2={54 + 190 * r.w} y2={y + 8} stroke={INK} strokeWidth="1.5" />}
             <text x="252" y={y + 11} fontSize="8" fill={r.cancel ? INK : MUTED} style={mono}>
-              {r.cancel ? "cancel" : r.kind === "ETL" ? "guarded" : "keep"}
+              {r.cancel ? "Cancel" : r.kind === "ETL" ? "Guarded" : "Keep"}
             </text>
           </g>
         );
       })}
       <rect x="16" y="182" width="288" height="42" rx="10" fill={INK} />
-      <text x="30" y="200" fontSize="9" fill="var(--on-ink)" opacity=".7" style={mono}>agent → guardrail → cancel</text>
+      <text x="30" y="200" fontSize="9" fill="var(--on-ink)" opacity=".7" style={mono}>Agent → guardrail → cancel</text>
       <text x="30" y="215" fontSize="10" fill="var(--on-ink)" style={mono}>3 cancelled · 0 failures</text>
       <circle cx="286" cy="203" r="6" fill="var(--on-ink)" />
     </svg>
@@ -121,12 +121,12 @@ function Queue() {
 }
 
 function Agents() {
-  const specialists = ["data quality", "support", "analysis"];
+  const specialists = ["Data quality", "Support", "Analysis"];
   return (
     <svg viewBox="0 0 320 240" className="h-full w-full">
-      <text x="16" y="22" fontSize="9" fill={MUTED} style={mono}>slack · IDE · MCP</text>
+      <text x="16" y="22" fontSize="9" fill={MUTED} style={mono}>Slack · IDE · MCP</text>
       <rect x="110" y="32" width="100" height="34" rx="10" fill={INK} />
-      <text x="160" y="53" textAnchor="middle" fontSize="10" fill="var(--on-ink)" style={mono}>router</text>
+      <text x="160" y="53" textAnchor="middle" fontSize="10" fill="var(--on-ink)" style={mono}>Router</text>
       {specialists.map((l, i) => {
         const x = 16 + i * 100;
         return (
@@ -137,33 +137,33 @@ function Agents() {
           </g>
         );
       })}
-      <text x="16" y="156" fontSize="9" fill={MUTED} style={mono}>ticket workflow</text>
-      {["trigger", "safety gate", "action"].map((l, i) => (
+      <text x="16" y="156" fontSize="9" fill={MUTED} style={mono}>Ticket workflow</text>
+      {["Trigger", "Safety gate", "Action"].map((l, i) => (
         <g key={l} transform={`translate(${16 + i * 100} 166)`}>
           <rect width="88" height="40" rx="10" fill={i === 1 ? INK : SURF} stroke={i === 1 ? INK : LINE} />
           <text x="44" y="24" textAnchor="middle" fontSize="9" fill={i === 1 ? "var(--on-ink)" : INK} style={mono}>{l}</text>
         </g>
       ))}
       <path d="M104 186 L116 186 M204 186 L216 186" stroke={INK} strokeWidth="1.5" />
-      <text x="16" y="228" fontSize="9" fill={MUTED} style={mono}>answer → act, safely</text>
+      <text x="16" y="228" fontSize="9" fill={MUTED} style={mono}>Answer → act, safely</text>
     </svg>
   );
 }
 
 function Catalog() {
   const domains: [string, number][] = [
-    ["domain a", 3],
-    ["domain b", 3],
-    ["domain c", 3],
-    ["domain d", 4],
-    ["domain e", 3],
-    ["domain f", 3],
-    ["domain g", 3],
-    ["domain h", 3],
+    ["Domain A", 3],
+    ["Domain B", 3],
+    ["Domain C", 3],
+    ["Domain D", 4],
+    ["Domain E", 3],
+    ["Domain F", 3],
+    ["Domain G", 3],
+    ["Domain H", 3],
   ];
   return (
     <svg viewBox="0 0 320 240" className="h-full w-full">
-      <text x="16" y="22" fontSize="9" fill={MUTED} style={mono}>curated datasets · weekly</text>
+      <text x="16" y="22" fontSize="9" fill={MUTED} style={mono}>Curated datasets · weekly</text>
       {domains.map(([d, n], i) => (
         <g key={d} transform={`translate(16 ${34 + i * 23})`}>
           <text x="0" y="12" fontSize="9" fill={MUTED} style={mono}>{d}</text>
@@ -175,16 +175,16 @@ function Catalog() {
       <path d="M168 128 C190 128 196 128 214 128" fill="none" stroke={INK} strokeOpacity=".5" strokeWidth="1.5" strokeDasharray="3 3" />
       <rect x="214" y="96" width="90" height="64" rx="12" fill={INK} />
       <text x="259" y="122" textAnchor="middle" fontSize="10" fill="var(--on-ink)" style={mono}>MCP</text>
-      <text x="259" y="140" textAnchor="middle" fontSize="9" fill="var(--on-ink)" opacity=".7" style={mono}>planning agent</text>
+      <text x="259" y="140" textAnchor="middle" fontSize="9" fill="var(--on-ink)" opacity=".7" style={mono}>Planning agent</text>
     </svg>
   );
 }
 
 function Gem() {
   const lines: [string, string][] = [
-    ["$ gem push pkg-1.0.gem", "published"],
+    ["$ gem push pkg-1.0.gem", "Published"],
     ["$ gem install pkg", "1 gem installed"],
-    ["$ bundle install", "resolved deps"],
+    ["$ bundle install", "Resolved deps"],
   ];
   return (
     <svg viewBox="0 0 320 240" className="h-full w-full">
@@ -195,7 +195,7 @@ function Gem() {
           <text x="30" y={52 + i * 30} fontSize="8" fill="var(--on-ink)" opacity=".6" style={mono}>↳ {out}</text>
         </g>
       ))}
-      {["client", "adapter", "backend"].map((l, i) => (
+      {["Client", "Adapter", "Backend"].map((l, i) => (
         <g key={l} transform={`translate(${16 + i * 100} 160)`}>
           <rect width="88" height="40" rx="10" fill={i === 1 ? INK : SURF} stroke={i === 1 ? INK : LINE} />
           <text x="44" y="24" textAnchor="middle" fontSize="10" fill={i === 1 ? "var(--on-ink)" : INK} style={mono}>{l}</text>
@@ -212,8 +212,8 @@ function Dashboard() {
   return (
     <svg viewBox="0 0 320 240" className="h-full w-full">
       {[
-        ["in transit", "NA → EU"],
-        ["visibility", "3–6 wks"],
+        ["In transit", "NA → EU"],
+        ["Visibility", "3–6 wks"],
       ].map(([k, v], i) => (
         <g key={k} transform={`translate(${16 + i * 148} 16)`}>
           <rect width="140" height="58" rx="10" fill={SURF} stroke={LINE} />
@@ -222,7 +222,7 @@ function Dashboard() {
         </g>
       ))}
       <rect x="16" y="88" width="288" height="136" rx="10" fill={SURF} stroke={LINE} />
-      <text x="28" y="108" fontSize="9" fill={MUTED} style={mono}>weekly review · units</text>
+      <text x="28" y="108" fontSize="9" fill={MUTED} style={mono}>Weekly review · units</text>
       {bars.map((b, i) => (
         <g key={i}>
           <rect x={36 + i * 44} y={208 - b * 84} width="14" height={b * 84} rx="3" fill={INK} />
