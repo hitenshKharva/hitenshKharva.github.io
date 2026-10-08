@@ -212,8 +212,8 @@ function Dashboard() {
   return (
     <svg viewBox="0 0 320 240" className="h-full w-full">
       {[
-        ["sources", "unified"],
-        ["data prep", "hrs → min"],
+        ["in transit", "NA → EU"],
+        ["visibility", "3–6 wks"],
       ].map(([k, v], i) => (
         <g key={k} transform={`translate(${16 + i * 148} 16)`}>
           <rect width="140" height="58" rx="10" fill={SURF} stroke={LINE} />
@@ -222,7 +222,7 @@ function Dashboard() {
         </g>
       ))}
       <rect x="16" y="88" width="288" height="136" rx="10" fill={SURF} stroke={LINE} />
-      <text x="28" y="108" fontSize="9" fill={MUTED} style={mono}>weekly view · trend</text>
+      <text x="28" y="108" fontSize="9" fill={MUTED} style={mono}>weekly review · units</text>
       {bars.map((b, i) => (
         <g key={i}>
           <rect x={36 + i * 44} y={208 - b * 84} width="14" height={b * 84} rx="3" fill={INK} />
