@@ -91,7 +91,7 @@ export function yearsShipping(now = new Date()) {
   return years;
 }
 
-export const heroOutput = { tags: "data · AI · software" };
+export const heroOutput = { tags: "Data · AI · Software" };
 
 export const links = {
   github: "https://github.com/hitenshKharva",
@@ -260,7 +260,7 @@ export const projects: Project[] = [
       "AWS CodeArtifact had no Ruby support. On the team that built and launched it, I implemented the gem upload and download paths of the service that speaks the RubyGems protocol, built its client library from scratch, and wrote the tests that gated every deployment.",
     bullets: [
       "Launched to AWS customers in April 2024",
-      "gem push, gem install and Bundler requests",
+      "Supports gem push, install and Bundler",
       "Client library with 7 typed error classes",
       "Billing, audit and canary tests gating deploys",
     ],
@@ -348,7 +348,7 @@ export const sideProjects: { title: string; line: string; tech: string[]; github
   },
   {
     title: "E-Commerce Analytics on AWS",
-    line: "~540K transactions: S3 → Lambda → RDS MySQL → Glue (PySpark) → Redshift, with Athena checks and a Tableau dashboard.",
+    line: "About 540K transactions: S3 → Lambda → RDS MySQL → Glue (PySpark) → Redshift, with Athena checks and a Tableau dashboard.",
     tech: ["Lambda", "Glue", "Redshift", "Athena"],
     github: "https://github.com/hitenshKharva/Ecommerce-Data-Engineering",
   },
@@ -432,7 +432,7 @@ export const timeline: TimelineEntry[] = [
     title: "Data Developer",
     org: "Wind River Systems · San Diego",
     bullets: [
-      "dbt-checkpoint hooks in CI/CD cut data-model review time 25% and raised docs accuracy 30%.",
+      "Added dbt-checkpoint hooks to CI/CD: data-model review time down 25%, docs accuracy up 30%.",
       "CI that re-runs only the Looker tiles a dbt change affects.",
     ],
     tags: ["dbt", "Fivetran", "Snowflake"],
