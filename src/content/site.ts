@@ -115,7 +115,7 @@ export const quickFacts: { label: string; value: string }[] = [
   { label: "Studied", value: "MS CS · San Diego State" },
   { label: "Previously", value: "AWS CodeArtifact · Wind River" },
   { label: "Focus", value: "Data platforms · AI agents" },
-  { label: "Off the clock", value: "Ping pong · chess · football" },
+  { label: "Off the clock", value: "Ping pong · Chess · Football" },
 ];
 
 export interface Skill {
@@ -204,7 +204,7 @@ export const projects: Project[] = [
     title: "Multi-Agent Support Platform",
     short: "Multi-Agent Platform",
     eyebrow: "AI agents · Multi-agent",
-    context: "Amazon · 2026 · co-built",
+    context: "Amazon · 2026 · Co-built",
     description:
       "A data team was answering the same questions by hand, most of them about freshness, schemas or deprecated tables. We built a production multi-agent assistant that answers them and automates routine tickets behind deterministic safety gates.",
     bullets: [
@@ -238,7 +238,7 @@ export const projects: Project[] = [
     title: "RAG Ticket-Triage Assistant",
     short: "RAG Triage",
     eyebrow: "AI ops · RAG",
-    context: "Amazon · 2025–present",
+    context: "Amazon · 2025–Present",
     description:
       "On-call engineers spent about 15 minutes per ticket digging through runbooks. Nobody asked me to, but I built an assistant that reads each new ticket and posts ranked fixes from runbooks and past tickets. It became the team's standard triage step.",
     bullets: [
@@ -272,7 +272,7 @@ export const projects: Project[] = [
     title: "Cross-Border Logistics Data Pipelines",
     short: "Cross-Border Pipelines",
     eyebrow: "Data modeling · Airflow",
-    context: "Amazon · Nov 2024 – present · lead",
+    context: "Amazon · Nov 2024 – Present · Lead",
     description:
       "A new cross-border logistics business needed one trusted view of inventory moving between North America and Europe. I led its data engineering end to end, from EU and US requirements to the model and the pipelines.",
     bullets: [
@@ -289,7 +289,7 @@ export const projects: Project[] = [
     title: "Self-Service Ingestion Platform",
     short: "Ingestion Platform",
     eyebrow: "Data platform · IaC",
-    context: "Amazon · 2024–present · owner",
+    context: "Amazon · 2024–Present · Owner",
     description:
       "Every team that needed data in the governed lake was building one-off pipelines or waiting on someone else. I built a multi-tenant platform in infrastructure as code and run it as a product.",
     bullets: [
@@ -317,12 +317,12 @@ export const moreWork: { title: string; context: string; line: string }[] = [
   },
   {
     title: "Config-driven carrier API service",
-    context: "Amazon · 2026 · in progress",
+    context: "Amazon · 2026 · In progress",
     line: "Leading the rollout of DCSA-standard schedule ingestion, where a new carrier is one configuration entry.",
   },
   {
     title: "Carrier EDI ingestion pattern",
-    context: "Amazon · 2026 · collaborated",
+    context: "Amazon · 2026 · Collaborated",
     line: "Turns carriers' EDI booking feeds into governed data-lake tables. Adding a carrier is one small processor, not a new pipeline; the first went live in June 2026.",
   },
   {
