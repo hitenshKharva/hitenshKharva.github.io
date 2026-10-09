@@ -35,7 +35,7 @@ from it, so you never need to touch them to change copy.
 
 ### Files you can drop in
 
-- **Résumé:** add `public/resume.pdf`. The Resume buttons appear automatically on the next build.
+- **Résumé:** the site has no résumé download right now. Adding `public/resume.pdf` brings the Resume buttons back on the next build.
 - **Photo for the ID card:** add e.g. `public/photo/me.jpg` and set `profile.photo = "/photo/me.jpg"`.
 - **Avatar video for the hero:** add `public/avatar/hero.webm` / `hero.mp4` / `poster.webp` and
   set `profile.avatar`. It replaces the data-flow animation.
@@ -48,9 +48,9 @@ skill in `site.ts`. Skills without a logo show their symbol instead.
 
 ## Résumé
 
-The Word file `resume/Kharva_Hitensh_Resume.docx` is the source. The site serves `public/resume.pdf`, and the About and Contact "Resume" buttons appear only when that file exists.
+The Word file `resume/Kharva_Hitensh_Resume.docx` is the master copy. The site doesn't serve a résumé; the About and Contact "Resume" buttons stay hidden unless `public/resume.pdf` exists.
 
-To update it, edit the .docx, then run `npm run resume` to rebuild the PDF and commit both files. The script uses LibreOffice with the Carlito font, a metric-compatible stand-in for Calibri (`apt-get install libreoffice-writer-nogui fonts-crosextra-carlito fonts-crosextra-caladea`). A PDF exported from Word also works: save it over `public/resume.pdf`.
+`npm run resume` builds a PDF of the master copy into `resume/out/`, and `npm run resume -- path/to/other.docx` does the same for a tailored copy. `resume/out/` is git-ignored, so tailored versions are never committed or published. The script uses LibreOffice with the Carlito font, a metric-compatible stand-in for Calibri (`apt-get install libreoffice-writer-nogui fonts-crosextra-carlito fonts-crosextra-caladea`).
 
 ## Design
 
