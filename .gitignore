@@ -4,3 +4,4 @@ dist
 .lighthouse
 *.tsbuildinfo
 dist-ssr
+resume/out
