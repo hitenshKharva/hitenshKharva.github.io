@@ -3,36 +3,41 @@
 @source "../index.html";
 @import "lenis/dist/lenis.css";
 
-/* Tokens from PORTFOLIO_PLAN.md (warm editorial). `--muted` is darkened from the plan's
-   #7A7468 (4.0:1 on --bg) to #625C51 (5.7:1) to pass WCAG AA for body copy. */
+/* Green-bar ledger: continuous-form printer paper. One accent (ledger green), a brick red for
+   drops, and the pale green band used for alternating rows. All text pairs pass WCAG AA. */
 :root {
-  --bg: #f3eee2;
-  --bg-glow: #f6ebc4;
-  --surface: #fbf8f1;
-  --ink: #1c1f2e;
-  --muted: #625c51;
-  --line: #d9d1c1;
-  --on-ink: #f3eee2;
-  /* Skills family tints: ink → taupe → sand → pale sand. */
-  --tint-1: #1c1f2e;
-  --tint-2: #4a4558;
-  --tint-3: #a0968a;
-  --tint-4: #b5aa98;
-  --tint-5: #d6ccb9;
-  --tint-6: #e8e0cf;
+  --bg: #f5f4ec;
+  --band: #e3ecd9;
+  --surface: #fdfdf8;
+  --ink: #1c2420;
+  --muted: #55605a;
+  --line: #cbd3c3;
+  --on-ink: #f5f4ec;
+  --accent: #2d6a3e;
+  --on-accent: #f5f4ec;
+  --red: #a93d2a;
+  /* Skills family tints: ink → ledger green → pale band. */
+  --tint-1: #1c2420;
+  --tint-2: #2d6a3e;
+  --tint-3: #4e7e56;
+  --tint-4: #9cbd94;
+  --tint-5: #cfdfc5;
+  --tint-6: #e3ecd9;
   color-scheme: light;
 }
 
 @theme inline {
   --color-bg: var(--bg);
-  --color-glow: var(--bg-glow);
+  --color-band: var(--band);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-red: var(--red);
   --color-surface: var(--surface);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
   --color-on-ink: var(--on-ink);
   --font-sans: "Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-serif: "Instrument Serif", Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
@@ -57,8 +62,8 @@ body {
 }
 
 ::selection {
-  background: var(--ink);
-  color: var(--on-ink);
+  background: var(--band);
+  color: var(--ink);
 }
 
 a,
@@ -82,10 +87,6 @@ button,
   top: 1rem;
 }
 
-/* Soft yellow glow behind sections. */
-.glow {
-  background: radial-gradient(60% 50% at 50% 40%, var(--bg-glow), transparent 70%);
-}
 
 @media (prefers-reduced-motion: reduce) {
   *,

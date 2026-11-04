@@ -246,7 +246,7 @@ const MAP: Record<Illustration, () => ReactElement> = {
 export function MiniUI({ kind }: { kind: Illustration }) {
   const C = MAP[kind];
   return (
-    <figure className="flex h-full flex-col rounded-2xl border border-line bg-[var(--bg)] p-3" aria-hidden="true">
+    <figure className="flex h-full flex-col rounded-md border border-line bg-[var(--bg)] p-3" aria-hidden="true">
       <figcaption className="flex items-center justify-between px-1 pb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
         <span>Illustrative UI</span>
         <span className="inline-flex items-center gap-1.5">

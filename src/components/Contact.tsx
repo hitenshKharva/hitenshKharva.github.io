@@ -38,7 +38,7 @@ function CopyEmail() {
       <button
         type="button"
         onClick={onCopy}
-        className="inline-flex min-h-12 items-center gap-2 rounded-full bg-ink px-5 font-medium text-on-ink transition-transform duration-200 hover:-translate-y-0.5"
+        className="inline-flex min-h-12 items-center gap-2 rounded-md bg-accent px-5 font-medium text-on-accent transition-transform duration-200 hover:-translate-y-0.5"
       >
         <Icon name={state === "copied" ? "check" : "copy"} size={17} />
         {state === "copied" ? "Copied" : "Copy email"}
@@ -51,11 +51,11 @@ function CopyEmail() {
 }
 
 const pill =
-  "inline-flex min-h-12 items-center gap-2 rounded-full border border-ink/20 px-5 font-medium text-ink transition-colors duration-200 hover:border-ink hover:bg-ink hover:text-on-ink";
+  "inline-flex min-h-12 items-center gap-2 rounded-md border border-ink/20 px-5 font-medium text-ink transition-colors duration-200 hover:border-ink hover:bg-ink hover:text-on-ink";
 
 export function Contact() {
   return (
-    <section id="contact" aria-labelledby="contact-title" className="glow relative outline-none">
+    <section id="contact" aria-labelledby="contact-title" className="relative outline-none">
       <div className="mx-auto max-w-7xl px-4 py-28 sm:px-6 sm:py-36">
         <Reveal>
           <Eyebrow number="07" label="Contact" />

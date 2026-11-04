@@ -21,7 +21,7 @@ export const profile = {
   role: "Data Engineer II",
   company: "Amazon",
   location: "Seattle, WA",
-  /** Hero: a role line for recruiters' keyword scan, then the hook (accent in italic serif). */
+  /** Hero: a role line for recruiters' keyword scan, then the hook (accent in ledger green). */
   roleLine: "Software · Data · AI engineer",
   headline: { lead: "Data in.", accent: "Decisions out." },
   tagline: "I build the platforms data flows through, and the AI that puts it to work.",

@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { families, skills, type Family, type Skill } from "../content/site";
 import { Section } from "./Section";
 
-/** Family shade, ink → pale sand. Dark shades take cream text; light ones take ink (all ≥ 5.6:1). */
+/** Family shade, ink → ledger green → pale band. Dark shades take paper text; light ones take ink. */
 const SHADE: Record<Family, { bg: string; fg: string; swatch: string }> = {
   languages: { bg: "bg-[var(--tint-1)]", fg: "text-on-ink", swatch: "var(--tint-1)" },
   data: { bg: "bg-[var(--tint-2)]", fg: "text-on-ink", swatch: "var(--tint-2)" },
-  backend: { bg: "bg-[var(--tint-3)]", fg: "text-ink", swatch: "var(--tint-3)" },
+  backend: { bg: "bg-[var(--tint-3)]", fg: "text-on-ink", swatch: "var(--tint-3)" },
   databases: { bg: "bg-[var(--tint-4)]", fg: "text-ink", swatch: "var(--tint-4)" },
   cloud: { bg: "bg-[var(--tint-5)]", fg: "text-ink", swatch: "var(--tint-5)" },
   ai: { bg: "bg-[var(--tint-6)]", fg: "text-ink", swatch: "var(--tint-6)" },
@@ -32,7 +32,7 @@ function DetailPanel({ skill, icons }: { skill: Skill; icons: IconMap | null }) 
   const reduce = useReducedMotion();
   return (
     <div
-      className="rounded-2xl border border-line bg-surface/95 p-4 shadow-[0_18px_40px_-20px_rgb(28_31_46/0.45)] backdrop-blur-md lg:rounded-3xl lg:p-8 lg:shadow-none"
+      className="rounded-md border border-line bg-surface/95 p-4 shadow-[0_18px_40px_-20px_rgb(28_36_32/0.45)] backdrop-blur-md  lg:p-8 lg:shadow-none"
       aria-live="polite"
     >
       <AnimatePresence mode="wait" initial={false}>
@@ -87,7 +87,6 @@ export function Skills() {
       lead="The periodic table"
       accent="of my stack."
       intro="Elements in six families. Hover or tap a tile to see how I've used it, or pick a family to light it up."
-      className="glow"
     >
       <div role="group" aria-label="Highlight a family" className="flex flex-wrap gap-2">
         {[{ id: null, label: "All" } as { id: Family | null; label: string }, ...families].map((f) => {
@@ -98,7 +97,7 @@ export function Skills() {
               type="button"
               aria-pressed={on}
               onClick={() => setFamily(f.id)}
-              className={`inline-flex min-h-10 items-center gap-2 rounded-full border px-3.5 text-sm transition-colors duration-200 ${
+              className={`inline-flex min-h-10 items-center gap-2 rounded-md border px-3.5 text-sm transition-colors duration-200 ${
                 on ? "border-ink bg-ink text-on-ink" : "border-line bg-surface/70 text-ink hover:border-ink"
               }`}
             >
@@ -137,7 +136,7 @@ export function Skills() {
                   onMouseEnter={() => setActive(s)}
                   onFocus={() => setActive(s)}
                   onClick={() => setActive(s)}
-                  className={`relative flex aspect-square w-full flex-col justify-between rounded-xl p-2 text-left transition-[opacity,transform,box-shadow] duration-300 hover:-translate-y-0.5 sm:rounded-2xl sm:p-2.5 ${shade.bg} ${shade.fg} ${
+                  className={`relative flex aspect-square w-full flex-col justify-between rounded-md p-2 text-left transition-[opacity,transform,box-shadow] duration-300 hover:-translate-y-0.5  sm:p-2.5 ${shade.bg} ${shade.fg} ${
                     dim ? "opacity-25" : "opacity-100"
                   } ${selected ? "ring-2 ring-ink ring-offset-2 ring-offset-[var(--bg)]" : ""}`}
                 >

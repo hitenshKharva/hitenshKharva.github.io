@@ -24,7 +24,7 @@ function Hero() {
     scrollTo(target);
   };
   return (
-    <section id="top" aria-labelledby="hero-title" className="glow relative flex min-h-[100svh] flex-col overflow-hidden outline-none">
+    <section id="top" aria-labelledby="hero-title" className="relative flex min-h-[100svh] flex-col overflow-hidden outline-none">
       {/* Oversized watermark name. */}
       <p
         aria-hidden="true"
@@ -54,21 +54,21 @@ function Hero() {
             </span>
             {profile.headline.lead}
             <br />
-            <em className="font-serif font-normal tracking-normal">{profile.headline.accent}</em>
+            <span className="text-accent">{profile.headline.accent}</span>
           </h1>
           <p className="mt-5 max-w-xl text-lg text-muted sm:text-xl">{profile.tagline}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               href="#work"
               onClick={(e) => go(e, "#work")}
-              className="inline-flex min-h-12 items-center gap-2 rounded-full bg-ink px-6 font-medium text-on-ink transition-transform duration-200 hover:-translate-y-0.5"
+              className="inline-flex min-h-12 items-center gap-2 rounded-md bg-accent px-6 font-medium text-on-accent transition-transform duration-200 hover:-translate-y-0.5"
             >
               Explore work <Icon name="arrowDown" size={16} />
             </a>
             <a
               href="#contact"
               onClick={(e) => go(e, "#contact")}
-              className="inline-flex min-h-12 items-center gap-2 rounded-full border border-ink/25 px-6 font-medium text-ink transition-colors duration-200 hover:border-ink"
+              className="inline-flex min-h-12 items-center gap-2 rounded-md border border-ink/25 px-6 font-medium text-ink transition-colors duration-200 hover:border-ink"
             >
               Let&apos;s talk
             </a>

@@ -15,11 +15,11 @@ function Card({ entry, side }: { entry: TimelineEntry; side: "left" | "right" })
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="rounded-3xl border border-line bg-surface/90 p-5 shadow-[0_20px_50px_-30px_rgb(28_31_46/0.35)] sm:p-6"
+      className="rounded-lg border border-line bg-surface/90 p-5 shadow-[0_20px_50px_-30px_rgb(28_36_32/0.35)] sm:p-6"
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span
-          className={`rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] ${
+          className={`rounded-md px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] ${
             edu ? "border border-ink/30 text-ink" : "bg-ink text-on-ink"
           }`}
         >
@@ -42,7 +42,7 @@ function Card({ entry, side }: { entry: TimelineEntry; side: "left" | "right" })
       {entry.tags.length > 0 && (
         <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Topics">
           {entry.tags.map((t) => (
-            <li key={t} className="rounded-full bg-[var(--bg)] px-2.5 py-1 font-mono text-[11px] text-ink">
+            <li key={t} className="rounded-md bg-[var(--bg)] px-2.5 py-1 font-mono text-[11px] text-ink">
               {t}
             </li>
           ))}
@@ -73,7 +73,7 @@ export function Timeline() {
       accent="experience."
       intro="Most recent first: from Amazon back to banking software and engineering school."
       // Cards start offset sideways before they slide in; clip so that never adds page width.
-      className="glow overflow-x-clip"
+      className="overflow-x-clip"
     >
       <ol ref={ref} className="relative">
         {/* Track + scroll-driven fill. Left edge on mobile, centre on desktop. */}
@@ -90,15 +90,15 @@ export function Timeline() {
             aria-hidden="true"
             className="absolute left-0 top-3 size-[15px] rounded-full border-2 border-ink bg-[var(--bg)] md:left-1/2 md:-translate-x-1/2"
           />
-          <p className="mb-3 font-serif text-5xl italic leading-none text-ink/70 md:order-2 md:mb-0 md:text-7xl">Next</p>
+          <p className="mb-3 text-5xl font-extrabold leading-none tracking-[-0.035em] text-accent md:order-2 md:mb-0 md:text-7xl">Next</p>
           <div className="md:order-1">
-            <div className="rounded-3xl border border-dashed border-ink/30 bg-surface/70 p-6">
+            <div className="rounded-lg border border-dashed border-ink/30 bg-surface/70 p-6">
               <p className="text-2xl font-extrabold tracking-tight text-ink">Your team?</p>
               <p className="mt-1 text-muted">Building data platforms or applied AI? I'd like to hear about it.</p>
               <a
                 href="#contact"
                 onClick={go}
-                className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-ink px-5 text-sm font-medium text-on-ink transition-transform duration-200 hover:-translate-y-0.5"
+                className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-md bg-accent px-5 text-sm font-medium text-on-accent transition-transform duration-200 hover:-translate-y-0.5"
               >
                 Let's talk <Icon name="arrowDown" size={15} />
               </a>
