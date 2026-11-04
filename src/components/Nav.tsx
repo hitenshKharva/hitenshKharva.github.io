@@ -53,7 +53,7 @@ export function Nav() {
         <a
           href="#top"
           onClick={(e) => go(e, "top")}
-          className="pointer-events-auto hidden min-h-11 items-center rounded-full border border-line/80 bg-surface/70 px-4 text-sm font-medium text-ink shadow-[0_8px_30px_-12px_rgb(28_31_46/0.25)] backdrop-blur-md sm:inline-flex"
+          className="pointer-events-auto hidden min-h-11 items-center rounded-md border border-line/80 bg-surface/70 px-4 text-sm font-medium text-ink shadow-[0_8px_30px_-12px_rgb(28_36_32/0.25)] backdrop-blur-md sm:inline-flex"
         >
           {profile.name}
         </a>
@@ -64,7 +64,7 @@ export function Nav() {
           style={{
             maskImage: `linear-gradient(to right, ${fade.left ? "transparent, black 12%" : "black"}, ${fade.right ? "black 88%, transparent" : "black"})`,
           }}
-          className="pointer-events-auto -mx-1 max-w-full overflow-x-auto rounded-full border border-line/80 bg-surface/70 p-1 shadow-[0_8px_30px_-12px_rgb(28_31_46/0.25)] backdrop-blur-md [scrollbar-width:none] sm:mx-0"
+          className="pointer-events-auto -mx-1 max-w-full overflow-x-auto rounded-md border border-line/80 bg-surface/70 p-1 shadow-[0_8px_30px_-12px_rgb(28_36_32/0.25)] backdrop-blur-md [scrollbar-width:none] sm:mx-0"
         >
           <ul className="flex">
             {NAV_ITEMS.map((item) => {
@@ -75,14 +75,14 @@ export function Nav() {
                     href={`#${item.id}`}
                     onClick={(e) => go(e, item.id)}
                     aria-current={isActive ? "true" : undefined}
-                    className={`relative inline-flex min-h-10 items-center rounded-full px-3 text-[13px] transition-colors duration-200 sm:px-4 sm:text-sm ${
+                    className={`relative inline-flex min-h-10 items-center rounded-md px-3 text-[13px] transition-colors duration-200 sm:px-4 sm:text-sm ${
                       isActive ? "text-on-ink" : "text-ink/80 hover:text-ink"
                     }`}
                   >
                     {isActive && (
                       <m.span
                         layoutId="nav-pill"
-                        className="absolute inset-0 rounded-full bg-ink"
+                        className="absolute inset-0 rounded-md bg-ink"
                         transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 380, damping: 32 }}
                       />
                     )}

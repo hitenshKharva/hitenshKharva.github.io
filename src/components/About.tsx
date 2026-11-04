@@ -114,14 +114,14 @@ function IdCard() {
           </span>
         </div>
         {/* Clip */}
-        <div aria-hidden="true" className="-mt-1 h-5 w-10 rounded-b-md rounded-t-sm border border-[#8c8275] bg-[#d6ccb9]" />
-        <div aria-hidden="true" className="-mt-1 size-4 rounded-full border-2 border-[#8c8275]" />
+        <div aria-hidden="true" className="-mt-1 h-5 w-10 rounded-b-md rounded-t-sm border border-[#4e7e56] bg-[#cfdfc5]" />
+        <div aria-hidden="true" className="-mt-1 size-4 rounded-full border-2 border-[#4e7e56]" />
 
         {/* Card */}
         <div
           role="img"
           aria-label={`Developer ID card: ${profile.name}, ${profile.role}`}
-          className="-mt-1 w-64 select-none overflow-hidden rounded-[22px] border border-line bg-surface shadow-[0_30px_60px_-25px_rgb(28_31_46/0.45)] sm:w-72"
+          className="-mt-1 w-64 select-none overflow-hidden rounded-lg border border-line bg-surface shadow-[0_30px_60px_-25px_rgb(28_36_32/0.45)] sm:w-72"
         >
           <div className="flex items-center gap-3 bg-ink px-5 py-4 text-on-ink">
             <span className="flex size-9 items-center justify-center rounded-full border border-on-ink/40 font-mono text-xs">{initials}</span>
@@ -131,11 +131,11 @@ function IdCard() {
             </div>
           </div>
           <div className="px-5 pb-5 pt-5 text-center">
-            <div className="mx-auto flex aspect-[4/5] w-32 items-center justify-center overflow-hidden rounded-2xl border border-line bg-[linear-gradient(160deg,#e8e0cf,#d6ccb9)]">
+            <div className="mx-auto flex aspect-[4/5] w-32 items-center justify-center overflow-hidden rounded-md border border-line bg-[var(--band)]">
               {profile.photo ? (
                 <img src={profile.photo} alt="" width={384} height={480} loading="lazy" decoding="async" className="h-full w-full object-cover" draggable={false} />
               ) : (
-                <span className="font-serif text-6xl italic text-ink/80">{initials}</span>
+                <span className="text-5xl font-extrabold tracking-[-0.035em] text-accent">{initials}</span>
               )}
             </div>
             <p className="mt-4 text-lg font-extrabold uppercase tracking-tight text-ink">{profile.name}</p>
@@ -163,7 +163,7 @@ function IdCard() {
 }
 
 const pillCls =
-  "inline-flex min-h-11 items-center gap-1.5 rounded-full border border-ink/20 px-4 text-sm font-medium text-ink transition-colors duration-200 hover:border-ink hover:bg-ink hover:text-on-ink";
+  "inline-flex min-h-11 items-center gap-1.5 rounded-md border border-ink/20 px-4 text-sm font-medium text-ink transition-colors duration-200 hover:border-ink hover:bg-ink hover:text-on-ink";
 
 export function About() {
   return (
@@ -203,15 +203,15 @@ export function About() {
 
         <Reveal delay={0.1} className="lg:pt-40">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted">Quick facts</p>
-          <dl className="mt-4 divide-y divide-line border-y border-line">
+          <dl className="mt-4 border-y border-line [&>div:nth-child(odd)]:bg-band">
             {quickFacts.map((f) => (
-              <div key={f.label} className="flex items-baseline justify-between gap-4 py-3.5">
+              <div key={f.label} className="flex items-baseline justify-between gap-4 px-3 py-3.5">
                 <dt className="text-sm text-muted">{f.label}</dt>
                 <dd className="text-right text-sm font-semibold text-ink">{f.value}</dd>
               </div>
             ))}
           </dl>
-          <blockquote className="mt-10 font-serif text-3xl italic leading-snug text-ink/80 sm:text-4xl">
+          <blockquote className="mt-10 border-l-2 border-accent pl-5 text-2xl font-semibold leading-snug tracking-[-0.02em] text-ink sm:text-3xl">
             &ldquo;{about.quote}&rdquo;
           </blockquote>
         </Reveal>

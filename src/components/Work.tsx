@@ -30,7 +30,7 @@ function Details({ project, index }: { project: Project; index: number }) {
       </ul>
       <div className="mt-auto flex flex-wrap items-center gap-2 pt-6">
         {project.tech.map((t) => (
-          <span key={t} className="rounded-full border border-line bg-[var(--bg)] px-2.5 py-1 font-mono text-[11px] text-ink">
+          <span key={t} className="rounded-md border border-line bg-[var(--bg)] px-2.5 py-1 font-mono text-[11px] text-ink">
             {t}
           </span>
         ))}
@@ -39,7 +39,7 @@ function Details({ project, index }: { project: Project; index: number }) {
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-auto inline-flex min-h-10 items-center gap-2 rounded-full bg-ink px-4 text-sm font-medium text-on-ink transition-transform duration-200 hover:-translate-y-0.5"
+            className="ml-auto inline-flex min-h-10 items-center gap-2 rounded-md bg-ink px-4 text-sm font-medium text-on-ink transition-transform duration-200 hover:-translate-y-0.5"
           >
             <Icon name="github" size={16} /> View on GitHub
             <span className="sr-only">(opens in a new tab)</span>
@@ -64,8 +64,8 @@ function Accordion({ open, setOpen }: { open: number; setOpen: (i: number) => vo
             onPointerMove={(e) => {
               if (e.pointerType === "mouse" && !isOpen) setOpen(i);
             }}
-            className={`relative min-w-0 overflow-hidden rounded-[28px] border border-line bg-surface transition-[flex-grow,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              isOpen ? "grow-[8] shadow-[0_30px_60px_-30px_rgb(28_31_46/0.35)]" : "grow"
+            className={`relative min-w-0 overflow-hidden rounded-lg border border-line bg-surface transition-[flex-grow,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              isOpen ? "grow-[8] shadow-[0_30px_60px_-30px_rgb(28_36_32/0.35)]" : "grow"
             }`}
             style={{ flexBasis: 0 }}
           >
@@ -111,7 +111,7 @@ function Stack({ open, setOpen }: { open: number; setOpen: (i: number) => void }
       {projects.map((p, i) => {
         const isOpen = i === open;
         return (
-          <li key={p.id} className="overflow-hidden rounded-3xl border border-line bg-surface">
+          <li key={p.id} className="overflow-hidden rounded-lg border border-line bg-surface">
             <button
               type="button"
               aria-expanded={isOpen}
@@ -171,7 +171,7 @@ function MoreWork() {
         <SubHeading id="more-work-title" label="More from Amazon" note="Professional work" />
         <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {moreWork.map((w) => (
-            <li key={w.title} className="rounded-3xl border border-line bg-surface p-6">
+            <li key={w.title} className="rounded-lg border border-line bg-surface p-6">
               <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">{w.context}</p>
               <p className="mt-3 text-lg font-bold leading-tight tracking-tight text-ink">{w.title}</p>
               <p className="mt-2 text-sm leading-relaxed text-muted">{w.line}</p>
@@ -195,7 +195,7 @@ function SideProjects() {
                 href={sp.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex h-full flex-col rounded-3xl border border-line bg-surface p-6 transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-on-ink"
+                className="group flex h-full flex-col rounded-lg border border-line bg-surface p-6 transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-on-ink"
               >
                 <span className="flex items-start justify-between gap-3">
                   <span className="text-lg font-bold leading-tight tracking-tight">{sp.title}</span>
@@ -210,7 +210,7 @@ function SideProjects() {
                   {sp.tech.map((t) => (
                     <span
                       key={t}
-                      className="rounded-full border border-line px-2.5 py-1 font-mono text-[11px] transition-colors duration-300 group-hover:border-on-ink/30"
+                      className="rounded-md border border-line px-2.5 py-1 font-mono text-[11px] transition-colors duration-300 group-hover:border-on-ink/30"
                     >
                       {t}
                     </span>

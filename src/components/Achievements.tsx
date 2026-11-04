@@ -45,13 +45,13 @@ function Card({ a, index }: { a: Achievement; index: number }) {
   const rank = a.value === undefined;
   return (
     <article
-      className={`flex h-full flex-col rounded-3xl border p-6 ${
+      className={`flex h-full flex-col rounded-lg border p-6 ${
         rank ? "border-ink bg-ink text-on-ink" : "border-line bg-surface text-ink"
       }`}
     >
       <span
         aria-hidden="true"
-        className={`flex size-11 items-center justify-center rounded-2xl font-mono text-xs ${
+        className={`flex size-11 items-center justify-center rounded-md font-mono text-xs ${
           rank ? "bg-on-ink/10 text-on-ink" : "bg-[var(--bg)] text-ink"
         }`}
       >

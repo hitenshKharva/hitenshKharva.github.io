@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Reveal } from "./Reveal";
 
-/** Heavy grotesk headline with one italic-serif accent word: "Things I've *built.*" */
+/** Heavy grotesk headline with the last words in ledger green: "Things I've built." */
 export function Heading({
   lead,
   accent,
@@ -17,7 +17,7 @@ export function Heading({
 }) {
   return (
     <Tag id={id} className="text-5xl font-extrabold leading-[0.95] tracking-[-0.035em] text-ink sm:text-6xl lg:text-7xl">
-      {lead} <em className="font-serif font-normal tracking-normal text-ink/70">{accent}</em>
+      {lead} <span className="text-accent">{accent}</span>
       {tail && <> {tail}</>}
     </Tag>
   );

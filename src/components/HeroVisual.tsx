@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { heroOutput, profile, rawEvents, yearsShipping } from "../content/site";
 import { Icon } from "./Icon";
 
-const INK = "28, 31, 46";
-const MUTED = "98, 92, 81";
-const SURFACE = "251, 248, 241";
+const INK = "28, 36, 32";
+const MUTED = "85, 96, 90";
+const SURFACE = "253, 253, 248";
 const MONO = '"JetBrains Mono", ui-monospace, monospace';
 const SANS = '"Inter Tight", system-ui, sans-serif';
 
