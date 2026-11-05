@@ -3,8 +3,9 @@
 @source "../index.html";
 @import "lenis/dist/lenis.css";
 
-/* Green-bar ledger: continuous-form printer paper. One accent (ledger green), a brick red for
-   drops, and the pale green band used for alternating rows. All text pairs pass WCAG AA. */
+/* Green-bar ledger: continuous-form printer paper. Color encodes state, as in a pipeline UI:
+   ledger green = success, amber = running, brick red = failure or a drop. The pale green band
+   stripes alternating rows. All text pairs pass WCAG AA. */
 :root {
   --bg: #f5f4ec;
   --band: #e3ecd9;
@@ -16,8 +17,13 @@
   --accent: #2d6a3e;
   --on-accent: #f5f4ec;
   --red: #a93d2a;
-  /* Skills family tints: ink → ledger green → pale band. */
+  /* Running / in-progress state (amber), with its chip fill and readable text. */
+  --run: #b7791f;
+  --run-bg: #f6ead2;
+  --run-ink: #7d5210;
+  /* Skills heatmap ramp (by years of use): ink → ledger green → pale band. */
   --tint-1: #1c2420;
+  --tint-7: #22503a;
   --tint-2: #2d6a3e;
   --tint-3: #4e7e56;
   --tint-4: #9cbd94;
@@ -32,6 +38,9 @@
   --color-accent: var(--accent);
   --color-on-accent: var(--on-accent);
   --color-red: var(--red);
+  --color-run: var(--run);
+  --color-run-bg: var(--run-bg);
+  --color-run-ink: var(--run-ink);
   --color-surface: var(--surface);
   --color-ink: var(--ink);
   --color-muted: var(--muted);

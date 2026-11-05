@@ -25,12 +25,12 @@ from it, so you never need to touch them to change copy.
 | Name, title, tagline, email, location | `profile` |
 | GitHub / LinkedIn | `links` |
 | About bio and pull quote | `about` |
-| Quick facts next to the ID card | `quickFacts` |
-| Periodic table tiles | `skills` (symbol, name, family, note, optional `icon`) |
+| Quick facts next to the ID card (shown as a table schema) | `quickFacts` (label, column, type, value) |
+| Periodic table tiles | `skills` (symbol, name, family, note, `years` sets the heatmap shade, optional `icon`) |
 | Work panels | `projects` (illustration: `queue`, `catalog`, `rag`, `gem`, `dashboard`, `dag`) |
 | More work · side projects | `moreWork`, `sideProjects` |
 | Certifications | `certifications` |
-| Timeline | `timeline` |
+| Timeline | `timeline` (status and runtime come from `dates`; "Present" shows as running) |
 | Count-up cards | `achievements` (`value` counts up; `display` for text like "1st") |
 
 ### Files you can drop in
@@ -57,6 +57,21 @@ The Word file `resume/Kharva_Hitensh_Resume.docx` is the master copy. The site d
 Tokens are in `src/index.css`. The design-system notes are in
 [`design-system/portfolio/`](design-system/portfolio/) (`MASTER.md` from the UI UX Pro Max
 skill, `pages/home.md` for this page).
+
+Color encodes state, as in a pipeline UI: ledger green for success, amber for running, brick red
+for a failure or a drop. The footer's "last refreshed" stamp is filled in at build time.
+
+### Design history and rollback
+
+Each design is saved on its own branch, so you can always go back:
+
+| Branch | What it is |
+|---|---|
+| [`design/v1-ledger`](../../tree/design/v1-ledger) | Green-bar ledger palette before the pipeline touches (commit `6d0b089`) |
+
+To go back, open the PR that introduced the newer design and press **Revert**, then merge
+the revert PR. Or, from a checkout: `git revert -m 1 <merge commit>` (or `git revert <squash
+commit>`) and push to `main`. The deploy workflow republishes the site either way.
 
 ## Deploy
 

@@ -91,6 +91,9 @@ export function Contact() {
   );
 }
 
+/** Build date (UTC) for the footer freshness stamp. */
+const stamp = __BUILD_TIME__.slice(0, 10);
+
 export function Footer() {
   const scrollTo = useScrollTo();
   const toTop = (e: MouseEvent<HTMLAnchorElement>) => {
@@ -104,7 +107,19 @@ export function Footer() {
           <span className="font-semibold">{profile.name}</span>
           <span className="text-muted"> · {profile.location}</span>
         </p>
-        <p className="font-mono text-xs text-muted">© {new Date().getFullYear()} · Designed and built by {profile.firstName}</p>
+        <p className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs tabular-nums text-muted">
+          <span>
+            <span aria-hidden="true" className="mr-1.5 inline-block size-1.5 rounded-full bg-accent align-middle" />
+            build <b className="font-medium text-ink">passing</b>
+          </span>
+          <span>
+            last refreshed <b className="font-medium text-ink">{stamp}</b>
+          </span>
+          <span>
+            commit <b className="font-medium text-ink">{__BUILD_SHA__}</b>
+            {__BUILD_RUN__ && <> · run #{__BUILD_RUN__}</>}
+          </span>
+        </p>
         <a href="#top" onClick={toTop} className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-ink underline-offset-4 hover:underline">
           Back to top <Icon name="arrowDown" size={15} className="rotate-180" />
         </a>
