@@ -109,13 +109,14 @@ export const about = {
   quote: "From raw events to real decisions.",
 };
 
-export const quickFacts: { label: string; value: string }[] = [
-  { label: "Based in", value: "Seattle, WA" },
-  { label: "Role", value: "Data Engineer II · Amazon" },
-  { label: "Studied", value: "MS CS · San Diego State" },
-  { label: "Previously", value: "AWS CodeArtifact · Wind River" },
-  { label: "Focus", value: "Data platforms · AI agents" },
-  { label: "Off the clock", value: "Ping pong · Chess · Football" },
+/** Shown as a table schema: column name, type, value. */
+export const quickFacts: { label: string; column: string; type: string; value: string }[] = [
+  { label: "Based in", column: "based_in", type: "STRING", value: "Seattle, WA" },
+  { label: "Role", column: "role", type: "STRING", value: "Data Engineer II · Amazon" },
+  { label: "Studied", column: "studied", type: "STRING", value: "MS CS · San Diego State" },
+  { label: "Previously", column: "previously", type: "ARRAY<STRING>", value: "AWS CodeArtifact · Wind River" },
+  { label: "Focus", column: "focus", type: "ARRAY<STRING>", value: "Data platforms · AI agents" },
+  { label: "Off the clock", column: "off_the_clock", type: "ARRAY<STRING>", value: "Ping pong · Chess · Football" },
 ];
 
 export interface Skill {
@@ -127,37 +128,40 @@ export interface Skill {
   icon?: string;
   /** One line on how I've used it. */
   note: string;
+  /** Years of hands-on use; sets the tile's heatmap shade. */
+  years: number;
 }
 
+// `years` are first estimates from job history; edit them to change the heatmap.
 export const skills: Skill[] = [
-  { number: 1, symbol: "Py", name: "Python", family: "languages", icon: "python", note: "My main language for pipelines and automation, for 7+ years." },
-  { number: 2, symbol: "Sq", name: "SQL", family: "languages", note: "Daily driver, including untangling and modularizing 2,000+ line transforms." },
-  { number: 3, symbol: "Ts", name: "TypeScript", family: "languages", icon: "typescript", note: "Part of my core stack at Amazon; 3+ years with JS/TS." },
-  { number: 4, symbol: "Jv", name: "Java", family: "languages", icon: "openjdk", note: "RubyGems adapter service and client library for AWS CodeArtifact." },
-  { number: 5, symbol: "Sp", name: "PySpark", family: "data", icon: "apachespark", note: "Big-data ETL at work, and Databricks for the F1 project." },
-  { number: 6, symbol: "Db", name: "dbt", family: "data", note: "Staging-to-marts models and CI checks at Wind River." },
-  { number: 7, symbol: "Af", name: "Airflow", family: "data", icon: "apacheairflow", note: "MWAA DAGs of modular Spark jobs at work; the Reddit ELT pipeline at home." },
-  { number: 8, symbol: "Ib", name: "Iceberg", family: "data", note: "Idempotent merges and a stage-by-stage checkpoint tool for large transforms." },
-  { number: 9, symbol: "Ft", name: "Fivetran", family: "data", note: "Connectors moving survey and social data into the warehouse." },
-  { number: 10, symbol: "Lk", name: "Looker", family: "data", icon: "looker", note: "Dashboards and automated LookML validation at Wind River." },
-  { number: 11, symbol: "Ra", name: "REST APIs", family: "backend", note: "Pipelines from external APIs, 200+ data points a day at Bloomstack." },
-  { number: 12, symbol: "Dj", name: "Django", family: "backend", icon: "django", note: "Backend systems at Bloomstack and LTI." },
-  { number: 13, symbol: "Ev", name: "Event-driven", family: "backend", note: "Event-driven orchestration behind my platforms at Amazon." },
-  { number: 14, symbol: "Sf", name: "Snowflake", family: "databases", icon: "snowflake", note: "Warehouse for dbt models and PII masking at Wind River." },
-  { number: 15, symbol: "Pg", name: "PostgreSQL", family: "databases", icon: "postgresql", note: "Relational store in backend work at Bloomstack." },
-  { number: 16, symbol: "My", name: "MySQL", family: "databases", icon: "mysql", note: "Backend and ETL work at LTI and Bloomstack." },
-  { number: 17, symbol: "Cs", name: "Cassandra", family: "databases", icon: "apachecassandra", note: "NoSQL databases are part of my stack at Amazon." },
-  { number: 18, symbol: "Mg", name: "MongoDB", family: "databases", icon: "mongodb", note: "NoSQL work at LTI." },
-  { number: 19, symbol: "Rs", name: "Redshift", family: "databases", note: "Shared warehouse I keep healthy at work; Reddit and e-commerce pipelines." },
-  { number: 20, symbol: "Ic", name: "IaC", family: "cloud", note: "The ingestion platform I own is built and run as code." },
-  { number: 21, symbol: "Sv", name: "Serverless", family: "cloud", note: "The orchestrator behind the RAG ticket analyzer." },
-  { number: 22, symbol: "Dk", name: "Docker", family: "cloud", icon: "docker", note: "Packaged the Reddit ELT pipeline with Airflow." },
-  { number: 23, symbol: "Gh", name: "GitHub CI", family: "cloud", icon: "githubactions", note: "CI pipelines and pre-commit checks for data models." },
-  { number: 24, symbol: "Ll", name: "LLMs", family: "ai", note: "Ticket triage and data-support agents in production." },
-  { number: 25, symbol: "Rg", name: "RAG", family: "ai", note: "Runbook retrieval that cut ticket triage from 15 to 3 minutes." },
-  { number: 26, symbol: "Vs", name: "Vector search", family: "ai", note: "The knowledge base behind the ticket analyzer." },
-  { number: 27, symbol: "Ag", name: "Agents", family: "ai", note: "An LLM agent that clears warehouse congestion on its own, and a multi-agent support platform." },
-  { number: 28, symbol: "Mc", name: "MCP", family: "ai", icon: "modelcontextprotocol", note: "Serves curated datasets to an AI planning agent." },
+  { number: 1, symbol: "Py", name: "Python", family: "languages", icon: "python", note: "My main language for pipelines and automation, for 7+ years.", years: 7 },
+  { number: 2, symbol: "Sq", name: "SQL", family: "languages", note: "Daily driver, including untangling and modularizing 2,000+ line transforms.", years: 8 },
+  { number: 3, symbol: "Ts", name: "TypeScript", family: "languages", icon: "typescript", note: "Part of my core stack at Amazon; 3+ years with JS/TS.", years: 3 },
+  { number: 4, symbol: "Jv", name: "Java", family: "languages", icon: "openjdk", note: "RubyGems adapter service and client library for AWS CodeArtifact.", years: 1 },
+  { number: 5, symbol: "Sp", name: "PySpark", family: "data", icon: "apachespark", note: "Big-data ETL at work, and Databricks for the F1 project.", years: 3 },
+  { number: 6, symbol: "Db", name: "dbt", family: "data", note: "Staging-to-marts models and CI checks at Wind River.", years: 2 },
+  { number: 7, symbol: "Af", name: "Airflow", family: "data", icon: "apacheairflow", note: "MWAA DAGs of modular Spark jobs at work; the Reddit ELT pipeline at home.", years: 3 },
+  { number: 8, symbol: "Ib", name: "Iceberg", family: "data", note: "Idempotent merges and a stage-by-stage checkpoint tool for large transforms.", years: 2 },
+  { number: 9, symbol: "Ft", name: "Fivetran", family: "data", note: "Connectors moving survey and social data into the warehouse.", years: 1 },
+  { number: 10, symbol: "Lk", name: "Looker", family: "data", icon: "looker", note: "Dashboards and automated LookML validation at Wind River.", years: 1 },
+  { number: 11, symbol: "Ra", name: "REST APIs", family: "backend", note: "Pipelines from external APIs, 200+ data points a day at Bloomstack.", years: 6 },
+  { number: 12, symbol: "Dj", name: "Django", family: "backend", icon: "django", note: "Backend systems at Bloomstack and LTI.", years: 3 },
+  { number: 13, symbol: "Ev", name: "Event-driven", family: "backend", note: "Event-driven orchestration behind my platforms at Amazon.", years: 2 },
+  { number: 14, symbol: "Sf", name: "Snowflake", family: "databases", icon: "snowflake", note: "Warehouse for dbt models and PII masking at Wind River.", years: 1 },
+  { number: 15, symbol: "Pg", name: "PostgreSQL", family: "databases", icon: "postgresql", note: "Relational store in backend work at Bloomstack.", years: 2 },
+  { number: 16, symbol: "My", name: "MySQL", family: "databases", icon: "mysql", note: "Backend and ETL work at LTI and Bloomstack.", years: 3 },
+  { number: 17, symbol: "Cs", name: "Cassandra", family: "databases", icon: "apachecassandra", note: "NoSQL databases are part of my stack at Amazon.", years: 2 },
+  { number: 18, symbol: "Mg", name: "MongoDB", family: "databases", icon: "mongodb", note: "NoSQL work at LTI.", years: 2 },
+  { number: 19, symbol: "Rs", name: "Redshift", family: "databases", note: "Shared warehouse I keep healthy at work; Reddit and e-commerce pipelines.", years: 3 },
+  { number: 20, symbol: "Ic", name: "IaC", family: "cloud", note: "The ingestion platform I own is built and run as code.", years: 2 },
+  { number: 21, symbol: "Sv", name: "Serverless", family: "cloud", note: "The orchestrator behind the RAG ticket analyzer.", years: 2 },
+  { number: 22, symbol: "Dk", name: "Docker", family: "cloud", icon: "docker", note: "Packaged the Reddit ELT pipeline with Airflow.", years: 3 },
+  { number: 23, symbol: "Gh", name: "GitHub CI", family: "cloud", icon: "githubactions", note: "CI pipelines and pre-commit checks for data models.", years: 3 },
+  { number: 24, symbol: "Ll", name: "LLMs", family: "ai", note: "Ticket triage and data-support agents in production.", years: 2 },
+  { number: 25, symbol: "Rg", name: "RAG", family: "ai", note: "Runbook retrieval that cut ticket triage from 15 to 3 minutes.", years: 2 },
+  { number: 26, symbol: "Vs", name: "Vector search", family: "ai", note: "The knowledge base behind the ticket analyzer.", years: 2 },
+  { number: 27, symbol: "Ag", name: "Agents", family: "ai", note: "An LLM agent that clears warehouse congestion on its own, and a multi-agent support platform.", years: 1 },
+  { number: 28, symbol: "Mc", name: "MCP", family: "ai", icon: "modelcontextprotocol", note: "Serves curated datasets to an AI planning agent.", years: 1 },
 ];
 
 export type Illustration = "queue" | "agents" | "catalog" | "rag" | "gem" | "dashboard" | "dag";

@@ -5,30 +5,66 @@ import { timeline, type TimelineEntry } from "../content/site";
 import { useScrollTo } from "../lib/smoothScroll";
 import { Icon } from "./Icon";
 import { Section } from "./Section";
+import { isRunning, runtime, taskId } from "../lib/runtime";
 
-function Card({ entry, side }: { entry: TimelineEntry; side: "left" | "right" }) {
+/** Each role is a task in a DAG: amber while running, green once it succeeded. Degrees are upstream inputs. */
+function status(entry: TimelineEntry) {
+  if (entry.kind === "education") return "upstream" as const;
+  return isRunning(entry.dates) ? ("running" as const) : ("success" as const);
+}
+
+const CHIP = {
+  running: "bg-run-bg text-run-ink",
+  success: "bg-band text-accent",
+  upstream: "border border-line text-muted",
+};
+
+function TaskNode({ entry }: { entry: TimelineEntry }) {
+  const s = status(entry);
+  const tone = s === "running" ? "border-run text-run" : s === "success" ? "border-accent text-accent" : "border-dashed border-muted text-muted";
+  return (
+    <span
+      aria-hidden="true"
+      className={`absolute left-[-5px] top-1 flex size-[26px] items-center justify-center rounded-[5px] border-2 bg-surface md:left-1/2 md:-translate-x-1/2 ${tone}`}
+    >
+      {s === "running" && <span className="absolute inset-[-2px] animate-ping rounded-[5px] border-2 border-run opacity-40 motion-reduce:hidden" />}
+      <svg viewBox="0 0 20 20" className="size-3.5" fill={s === "running" ? "currentColor" : "none"} stroke="currentColor" strokeWidth={s === "running" ? 0 : 2.6}>
+        {s === "running" ? <path d="M6 4l10 6-10 6z" /> : s === "success" ? <path d="M4 10.5l4 4 8-9" /> : <path d="M10 4v12M4 10h12" />}
+      </svg>
+    </span>
+  );
+}
+
+function Card({ entry, side, n }: { entry: TimelineEntry; side: "left" | "right"; n: number }) {
   const reduce = useReducedMotion();
   const edu = entry.kind === "education";
+  const s = status(entry);
+  const rt = edu ? null : runtime(entry.dates);
   return (
     <m.article
       initial={reduce ? false : { opacity: 0, x: side === "left" ? -28 : 28 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="rounded-lg border border-line bg-surface/90 p-5 shadow-[0_20px_50px_-30px_rgb(28_36_32/0.35)] sm:p-6"
+      className={`rounded-lg border bg-surface/90 p-5 shadow-[0_20px_50px_-30px_rgb(28_36_32/0.35)] sm:p-6 ${edu ? "border-dashed border-ink/30" : "border-line"}`}
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <span
-          className={`rounded-md px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] ${
-            edu ? "border border-ink/30 text-ink" : "bg-ink text-on-ink"
-          }`}
-        >
-          {edu ? "Education" : "Experience"}
+        <span className="font-mono text-xs text-muted">
+          task_{String(n).padStart(2, "0")} · {taskId(entry.title)}
         </span>
-        <span className="font-mono text-xs text-muted">{entry.dates}</span>
+        <span className={`rounded px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] ${CHIP[s]}`}>{s}</span>
       </div>
       <h3 className="mt-3 text-xl font-extrabold leading-tight tracking-tight text-ink sm:text-2xl">{entry.title}</h3>
       <p className="mt-0.5 text-sm text-muted">{entry.org}</p>
+      <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs tabular-nums text-muted">
+        <span>{entry.dates}</span>
+        {rt && (
+          <span>
+            runtime <b className="font-semibold text-ink">{rt}</b>
+          </span>
+        )}
+        {edu && <span>education</span>}
+      </p>
       {entry.bullets.length > 0 && (
         <ul className="mt-3 space-y-1.5 text-sm text-ink">
           {entry.bullets.map((b) => (
@@ -71,7 +107,7 @@ export function Timeline() {
       eyebrow="Experience"
       lead="Education &"
       accent="experience."
-      intro="Most recent first: from Amazon back to banking software and engineering school."
+      intro="Run as a pipeline, newest task first: from Amazon back to banking software and engineering school."
       // Cards start offset sideways before they slide in; clip so that never adds page width.
       className="overflow-x-clip"
     >
@@ -111,11 +147,8 @@ export function Timeline() {
           const showYear = i === 0 || timeline[i - 1].year !== entry.year;
           return (
             <li key={`${entry.year}-${entry.title}`} className="relative pb-12 pl-10 md:grid md:grid-cols-2 md:gap-16 md:pl-0 md:pb-16">
-              {/* Dot on the line */}
-              <span
-                aria-hidden="true"
-                className="absolute left-0 top-2 size-[15px] rounded-full border-[3px] border-[var(--bg)] bg-ink md:left-1/2 md:-translate-x-1/2"
-              />
+              {/* Task node on the line */}
+              <TaskNode entry={entry} />
               {/* Year marker: opposite the card on desktop, above it on mobile */}
               <div className={`mb-3 md:mb-0 ${side === "left" ? "md:order-2" : ""}`}>
                 {showYear && (
@@ -129,7 +162,7 @@ export function Timeline() {
                 )}
               </div>
               <div className={side === "left" ? "md:order-1" : ""}>
-                <Card entry={entry} side={side} />
+                <Card entry={entry} side={side} n={timeline.length - i} />
               </div>
             </li>
           );

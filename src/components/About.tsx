@@ -203,14 +203,30 @@ export function About() {
 
         <Reveal delay={0.1} className="lg:pt-40">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted">Quick facts</p>
-          <dl className="mt-4 border-y border-line [&>div:nth-child(odd)]:bg-band">
-            {quickFacts.map((f) => (
-              <div key={f.label} className="flex items-baseline justify-between gap-4 px-3 py-3.5">
-                <dt className="text-sm text-muted">{f.label}</dt>
-                <dd className="text-right text-sm font-semibold text-ink">{f.value}</dd>
-              </div>
-            ))}
-          </dl>
+          {/* Read like DESCRIBE on a one-row table, on green-bar rows. */}
+          <table className="mt-4 w-full border-collapse text-sm">
+            <caption className="pb-2 text-left font-mono text-xs text-muted">
+              <b className="font-medium text-ink">hk.profile</b> · 1 row
+            </caption>
+            <thead>
+              <tr className="border-b border-ink text-left font-mono text-[10px] uppercase tracking-[0.12em] text-muted">
+                <th scope="col" className="px-3 py-1.5 font-medium">Column · type</th>
+                <th scope="col" className="px-3 py-1.5 text-right font-medium">Value</th>
+              </tr>
+            </thead>
+            <tbody className="[&>tr:nth-child(odd)]:bg-band">
+              {quickFacts.map((f) => (
+                <tr key={f.label} className="border-b border-line align-baseline">
+                  <th scope="row" className="px-3 py-3 text-left font-mono text-[13px] font-medium text-ink">
+                    <span className="sr-only">{f.label}: </span>
+                    <span aria-hidden="true">{f.column}</span>
+                    <span aria-hidden="true" className="block text-[10px] font-normal text-accent">{f.type}</span>
+                  </th>
+                  <td className="px-3 py-3 text-right font-semibold text-ink">{f.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
           <blockquote className="mt-10 border-l-2 border-accent pl-5 text-2xl font-semibold leading-snug tracking-[-0.02em] text-ink sm:text-3xl">
             &ldquo;{about.quote}&rdquo;
           </blockquote>

@@ -4,15 +4,14 @@ import { useEffect, useState } from "react";
 import { families, skills, type Family, type Skill } from "../content/site";
 import { Section } from "./Section";
 
-/** Family shade, ink → ledger green → pale band. Dark shades take paper text; light ones take ink. */
-const SHADE: Record<Family, { bg: string; fg: string; swatch: string }> = {
-  languages: { bg: "bg-[var(--tint-1)]", fg: "text-on-ink", swatch: "var(--tint-1)" },
-  data: { bg: "bg-[var(--tint-2)]", fg: "text-on-ink", swatch: "var(--tint-2)" },
-  backend: { bg: "bg-[var(--tint-3)]", fg: "text-on-ink", swatch: "var(--tint-3)" },
-  databases: { bg: "bg-[var(--tint-4)]", fg: "text-ink", swatch: "var(--tint-4)" },
-  cloud: { bg: "bg-[var(--tint-5)]", fg: "text-ink", swatch: "var(--tint-5)" },
-  ai: { bg: "bg-[var(--tint-6)]", fg: "text-ink", swatch: "var(--tint-6)" },
-};
+/** Heatmap ramp by years of use, pale band → ledger green → ink. Dark steps take paper text. */
+const RAMP = ["var(--tint-6)", "var(--tint-5)", "var(--tint-4)", "var(--tint-3)", "var(--tint-2)", "var(--tint-7)", "var(--tint-1)"];
+const MAX_YEARS = Math.max(...skills.map((s) => s.years));
+function shade(years: number) {
+  const step = Math.min(RAMP.length - 1, Math.round(((years - 1) / Math.max(MAX_YEARS - 1, 1)) * (RAMP.length - 1)));
+  return { background: RAMP[step], fg: step >= 3 ? "text-on-ink" : "text-ink" };
+}
+const yearsLabel = (y: number) => `${y} yr${y === 1 ? "" : "s"} hands-on`;
 
 const familyLabel = (f: Family) => families.find((x) => x.id === f)!.label;
 
@@ -54,6 +53,7 @@ function DetailPanel({ skill, icons }: { skill: Skill; icons: IconMap | null }) 
           <div className="min-w-0">
             <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted lg:hidden">{familyLabel(skill.family)}</p>
             <p className="text-lg font-extrabold tracking-tight text-ink lg:mt-6 lg:text-2xl">{skill.name}</p>
+            <p className="font-mono text-xs font-semibold text-accent lg:mt-1">{yearsLabel(skill.years)}</p>
             <p className="mt-0.5 text-sm text-muted lg:mt-2 lg:text-base">{skill.note}</p>
           </div>
         </m.div>
@@ -86,7 +86,7 @@ export function Skills() {
       eyebrow="Skills"
       lead="The periodic table"
       accent="of my stack."
-      intro="Elements in six families. Hover or tap a tile to see how I've used it, or pick a family to light it up."
+      intro="A heatmap: the darker the tile, the more years I've used it. Hover or tap a tile to see how, or pick a family to light it up."
     >
       <div role="group" aria-label="Highlight a family" className="flex flex-wrap gap-2">
         {[{ id: null, label: "All" } as { id: Family | null; label: string }, ...families].map((f) => {
@@ -101,13 +101,6 @@ export function Skills() {
                 on ? "border-ink bg-ink text-on-ink" : "border-line bg-surface/70 text-ink hover:border-ink"
               }`}
             >
-              {f.id && (
-                <span
-                  aria-hidden="true"
-                  className="size-3 rounded-[3px] border border-ink/20"
-                  style={{ background: SHADE[f.id].swatch }}
-                />
-              )}
               {f.label}
             </button>
           );
@@ -124,7 +117,7 @@ export function Skills() {
           className="grid grid-cols-4 gap-2 sm:grid-cols-6 sm:gap-2.5 xl:grid-cols-7"
         >
           {skills.map((s) => {
-            const shade = SHADE[s.family];
+            const tone = shade(s.years);
             const dim = family !== null && family !== s.family;
             const selected = active.number === s.number;
             return (
@@ -132,15 +125,19 @@ export function Skills() {
                 <button
                   type="button"
                   aria-pressed={selected}
-                  aria-label={`${s.name}, ${familyLabel(s.family)}`}
+                  aria-label={`${s.name}, ${familyLabel(s.family)}, ${yearsLabel(s.years)}`}
                   onMouseEnter={() => setActive(s)}
                   onFocus={() => setActive(s)}
                   onClick={() => setActive(s)}
-                  className={`relative flex aspect-square w-full flex-col justify-between rounded-md p-2 text-left transition-[opacity,transform,box-shadow] duration-300 hover:-translate-y-0.5  sm:p-2.5 ${shade.bg} ${shade.fg} ${
+                  className={`relative flex aspect-square w-full flex-col justify-between rounded-md p-2 text-left transition-[opacity,transform,box-shadow] duration-300 hover:-translate-y-0.5  sm:p-2.5 ${tone.fg} ${
                     dim ? "opacity-25" : "opacity-100"
                   } ${selected ? "ring-2 ring-ink ring-offset-2 ring-offset-[var(--bg)]" : ""}`}
+                  style={{ background: tone.background }}
                 >
-                  <span className="font-mono text-[10px]">{String(s.number).padStart(2, "0")}</span>
+                  <span className="flex justify-between font-mono text-[10px]" aria-hidden="true">
+                    <span>{String(s.number).padStart(2, "0")}</span>
+                    <span>{s.years}y</span>
+                  </span>
                   <span className="text-2xl font-extrabold leading-none tracking-tight sm:text-3xl" aria-hidden="true">
                     {s.symbol}
                   </span>
@@ -152,6 +149,15 @@ export function Skills() {
             );
           })}
         </m.ul>
+        <div className="flex items-center gap-3 font-mono text-xs text-muted lg:col-start-1" aria-hidden="true">
+          <span>1 yr</span>
+          <span className="flex h-2.5 w-48 overflow-hidden rounded-sm">
+            {RAMP.map((c) => (
+              <span key={c} className="flex-1" style={{ background: c }} />
+            ))}
+          </span>
+          <span>{MAX_YEARS} yrs</span>
+        </div>
         <div className="sticky bottom-3 z-10 lg:bottom-auto lg:top-28">
           <DetailPanel skill={active} icons={icons} />
         </div>
