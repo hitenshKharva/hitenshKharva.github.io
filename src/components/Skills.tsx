@@ -108,55 +108,58 @@ export function Skills() {
       </div>
 
       <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_20rem] lg:items-start">
-        <m.ul
-          variants={grid}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.15 }}
-          aria-label="Skills"
-          className="grid grid-cols-4 gap-2 sm:grid-cols-6 sm:gap-2.5 xl:grid-cols-7"
-        >
-          {skills.map((s) => {
-            const tone = shade(s.years);
-            const dim = family !== null && family !== s.family;
-            const selected = active.number === s.number;
-            return (
-              <m.li key={s.number} variants={tile}>
-                <button
-                  type="button"
-                  aria-pressed={selected}
-                  aria-label={`${s.name}, ${familyLabel(s.family)}, ${yearsLabel(s.years)}`}
-                  onMouseEnter={() => setActive(s)}
-                  onFocus={() => setActive(s)}
-                  onClick={() => setActive(s)}
-                  className={`relative flex aspect-square w-full flex-col justify-between rounded-md p-2 text-left transition-[opacity,transform,box-shadow] duration-300 hover:-translate-y-0.5  sm:p-2.5 ${tone.fg} ${
-                    dim ? "opacity-25" : "opacity-100"
-                  } ${selected ? "ring-2 ring-ink ring-offset-2 ring-offset-[var(--bg)]" : ""}`}
-                  style={{ background: tone.background }}
-                >
-                  <span className="flex justify-between font-mono text-[10px]" aria-hidden="true">
-                    <span>{String(s.number).padStart(2, "0")}</span>
-                    <span>{s.years}y</span>
-                  </span>
-                  <span className="text-2xl font-extrabold leading-none tracking-tight sm:text-3xl" aria-hidden="true">
-                    {s.symbol}
-                  </span>
-                  <span className="truncate text-[10px] leading-tight sm:text-[11px]" aria-hidden="true">
-                    {s.name}
-                  </span>
-                </button>
-              </m.li>
-            );
-          })}
-        </m.ul>
-        <div className="flex items-center gap-3 font-mono text-xs text-muted lg:col-start-1" aria-hidden="true">
-          <span>1 yr</span>
-          <span className="flex h-2.5 w-48 overflow-hidden rounded-sm">
-            {RAMP.map((c) => (
-              <span key={c} className="flex-1" style={{ background: c }} />
-            ))}
-          </span>
-          <span>{MAX_YEARS} yrs</span>
+        {/* Tiles and their legend share the first column, so the detail panel stays beside them. */}
+        <div className="min-w-0">
+          <m.ul
+            variants={grid}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.15 }}
+            aria-label="Skills"
+            className="grid grid-cols-4 gap-2 sm:grid-cols-6 sm:gap-2.5 xl:grid-cols-7"
+          >
+            {skills.map((s) => {
+              const tone = shade(s.years);
+              const dim = family !== null && family !== s.family;
+              const selected = active.number === s.number;
+              return (
+                <m.li key={s.number} variants={tile}>
+                  <button
+                    type="button"
+                    aria-pressed={selected}
+                    aria-label={`${s.name}, ${familyLabel(s.family)}, ${yearsLabel(s.years)}`}
+                    onMouseEnter={() => setActive(s)}
+                    onFocus={() => setActive(s)}
+                    onClick={() => setActive(s)}
+                    className={`relative flex aspect-square w-full flex-col justify-between rounded-md p-2 text-left transition-[opacity,transform,box-shadow] duration-300 hover:-translate-y-0.5  sm:p-2.5 ${tone.fg} ${
+                      dim ? "opacity-25" : "opacity-100"
+                    } ${selected ? "ring-2 ring-ink ring-offset-2 ring-offset-[var(--bg)]" : ""}`}
+                    style={{ background: tone.background }}
+                  >
+                    <span className="flex justify-between font-mono text-[10px]" aria-hidden="true">
+                      <span>{String(s.number).padStart(2, "0")}</span>
+                      <span>{s.years}y</span>
+                    </span>
+                    <span className="text-2xl font-extrabold leading-none tracking-tight sm:text-3xl" aria-hidden="true">
+                      {s.symbol}
+                    </span>
+                    <span className="truncate text-[10px] leading-tight sm:text-[11px]" aria-hidden="true">
+                      {s.name}
+                    </span>
+                  </button>
+                </m.li>
+              );
+            })}
+          </m.ul>
+          <div className="mt-4 flex items-center gap-3 font-mono text-xs text-muted" aria-hidden="true">
+            <span>1 yr</span>
+            <span className="flex h-2.5 w-48 overflow-hidden rounded-sm">
+              {RAMP.map((c) => (
+                <span key={c} className="flex-1" style={{ background: c }} />
+              ))}
+            </span>
+            <span>{MAX_YEARS} yrs</span>
+          </div>
         </div>
         <div className="sticky bottom-3 z-10 lg:bottom-auto lg:top-28">
           <DetailPanel skill={active} icons={icons} />
